@@ -16,7 +16,7 @@ export default function Dashboard() {
             placeholder="Add a task..."
             className="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
-          <button className="bg-blue-500 text-white px-4 rounded-lg hover:bg-blue-600 transition-colors">
+          <button className="bg-black text-white px-4 rounded-lg hover:bg-gray-800 transition-colors">
             Add
           </button>
         </div>
