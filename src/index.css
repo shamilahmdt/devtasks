@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+:root {
+  --color-bg-primary: hsl(0 0% 100%);
+  --color-text-base: hsl(0 0% 0%);
+}
+
+.theme-black {
+  --color-bg-primary: hsl(0 0% 0%);
+  --color-text-base: hsl(0 0% 100%);
+}

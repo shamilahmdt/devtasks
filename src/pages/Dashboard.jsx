@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const cards = [
     {
       title: "Add Tasks",
@@ -36,14 +38,21 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="h-screen w-full bg-white text-black font-sans overflow-hidden flex flex-col p-8">
-      <div className="max-w-6xl w-full mx-auto flex flex-col h-full">
-        <header className="shrink-0 mb-12 flex justify-between items-end">
+    <div className={`h-screen w-full font-sans overflow-hidden flex flex-col p-8 bg-[var(--color-bg-primary)] text-[var(--color-text-base)] transition-colors duration-300 ${isDarkMode ? "theme-black" : ""}`}>
+      <div className="max-w-6xl w-full mx-auto flex flex-col h-full relative">
+        <button
+          type="button"
+          onClick={() => setIsDarkMode((prev) => !prev)}
+          className="absolute top-0 right-0 text-2xl leading-none text-[var(--color-text-base)] transition-opacity duration-300 hover:opacity-70"
+        >
+          {isDarkMode ? "☀️" : "🌙"}
+        </button>
+        <header className="shrink-0 mb-12 flex justify-between items-end pt-12">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">Dashboard</h1>
-            <p className="text-gray-400 font-medium">Manage your engineering workflow</p>
+            <p className="font-medium text-[var(--color-text-base)]">Manage your engineering workflow</p>
           </div>
-          <Link to="/" className="text-xs font-bold uppercase tracking-widest hover:underline pb-1">Exit to Site</Link>
+          <Link to="/" className="text-xs font-bold uppercase tracking-widest hover:underline pb-1 text-[var(--color-text-base)]">Exit to Site</Link>
         </header>
 
         <div className="grow flex items-center justify-center">
@@ -52,14 +61,14 @@ const Dashboard = () => {
               <Link 
                 key={card.title} 
                 to={card.path}
-                className="group relative p-8 bg-gray-50 border border-gray-100 rounded-3xl hover:bg-black hover:text-white transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between h-[320px]"
+                className="group relative p-8 bg-[var(--color-bg-primary)] border border-[var(--color-text-base)] rounded-3xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col justify-between h-[320px] hover:bg-[var(--color-text-base)] hover:text-[var(--color-bg-primary)]"
               >
                 <div>
-                  <div className="mb-8 p-3 w-fit bg-white text-black rounded-xl group-hover:bg-white/10 group-hover:text-white transition-colors shadow-sm">
+                  <div className="mb-8 p-3 w-fit rounded-xl transition-colors duration-300 bg-[var(--color-text-base)] text-[var(--color-bg-primary)] group-hover:bg-[var(--color-bg-primary)] group-hover:text-[var(--color-text-base)]">
                     {card.icon}
                   </div>
                   <h2 className="text-xl font-black mb-3 uppercase tracking-tight">{card.title}</h2>
-                  <p className="text-sm font-medium text-gray-500 group-hover:text-gray-400 transition-colors leading-relaxed">
+                  <p className="text-sm font-medium transition-colors duration-300 leading-relaxed text-[var(--color-text-base)] group-hover:text-[var(--color-bg-primary)]">
                     {card.description}
                   </p>
                 </div>
@@ -72,7 +81,7 @@ const Dashboard = () => {
         </div>
 
         {/* Decorative element */}
-        <div className="shrink-0 mt-8 pt-8 border-t border-gray-50 opacity-10">
+        <div className="shrink-0 mt-8 pt-8 border-t border-[var(--color-text-base)] opacity-10">
           <h2 className="text-[12vw] font-black tracking-tighter leading-none select-none text-center">FLOW</h2>
         </div>
       </div>
