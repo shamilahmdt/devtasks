@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const THEME_STORAGE_KEY = "theme";
+
 const Dashboard = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+      return localStorage.getItem(THEME_STORAGE_KEY) === "dark";
+  });
+
+  useEffect(() => {
+      localStorage.setItem(THEME_STORAGE_KEY, isDarkMode ? "dark" : "light")}, [isDarkMode]);
 
   const cards = [
     {
