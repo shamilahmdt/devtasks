@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DeleteHistory = () => {
-  const [deletedTasks, setDeletedTasks] = useState([]);
-
-  // Load data from localStorage
-  useEffect(() => {
+  const [deletedTasks, setDeletedTasks] = useState(() => {
     const stored = localStorage.getItem('deleted_tasks');
     if (stored) {
       try {
-        setDeletedTasks(JSON.parse(stored));
-      } catch (err) {
+        return JSON.parse(stored);
+      } catch {
         console.error('Invalid deleted_tasks data');
-        setDeletedTasks([]);
+        return [];
       }
     }
-  }, []);
+    return [];
+  });
 
   // Wipe out handler
   const handleWipeOut = () => {

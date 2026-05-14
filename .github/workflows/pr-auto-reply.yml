@@ -29,6 +29,7 @@ jobs:
               
               const number = pr.number;
               const author = pr.user.login;
+              console.log(`Processing PR #${number} by @${author}`);
               const association = pr.author_association;
               const isFirstTime = association === 'FIRST_TIME_CONTRIBUTOR' || association === 'NONE';
               
@@ -39,8 +40,9 @@ jobs:
                   await github.rest.reactions.createForIssue({
                     owner, repo, issue_number: number, content
                   });
+                  console.log(`Added ${content} reaction`);
                 } catch (e) {
-                  console.log(`Failed to add reaction ${content}: ${e.message}`);
+                  console.log(`Non-critical: Failed to add reaction ${content}: ${e.message}`);
                 }
               }
               
@@ -74,7 +76,8 @@ Thanks again!`;
                 repo: repo,
                 body: message
               });
+              console.log("Successfully added comment");
             } catch (error) {
-              console.log(`Workflow failed: ${error.message}`);
+              console.error(`Workflow failed critically: ${error.message}`);
               core.setFailed(error.message);
             }
