@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const ListTasks = () => {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
+  const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
-    }
-  }, []);
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
 
   const deleteTask = (id) => {
     let deletedTasks = localStorage.getItem("deleted_tasks");
@@ -38,7 +34,6 @@ const ListTasks = () => {
       "tasks",
       JSON.stringify(updatedTasks)
     );
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     toast.warning("Task permanently removed.", {
       style: { background: "#000000", color: "#ffffff" },
     });
@@ -91,10 +86,6 @@ const ListTasks = () => {
                     className="w-5 h-5 accent-black cursor-pointer"
                   />
                   <span
-                    className={`font-semibold text-lg ${task.completed
-                      ? 'line-through text-neutral-400'
-                      : 'text-black'
-                      }`}
                     className={`font-semibold text-lg ${
                       task.completed
                         ? "line-through text-neutral-400"

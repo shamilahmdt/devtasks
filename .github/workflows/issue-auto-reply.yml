@@ -27,14 +27,16 @@ jobs:
               
               const number = issue.number;
               const author = issue.user.login;
+              console.log(`Processing issue #${number} by @${author}`);
               
               // Add reactions
               try {
                 await github.rest.reactions.createForIssue({
                   owner, repo, issue_number: number, content: 'heart'
                 });
+                console.log("Added heart reaction");
               } catch (e) {
-                console.log(`Failed to add reaction: ${e.message}`);
+                console.log(`Non-critical: Failed to add reaction: ${e.message}`);
               }
 
               const message = `👋 Hi @${author}! Thanks for opening this issue for **DevTasks**.
@@ -54,7 +56,8 @@ Thanks for helping us improve!`;
                 repo,
                 body: message
               });
+              console.log("Successfully added comment");
             } catch (error) {
-              console.log(`Workflow failed: ${error.message}`);
+              console.error(`Workflow failed critically: ${error.message}`);
               core.setFailed(error.message);
             }

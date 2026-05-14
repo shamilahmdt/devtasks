@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 const AddTasks = () => {
   const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
+  const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
-    }
-  }, []);
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
