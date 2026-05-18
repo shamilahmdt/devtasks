@@ -14,13 +14,20 @@ const ListTasks = () => {
   });
 
   const [filter, setFilter] = useState("ALL");
+  const[searchQuery,setSearchQuery]=useState("");
+
   const [editingId, setEditingId] = useState(null);
   const [editingText, setEditingText] = useState("");
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "ACTIVE") return !task.completed;
-    if (filter === "COMPLETED") return task.completed;
-    return true;
+    const matchFilter=
+    filter==="ACTIVE"
+    ? !task.completed
+    : filter==="COMPLETED"
+    ? task.completed
+    : true;
+   const matchSearch=task.text.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchFilter && matchSearch;
   });
 
   const startEditing = (task) => {
@@ -105,6 +112,19 @@ const ListTasks = () => {
           <ThemeToggle />
         </div>
 
+        {/* Search bar */}
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+           className={`w-full mb-4 px-4 py-3 rounded-2xl border-2 outline-none font-black uppercase tracking-widest text-sm transition-all duration-200
+    ${dark
+      ? "bg-zinc-800 text-white border-zinc-700 focus:border-white placeholder-zinc-500"
+      : "bg-neutral-50 text-black border-neutral-200 focus:border-black placeholder-neutral-400"
+    }`}
+/>
+
         {/* Filter Navigation */}
         <div className="flex justify-center mb-6">
           <div className={`flex gap-2 p-1 border rounded-full ${dark ? "border-zinc-700 bg-zinc-800" : "border-neutral-200 bg-neutral-50"}`}>
@@ -126,14 +146,16 @@ const ListTasks = () => {
           </div>
         </div>
 
-        {filteredTasks.length === 0 ? (
-          <p className="text-center text-neutral-400 font-medium py-8">
-            {filter === "ACTIVE"
-              ? "No active tasks. You're all caught up!"
-              : filter === "COMPLETED"
-              ? "No completed tasks yet."
-              : "No tasks added yet."}
-          </p>
+    {filteredTasks.length === 0 ? (
+  <p className="text-center text-neutral-400 font-medium py-8">
+    {searchQuery
+      ? "No tasks match your search."
+      : filter === "ACTIVE"
+      ? "No active tasks. You're all caught up!"
+      : filter === "COMPLETED"
+      ? "No completed tasks yet."
+      : "No tasks added yet."}
+  </p>
         ) : (
           <ul className="space-y-4">
             {filteredTasks.map((task) => (
