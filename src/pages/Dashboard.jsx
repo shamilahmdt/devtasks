@@ -86,14 +86,14 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className={`${t.wrapper} h-screen w-full font-sans overflow-hidden flex flex-col p-8 transition-colors duration-300`}>
+    <div className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-8 transition-colors duration-300`}>
       {/* React 19 Document Metadata Hoisting */}
       <title>Developer Dashboard — Dev Tasks Roadmap Control</title>
       <meta name="description" content="View your developer roadmap progress, add tasks, purges, and manage JSON imports on the Dev Tasks (devtasks) control dashboard." />
       <meta name="keywords" content="devtasks, dev tasks, developer dashboard, task statistics, engineering todo" />
 
       <div className="max-w-6xl w-full mx-auto flex flex-col h-full">
-        <header className="shrink-0 mb-12 flex justify-between items-end">
+        <header className="shrink-0 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-0">
           <div>
             <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">Dashboard</h1>
             <p className="text-gray-400 font-medium mb-6">Manage your engineering workflow</p>
@@ -120,7 +120,7 @@ const Dashboard = () => {
         </header>
 
         <div className="grow flex items-center justify-center">
-          <div className="grid md:grid-cols-4 gap-8 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
             {cards.map((card) => (
               <Link
                 key={card.title}
