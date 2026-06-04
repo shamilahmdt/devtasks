@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const DeleteHistory = () => {
   // TODO: Fetch deleted snippets history from localStorage
   const deletedList = [
-    { id: 3, title: "Docker Nuke", cmd: "docker system prune -a --volumes -f", category: "DOCKER", deletedAt: new Date().toISOString() }
+    { id: 3, title: "Docker Nuke", code: "docker system prune -a --volumes -f", category: "DOCKER", deletedAt: new Date().toISOString() }
   ];
 
   const handleRestore = (sn) => {
@@ -21,7 +21,7 @@ const DeleteHistory = () => {
         {deletedList.map((sn) => (
           <li key={sn.id} style={{ marginBottom: "15px" }}>
             <h3>{sn.title}</h3>
-            <pre style={{ background: "#eee", padding: "10px" }}>{sn.cmd}</pre>
+            <pre style={{ background: "#eee", padding: "10px" }}>{sn.code}</pre>
             <p>Deleted at: {new Date(sn.deletedAt).toLocaleString()}</p>
             <button onClick={() => handleRestore(sn)}>Restore</button>
             <button onClick={() => handlePurge(sn.id)} style={{ marginLeft: "10px", color: "red" }}>Purge</button>
