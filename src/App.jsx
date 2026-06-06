@@ -70,6 +70,7 @@ function AppInner({ toggleHUD, hudVisible }) {
         {/* Snippet Vault */}
         <Route path="/snippetvault" element={<SnippetVault />} />
         <Route path="/snippetvault/add" element={<AddSnippet />} />
+        <Route path="/snippetvault/edit/:id" element={<AddSnippet />} />
         <Route path="/snippetvault/list" element={<ListSnippets />} />
         <Route path="/snippetvault/edit/:snippetid" element={<AddSnippet />} />
         <Route path="/snippetvault/delete-history" element={<DeleteHistorySnippet />} />

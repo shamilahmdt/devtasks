@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 import ThemeToggle from "../../../components/ThemeToggle";
 import { toast } from "sonner";
 
 const ListSnippets = () => {
   const { dark } = useTheme();
+  const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
@@ -57,13 +59,66 @@ const ListSnippets = () => {
   };
 
   const handleDelete = (id) => {
+    const snippetToDelete = snippets.find((s) => s.id === id);
+    if (!snippetToDelete) return;
+
+    const rawDeleted = localStorage.getItem("deleted_snippets");
+    const deletedList = rawDeleted ? JSON.parse(rawDeleted) : [];
+    const snippetWithTimestamp = {
+      ...snippetToDelete,
+      deletedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(
+      "deleted_snippets",
+      JSON.stringify([...deletedList, snippetWithTimestamp])
+    );
+
     const updated = snippets.filter((s) => s.id !== id);
     setSnippets(updated);
-    try {
-      localStorage.setItem("dev_snippets", JSON.stringify(updated));
-    } catch (err) {
-      console.error("Failed to update localStorage:", err);
-    }
+    localStorage.setItem("dev_snippets", JSON.stringify(updated));
+
+    toast.warning("Snippet removed from vault.", {
+      style: { background: "#000000", color: "#ffffff" },
+      action: {
+        label: "Undo",
+        onClick: () => {
+          const current = JSON.parse(localStorage.getItem("dev_snippets") || "[]");
+          const currentDeleted = JSON.parse(localStorage.getItem("deleted_snippets") || "[]");
+          localStorage.setItem(
+            "dev_snippets",
+            JSON.stringify([...current, snippetToDelete])
+          );
+          localStorage.setItem(
+            "deleted_snippets",
+            JSON.stringify(currentDeleted.filter((s) => s.id !== id))
+          );
+          setSnippets((prev) => [...prev, snippetToDelete]);
+          toast.success("Snippet restored.", {
+            style: { background: "#000000", color: "#ffffff" },
+          });
+        },
+      },
+      duration: 4000,
+    });
+
+    setTimeout(() => {
+      toast.info("View in delete history to restore later.", {
+        style: { background: "#000000", color: "#ffffff" },
+        action: {
+          label: "View Logs",
+          onClick: () => navigate("/snippetvault/delete-history"),
+        },
+        actionButtonStyle: {
+          border: "1px solid #ffffff",
+          borderRadius: "8px",
+          backgroundColor: "transparent",
+          color: "#ffffff",
+          padding: "6px 16px",
+          cursor: "pointer",
+        },
+        duration: 5000,
+      });
+    }, 4100);
   };
 
   return (
@@ -167,13 +222,13 @@ const ListSnippets = () => {
                       : "bg-neutral-100 text-neutral-800"
                     }`}
                 >
-                  {sn.code}
+                  {sn.code || sn.cmd}
                 </pre>
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
                   <button
-                    onClick={() => handleCopy(sn.code)}
+                    onClick={() => handleCopy(sn.code || sn.cmd)}
                     className={`px-4 py-2 rounded-xl border font-bold text-sm transition-all duration-300 active:scale-95 ${dark
                         ? "border-white text-white hover:bg-white hover:text-black"
                         : "border-black text-black hover:bg-black hover:text-white"
