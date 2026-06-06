@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 import ThemeToggle from "../../../components/ThemeToggle";
@@ -10,6 +10,44 @@ const AddSnippet = () => {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("GIT");
+
+  const { snippetid } = useParams();
+  const isEdit = Boolean(snippetid);
+
+  useEffect(() => {
+    if (isEdit) {
+      const getSnippetById = (id) => {
+        const raw = localStorage.getItem("dev_snippets");
+        if (!raw) {
+          toast.error("Snippet not found.", {
+            style: { background: "#000000", color: "#ffffff" },
+          });
+          setTitle("");
+          setCode("");
+          setCategory("GIT");
+          return;
+        }
+        const existing = JSON.parse(raw);
+        const snippet = existing.find((data) => data.id === id);
+        if (!snippet) {
+          toast.error("Snippet not found.", {
+            style: { background: "#000000", color: "#ffffff" },
+          });
+          setTitle("");
+          setCode("");
+          setCategory("GIT");
+          return;
+        }
+
+        setTitle(snippet.title);
+        setCode(snippet.code);
+        setCategory(snippet.category);
+      };
+
+      getSnippetById(snippetid);
+      document.title = "Edit Snippet — Dev Snippet Vault";
+    }
+  }, [snippetid, isEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,23 +66,45 @@ const AddSnippet = () => {
     }
 
     // 2. Build snippet object
-    const newSnippet = {
-      id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2),
-      title: trimmedTitle,
-      code: trimmedCode,
-      category,
-      createdAt: new Date().toISOString()
-    };
+    let snippet = {};
+    if (isEdit) {
+      snippet = {
+        title: trimmedTitle,
+        code: trimmedCode,
+        category,
+      };
+    } else {
+      snippet = {
+        id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2),
+        title: trimmedTitle,
+        code: trimmedCode,
+        category,
+        createdAt: new Date().toISOString()
+      };
+    }
 
     // 3. LocalStorage Persistence
     const raw = localStorage.getItem("dev_snippets");
     const existing = raw ? JSON.parse(raw) : [];
-    existing.push(newSnippet);
-    localStorage.setItem("dev_snippets", JSON.stringify(existing));
+    if (isEdit) {
+      const updateSnippets = existing.map((existingSnippet) => {
+        if (existingSnippet.id === snippetid) {
+          return {
+            id: snippetid,
+            ...snippet,
+            createdAt: existingSnippet.createdAt,
+          };
+        }
+        return existingSnippet;
+      });
+      localStorage.setItem("dev_snippets", JSON.stringify(updateSnippets));
+    } else {
+      existing.push(snippet);
+      localStorage.setItem("dev_snippets", JSON.stringify(existing));
+    }
 
     // 4. Toast Notification (Success)
-    toast.success("Snippet successfully secured in vault!");
-
+    toast.success(isEdit ? "Snippet successfully updated!" : "Snippet successfully secured in vault!");
     // 5. Reset Form
     setTitle("");
     setCode("");
@@ -138,7 +198,7 @@ const AddSnippet = () => {
                 dark ? "text-white" : "text-black"
               }`}
             >
-              Add New Snippet
+              { isEdit ? "Edit Snippet" : "Add New Snippet" }
             </h1>
             <p className="text-xs sm:text-sm text-neutral-400 mt-1">
               Store a new template block in your developer vault

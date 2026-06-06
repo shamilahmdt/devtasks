@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import ThemeToggle from "../../../components/ThemeToggle";
+import { toast } from "sonner";
 
 const ListSnippets = () => {
   const { dark } = useTheme();
@@ -27,12 +28,12 @@ const ListSnippets = () => {
 
   const filteredSnippets = snippets.filter((snippet) => {
     const title = snippet?.title || "";
-    const cmd = snippet?.cmd || "";
+    const code = snippet?.code || "";
     const category = snippet?.category || "";
 
     const matchesSearch =
       title.toLowerCase().includes((searchQuery || "").toLowerCase()) ||
-      cmd.toLowerCase().includes((searchQuery || "").toLowerCase());
+      code.toLowerCase().includes((searchQuery || "").toLowerCase());
 
     const matchesCategory =
       selectedCategory === "ALL" ||
@@ -41,11 +42,17 @@ const ListSnippets = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleCopy = async (cmd) => {
+  const handleCopy = async (code) => {
     try {
-      await navigator.clipboard.writeText(cmd);
+      await navigator.clipboard.writeText(code);
+      toast.success("Snippet copied successfully!", {
+      style: { background: "#000000", color: "#ffffff" },
+    });
     } catch (error) {
       console.error("Copy failed:", error);
+      toast.error("Snippet copy failed.", {
+      style: { background: "#000000", color: "#ffffff" },
+    });
     }
   };
 
@@ -158,13 +165,13 @@ const ListSnippets = () => {
                       : "bg-neutral-100 text-neutral-800"
                     }`}
                 >
-                  {sn.cmd}
+                  {sn.code}
                 </pre>
 
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
                   <button
-                    onClick={() => handleCopy(sn.cmd)}
+                    onClick={() => handleCopy(sn.code)}
                     className={`px-4 py-2 rounded-xl border font-bold text-sm transition-all duration-300 active:scale-95 ${dark
                         ? "border-white text-white hover:bg-white hover:text-black"
                         : "border-black text-black hover:bg-black hover:text-white"
