@@ -125,13 +125,13 @@ const Dashboard = () => {
         </header>
 
         {/* WORKSPACE GRID */}
-        <div className="grow grid gap-6 sm:grid-cols-2 lg:grid-cols-3 py-4 items-stretch w-full">
+        <div className="grow  grid gap-6 sm:grid-cols-2 lg:grid-cols-3 py-4 items-stretch w-full">
           
           {/* WORKSPACE 1: TASK MANAGEMENT */}
           <Link
             to="/taskmanage"
             id="taskmanage-workspace-card"
-            className={`flex flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
+            className={`flex hover:scale-105 transition-all duration-300 flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -172,7 +172,7 @@ const Dashboard = () => {
           <Link
             to="/snippetvault"
             id="snippetvault-workspace-card"
-            className={`flex flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
+            className={`flex hover:scale-105 transition-all duration-300 flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -213,7 +213,7 @@ const Dashboard = () => {
           <Link
             to="/resourcehub"
             id="resourcehub-workspace-card"
-            className={`flex flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
+            className={`flex hover:scale-105 transition-all duration-300 flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
           >
             <div>
               <div className="flex items-center justify-between mb-4">
@@ -254,7 +254,7 @@ const Dashboard = () => {
           <Link
             to="/devutilities"
             id="devutilities-workspace-card"
-            className={`flex flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
+            className={`flex hover:scale-105 transition-all duration-300 flex-col justify-between min-h-[200px] ${t.cardInteractive}`}
           >
             <div>
               <div className="flex items-center justify-between mb-4">
