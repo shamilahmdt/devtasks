@@ -27,6 +27,7 @@ import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
+import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -102,6 +103,7 @@ function AppInner({ toggleHUD, hudVisible }) {
         <Route path="/devutilities/json" element={<JsonFormatter />} />
         <Route path="/devutilities/base64" element={<Base64Url />} />
         <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
+        <Route path="/devutilities/uuid" element={<UuidGenerator />} />
       </Routes>
       </div>
     </div>
