@@ -28,6 +28,7 @@ import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
 import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
+import JwtDecoder from "./pages/DevUtilities/devutilities/JwtDecoder";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -104,6 +105,7 @@ function AppInner({ toggleHUD, hudVisible }) {
         <Route path="/devutilities/base64" element={<Base64Url />} />
         <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
         <Route path="/devutilities/uuid" element={<UuidGenerator />} />
+        <Route path="/devutilities/jwt" element={<JwtDecoder />} />
       </Routes>
       </div>
     </div>
