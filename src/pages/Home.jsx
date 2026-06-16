@@ -14,17 +14,17 @@ const Home = () => {
     >
       {/* React 19 Document Metadata Hoisting */}
       <title>
-        Dev Tasks — Sleek & High-Performance Developer Todo Application
+        DevTasks — Developer Workspace: Tasks, Snippets, Resources & DevUtilities
       </title>
 
       <meta
         name="description"
-        content="Manage your engineering workflow with Dev Tasks (devtasks). The ultimate todo, list-maker, and roadmap tool tailored for modern developer teams."
+        content="DevTasks is a unified developer workspace. Manage engineering task roadmaps, vault secure code snippets, reference curated bookmark links, and run offline dev utilities with ease."
       />
 
       <meta
         name="keywords"
-        content="dev tasks, devtasks, todo, add lists, addtasks, developer task manager"
+        content="devtasks, dev tasks, dev tasks beta, devtasksbeta, dev-tasks, dev-tasks-beta, dev, tasks, devtask, developer todo workspace, engineer task manager, roadmap builder, bug tracking checklist, code snippet manager, bookmarks manager, dev workflow optimizer"
       />
 
       {/* Background Blur */}

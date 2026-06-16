@@ -308,8 +308,7 @@ const ListTasks = () => {
         dark ? "bg-zinc-950" : "bg-[#FDFDFD]"
       }`}
     >
-      <title>Task List & Roadmaps — Dev Tasks (devtasks)</title>
-
+      <title>Task List & Roadmaps — DevTasks</title>
       <meta
         name="description"
         content="View, search, filter, edit, and update active developer tasks and roadmaps. Manage bug tracking lists, refactor plans, and features."

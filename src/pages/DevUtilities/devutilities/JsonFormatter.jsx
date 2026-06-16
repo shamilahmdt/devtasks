@@ -54,7 +54,7 @@ const JsonFormatter = () => {
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
-      <title>JSON Formatter — Dev Utilities</title>
+      <title>JSON Formatter — DevTasks</title>
       <meta
         name="description"
         content="Easily format, validate, and beautify your JSON data with our online JSON Formatter."

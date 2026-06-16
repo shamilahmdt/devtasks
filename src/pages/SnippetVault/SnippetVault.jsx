@@ -133,7 +133,7 @@ const SnippetVault = () => {
     <div
       className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Snippet Workspace — Dev Snippet Vault</title>
+      <title>Snippet Workspace — DevTasks</title>
       <meta
         name="description"
         content="Quickly manage, copy, search, edit and backup engineering snippets and configurations."

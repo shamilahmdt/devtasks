@@ -52,7 +52,7 @@ const AddSnippet = () => {
       };
 
       getSnippetById(id);
-      document.title = "Edit Snippet — Dev Snippet Vault";
+      document.title = "Edit Snippet — DevTasks";
     }
   }, [id, isEdit]);
 
@@ -207,7 +207,7 @@ const AddSnippet = () => {
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
-      <title>Create Snippet — Dev Snippet Vault</title>
+      <title>Create Snippet — DevTasks</title>
       <meta
         name="description"
         content="Add a new command template, custom configuration, or reusable code block to your snippet vault."

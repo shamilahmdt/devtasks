@@ -112,7 +112,7 @@ const DeleteHistory = () => {
         dark ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      <title>System Logs & Purge History — Snippet Vault</title>
+      <title>System Logs & Purge History — DevTasks</title>
       <meta
         name="description"
         content="View deleted snippets history, restore snippets, or permanently clear logs."

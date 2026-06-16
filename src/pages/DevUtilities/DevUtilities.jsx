@@ -75,7 +75,7 @@ const DevUtilities = () => {
     <div
       className={`${t.wrapper} min-h-screen w-full font-sans overflow-y-auto overflow-x-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Dev Utilities — Custom Tools Sandbox</title>
+      <title>Dev Utilities — DevTasks</title>
       <meta
         name="description"
         content="Quickly formatting, converting, validating, and checking regular expression statements."

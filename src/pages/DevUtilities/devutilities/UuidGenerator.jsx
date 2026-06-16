@@ -57,7 +57,7 @@ const UuidGenerator = () => {
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
-      <title>UUID Generator — Dev Utilities</title>
+      <title>UUID Generator — DevTasks</title>
       <meta
         name="description"
         content="Generate valid v4 UUIDs offline quickly and easily."

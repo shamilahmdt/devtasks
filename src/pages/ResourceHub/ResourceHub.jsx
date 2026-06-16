@@ -132,7 +132,7 @@ const ResourceHub = () => {
     <div
       className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Resource Hub — Reference & Bookmark Registry</title>
+      <title>Resource Hub — DevTasks</title>
       <meta
         name="description"
         content="Quickly manage bookmarks, API endpoints, design mockups, and documentation assets."

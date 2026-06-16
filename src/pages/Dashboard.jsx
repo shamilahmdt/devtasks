@@ -95,7 +95,7 @@ const Dashboard = () => {
     <div
       className={`${t.wrapper} min-h-screen w-full font-sans overflow-y-auto flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
-      <title>Developer Command Center — Dev Tasks Control Center</title>
+      <title>Dashboard — DevTasks</title>
       <meta
         name="description"
         content="Integrated engineering cockpit for managing developer roadmap task boards and snippet code registries."

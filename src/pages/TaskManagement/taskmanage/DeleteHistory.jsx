@@ -163,7 +163,7 @@ const DeleteHistory = () => {
       }`}
     >
       {/* React 19 Document Metadata Hoisting */}
-      <title>System Logs & Purge History — Dev Tasks</title>
+      <title>System Logs & Purge History — DevTasks</title>
       <meta
         name="description"
         content="View deleted history items, restore removed items back to active roadmap lists, or clear cached task system logs."

@@ -62,7 +62,7 @@ const TimestampConverter = () => {
 
   return (
     <div className={`min-h-screen ${t.wrapper} px-6 py-10`}>
-      <title>Timestamp Converter — Dev Utilities</title>
+      <title>Timestamp Converter — DevTasks</title>
       <meta
         name="description"
         content="Convert Unix/Epoch timestamps into readable dates and vice versa."

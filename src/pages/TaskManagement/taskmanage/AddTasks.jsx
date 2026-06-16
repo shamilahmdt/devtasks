@@ -116,7 +116,7 @@ const AddTasks = () => {
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
-      <title>Add Tasks — Dev Tasks Roadmap Planner</title>
+      <title>Add Tasks — DevTasks</title>
 
       {/* BACKGROUND */}
       <div
