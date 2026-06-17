@@ -31,6 +31,7 @@ import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import JwtDecoder from "./pages/DevUtilities/devutilities/JwtDecoder";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
 import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
+import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -127,6 +128,8 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/uuid" element={<UuidGenerator />} />
             <Route path="/devutilities/jwt" element={<JwtDecoder />} />
             <Route path="/devutilities/diff" element={<DiffChecker />} />
+            <Route path="/devutilities/code" element={<CodeSandbox />} />
+            <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
           </Routes>
         </div>
       </div>
