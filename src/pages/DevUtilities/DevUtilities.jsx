@@ -79,6 +79,16 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Diff Checker",
+      description: "Compare two text blocks and highlight added, removed, and unchanged lines in split or inline view.",
+      path: "/devutilities/diff",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -127,6 +137,7 @@ const DevUtilities = () => {
                     if (t.includes("TIMESTAMP")) return "TIMESTAMP";
                     if (t.includes("UUID")) return "UUID";
                     if (t.includes("JWT")) return "JWT";
+                    if (t.includes("DIFF")) return "DIFF";
                     return t;
                   })
                   .join(" • ")}

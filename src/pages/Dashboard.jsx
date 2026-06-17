@@ -279,7 +279,7 @@ const Dashboard = () => {
                   </svg>
                 </div>
                 <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${t.badge}`}>
-                  6 Tools
+                  7 Tools
                 </span>
               </div>
               
@@ -292,7 +292,7 @@ const Dashboard = () => {
             </div>
 
             <div className="text-[9px] font-bold text-zinc-400 mt-4 uppercase truncate">
-              Utilities: REGEXP • JSON • BASE64 • TIMESTAMP • UUID • JWT
+              Utilities: REGEXP • JSON • BASE64 • TIMESTAMP • UUID • JWT • DIFF
             </div>
           </Link>
 

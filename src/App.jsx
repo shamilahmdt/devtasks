@@ -29,6 +29,7 @@ import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
 import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import JwtDecoder from "./pages/DevUtilities/devutilities/JwtDecoder";
+import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -106,6 +107,7 @@ function AppInner({ toggleHUD, hudVisible }) {
         <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
         <Route path="/devutilities/uuid" element={<UuidGenerator />} />
         <Route path="/devutilities/jwt" element={<JwtDecoder />} />
+        <Route path="/devutilities/diff" element={<DiffChecker />} />
       </Routes>
       </div>
     </div>
