@@ -43,6 +43,7 @@ import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import "./index.css";
+import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -134,6 +135,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/color" element={<ColorConverter />} />
             <Route path="/devutilities/code" element={<CodeSandbox />} />
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
+            <Route path="/devutilities/text-case-converter" element={<TextCaseConverter />} />
           </Routes>
         </div>
       </div>
