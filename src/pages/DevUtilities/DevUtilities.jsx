@@ -129,6 +129,36 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Text Case Converter",
+      description: "Convert text into multiple case formats and inspect string statistics in real time.",
+      path: "/devutilities/textcase",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7h16M4 12h10M4 17h7"/>
+        </svg>
+      ),
+    },
+    {
+      title: "JSON ↔ YAML Converter",
+      description: "Convert JSON to YAML and YAML to JSON in real time with validation and formatting tools.",
+      path: "/devutilities/jsonyaml",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 5l-5 7 5 7M16 5l5 7-5 7M10 12h4"
+          />
+        </svg>
+      ),
+    },
   ];
 
   return (
