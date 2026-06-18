@@ -1,9 +1,35 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import SIDEBAR_SECTIONS from "../config/sidebarSections";
 
 const Dashboard = () => {
   const { dark } = useTheme();
+
+  const devUtilitiesSection = SIDEBAR_SECTIONS.find((s) => s.title === "Dev Utilities");
+  const toolsCount = devUtilitiesSection
+    ? devUtilitiesSection.items.filter((item) => item.path !== "/devutilities").length
+    : 11;
+  const toolsList = devUtilitiesSection
+    ? devUtilitiesSection.items
+        .filter((item) => item.path !== "/devutilities")
+        .map((item) => {
+          const t = item.label.toUpperCase();
+          if (t.includes("REGEX")) return "REGEXP";
+          if (t.includes("JSON")) return "JSON";
+          if (t.includes("BASE64")) return "BASE64";
+          if (t.includes("TIMESTAMP")) return "TIMESTAMP";
+          if (t.includes("UUID")) return "UUID";
+          if (t.includes("JWT")) return "JWT";
+          if (t.includes("DIFF")) return "DIFF";
+          if (t.includes("HASH")) return "HASH";
+          if (t.includes("COLOR")) return "COLOR";
+          if (t.includes("CODE")) return "CODE";
+          if (t.includes("QR")) return "QR";
+          return t;
+        })
+        .join(" • ")
+    : "REGEXP • JSON • BASE64 • TIMESTAMP • UUID • JWT • DIFF • CODE • HASH • COLOR • QR";
   
   // --- STATE FOR TASK PROGRESS ---
   const [taskStats, setTaskStats] = useState({ total: 0, completed: 0, percentage: 0 });
@@ -279,7 +305,7 @@ const Dashboard = () => {
                   </svg>
                 </div>
                 <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${t.badge}`}>
-                  9 Tools
+                  {toolsCount} Tools
                 </span>
               </div>
               
@@ -292,7 +318,7 @@ const Dashboard = () => {
             </div>
 
             <div className="text-[9px] font-bold text-zinc-400 mt-4 uppercase truncate">
-              Utilities: REGEXP • JSON • BASE64 • TIMESTAMP • UUID • JWT • DIFF • COLOR
+              Utilities: {toolsList}
             </div>
           </Link>
 

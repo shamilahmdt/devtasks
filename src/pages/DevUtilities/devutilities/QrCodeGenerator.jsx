@@ -63,7 +63,7 @@ function ColorSwatchPicker({ value, onChange, label, dark }) {
 const QrCodeGenerator = () => {
   const { dark } = useTheme();
   const canvasRef = useRef(null);
-  const [text, setText] = useState("https://devtasks.app");
+  const [text, setText] = useState("https://dev-tasks-beta.vercel.app");
   const [size, setSize] = useState(256);
   const [margin, setMargin] = useState(2);
   const [foreground, setForeground] = useState("#000000");

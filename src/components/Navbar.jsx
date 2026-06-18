@@ -45,13 +45,14 @@ const Navbar = () => {
             </Link>
 
             {/* Mobile actions */}
-            {hasSidebarSection && isMobileMode && (
-              <div className="flex items-center gap-2">
-                <ThemeToggle />
+            <div className="flex lg:hidden items-center gap-2">
+              <StorageGauge />
+              <ThemeToggle />
+              {hasSidebarSection && isMobileMode && (
                 <button
                   type="button"
                   onClick={() => setIsSidebarOpen((prev) => !prev)}
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-300 ${
+                  className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition-colors duration-300 ${
                     dark
                       ? "border-zinc-700 bg-zinc-900 text-white"
                       : "border-neutral-200 bg-neutral-50 text-black"
@@ -60,8 +61,8 @@ const Navbar = () => {
                 >
                   <span className="text-lg font-black leading-none">☰</span>
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Navigation Links */}
@@ -91,8 +92,8 @@ const Navbar = () => {
 
           {/* Actions on desktop */}
           <div className="hidden lg:flex items-center gap-4">
-            <ThemeToggle />
             <StorageGauge />
+            <ThemeToggle />
           </div>
         </div>
       </div>
