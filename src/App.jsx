@@ -46,6 +46,7 @@ import "./index.css";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
 import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
+import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridGenerator";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -140,6 +141,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
             <Route path="/devutilities/text-case-converter" element={<TextCaseConverter />} />
             <Route path="/devutilities/mock-json-generator" element={<MockJsonGenerator />} />
+            <Route path="/devutilities/flexbox-grid-generator" element={<FlexboxGridGenerator />} />
           </Routes>
         </div>
       </div>

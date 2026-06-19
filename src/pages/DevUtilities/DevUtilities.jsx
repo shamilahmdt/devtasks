@@ -159,6 +159,16 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Flexbox & Grid Generator",
+      description: "Generate flexbox and grid layouts for responsive design. Fully offline.",
+      path: "/devutilities/flexbox-grid-generator",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm13 0h1v1h-1v-1zm-3 0h1v1h-1v-1zm3 3h1v1h-1v-1zm-3 0h1v1h-1v-1zm3 3h1v1h-1v-1zm-3 0h1v1h-1v-1zm3-6h1v1h-1v-1z" />
+        </svg>
+      ),
+    },
   ];
 
   return (

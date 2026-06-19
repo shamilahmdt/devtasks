@@ -206,6 +206,11 @@ const SIDEBAR_SECTIONS = [
         description: "Mock JSON data generator",
         path: "/devutilities/mock-json-generator",
       },
+      {
+        label: "Flexbox & Grid Generator",
+        description: "Generate CSS flexbox and grid completely offline",
+        path: "/devutilities/flexbox-grid-generator",
+      },
     ],
   },
 ];
