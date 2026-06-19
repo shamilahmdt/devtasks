@@ -34,6 +34,7 @@ import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
 import HashGenerator from "./pages/DevUtilities/devutilities/HashGenerator";
 import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
+import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -134,6 +135,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/color" element={<ColorConverter />} />
             <Route path="/devutilities/code" element={<CodeSandbox />} />
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
+            <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
             <Route path="/devutilities/text-case" element={<TextCaseConverter />} />
           </Routes>
         </div>

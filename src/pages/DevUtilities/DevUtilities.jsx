@@ -40,6 +40,22 @@ const DevUtilities = () => {
       ),
     },
     {
+  title: "URL Parser & Query Builder",
+  description:
+    "Parse URLs into protocol, hostname, port, pathname, hash, and editable query parameters in real time.",
+  path: "/devutilities/url-parser",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13.828 10.172a4 4 0 00-5.656 0l-2 2a4 4 0 105.656 5.656l2-2m-3.656-7.656l2-2a4 4 0 115.656 5.656l-2 2"
+      />
+    </svg>
+  ),
+},
+    {
   title: "Text Case Converter",
   description:
     "Convert text into camelCase, snake_case, kebab-case, PascalCase, title case, URL slug, and inspect text metrics.",
