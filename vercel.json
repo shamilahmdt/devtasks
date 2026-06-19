@@ -1,4 +1,19 @@
 {
+  "headers": [
+    {
+      "source": "/(.*).(css|js|woff|woff2|ttf|eot|png|jpg|jpeg|gif|svg|ico)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
