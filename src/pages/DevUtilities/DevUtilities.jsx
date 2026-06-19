@@ -363,18 +363,18 @@ const DevUtilities = () => {
           </div>
         </header>
 
-        <div className="grow flex items-center justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+        <div className="grow w-full py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
             {cards.map((card) => (
               <Link
                 key={card.title}
                 to={card.path}
                 id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
-                className={`group relative p-8 border rounded-3xl transition-all duration-300 flex flex-col justify-between h-[320px] ${t.card}`}
+                className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-[280px] h-full ${t.card}`}
               >
                 <div>
                   <div
-                    className={`mb-8 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
+                    className={`mb-6 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
                   >
                     {card.icon}
                   </div>

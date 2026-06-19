@@ -226,12 +226,7 @@ const Sidebar = () => {
                         : dark
                           ? "border-zinc-800/30 bg-zinc-900/20 text-zinc-400 hover:border-zinc-700/60 hover:bg-zinc-900/40 hover:text-zinc-200"
                           : "border-zinc-200/30 bg-zinc-100/20 text-zinc-500 hover:border-zinc-300 hover:bg-zinc-100/60 hover:text-zinc-800"
-                    } ${
-                      isSidebarOpen
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-2 opacity-0"
                     }`}
-                    style={{ transitionDelay: isSidebarOpen ? `${index * 35}ms` : "0ms" }}
                   >
                     {isActive && (
                       <span
