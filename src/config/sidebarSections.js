@@ -147,7 +147,17 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json",
       },
       {
-        label: "Base64",
+        label: "JSON YAML Converter",
+        description: "Convert JSON and YAML",
+        path: "/devutilities/json-yaml",
+      },
+      {
+        label: "Markdown Previewer",
+        description: "Preview markdown syntax",
+        path: "/devutilities/markdown",
+      },
+      {
+        label: "Base64 / URL",
         description: "Encode and decode",
         path: "/devutilities/base64",
       },
@@ -157,7 +167,7 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/timestamp",
       },
       {
-        label: "UUID",
+        label: "UUID Generator",
         description: "Generate UUIDs",
         path: "/devutilities/uuid",
       },
@@ -192,7 +202,7 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/code",
       },
       {
-        label: "QR Code",
+        label: "QR Code Generator",
         description: "Generate QR codes",
         path: "/devutilities/qrcode",
       },
@@ -202,8 +212,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/text-case-converter",
       },
       {
-        label: "Mock JSON Generaor",
-        description: "Mock JSON data generator",
+        label: "Mock JSON Generator",
+        description: "Generate mock JSON data",
         path: "/devutilities/mock-json-generator",
       },
     ],

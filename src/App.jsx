@@ -13,7 +13,7 @@ import AddSnippet from "./pages/SnippetVault/snippetvault/AddSnippet";
 import ListSnippets from "./pages/SnippetVault/snippetvault/ListSnippets";
 import DeleteHistorySnippet from "./pages/SnippetVault/snippetvault/DeleteHistory";
 import DataCenterSnippet from "./pages/SnippetVault/snippetvault/DataCenter";
-
+import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
 import AddResource from "./pages/ResourceHub/resourcehub/AddResource";
@@ -25,6 +25,8 @@ import DataCenterResource from "./pages/ResourceHub/resourcehub/DataCenter";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
+import JsonYamlConverter from "./pages/DevUtilities/devutilities/JsonYamlConverter";
+import MarkdownPreviewer from "./pages/DevUtilities/devutilities/MarkdownPreviewer";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
 import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
@@ -34,6 +36,7 @@ import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
 import HashGenerator from "./pages/DevUtilities/devutilities/HashGenerator";
 import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
+import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -43,9 +46,9 @@ import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import "./index.css";
-import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
 import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
+import MarkdownTableGenerator from "./pages/DevUtilities/devutilities/MarkdownTableGenerator";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -128,6 +131,8 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities" element={<DevUtilities />} />
             <Route path="/devutilities/regex" element={<RegexTester />} />
             <Route path="/devutilities/json" element={<JsonFormatter />} />
+            <Route path="/devutilities/json-yaml" element={<JsonYamlConverter />} />
+            <Route path="/devutilities/markdown" element = {<MarkdownPreviewer/>} />
             <Route path="/devutilities/base64" element={<Base64Url />} />
             <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
             <Route path="/devutilities/uuid" element={<UuidGenerator />} />
@@ -138,8 +143,11 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/color" element={<ColorConverter />} />
             <Route path="/devutilities/code" element={<CodeSandbox />} />
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
-            <Route path="/devutilities/text-case-converter" element={<TextCaseConverter />} />
-            <Route path="/devutilities/mock-json-generator" element={<MockJsonGenerator />} />
+          <Route path="/devutilities/text-case" element={<TextCaseConverter />} />
+<Route path="/devutilities/mock-json" element={<MockJsonGenerator />} />
+<Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
+<Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
+
           </Routes>
         </div>
       </div>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* Override 100vh height constraints for inner pages to fit within navbar space and avoid duplicate scrollbars */
 .navbar-layout-content .min-h-screen {

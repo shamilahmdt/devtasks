@@ -16,8 +16,9 @@ const Dashboard = () => {
         .map((item) => {
           const t = item.label.toUpperCase();
           if (t.includes("REGEX")) return "REGEXP";
+          if (t.includes("YAML")) return "JSON/YAML";
           if (t.includes("JSON")) return "JSON";
-          if (t.includes("BASE64")) return "BASE64";
+          if (t.includes("BASE64")) return "BASE64/URL";
           if (t.includes("TIMESTAMP")) return "TIMESTAMP";
           if (t.includes("UUID")) return "UUID";
           if (t.includes("JWT")) return "JWT";
@@ -29,7 +30,7 @@ const Dashboard = () => {
           return t;
         })
         .join(" • ")
-    : "REGEXP • JSON • BASE64 • TIMESTAMP • UUID • JWT • DIFF • CODE • HASH • COLOR • QR";
+    : "REGEXP • JSON • BASE64/URL • TIMESTAMP • UUID • JWT • DIFF • CODE • HASH • COLOR • QR";
   
   // --- STATE FOR TASK PROGRESS ---
   const [taskStats, setTaskStats] = useState({ total: 0, completed: 0, percentage: 0 });
