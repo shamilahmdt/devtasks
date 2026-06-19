@@ -167,6 +167,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/jwt",
       },
       {
+        label: "JWT Encoder",
+        description: "Generate Signature",
+        path: "/devutilities/jwt-encode",
+      },
+      {
         label: "Diff Checker",
         description: "Compare text differences",
         path: "/devutilities/diff",

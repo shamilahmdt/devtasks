@@ -45,6 +45,7 @@ import Sidebar from "./components/Sidebar";
 import "./index.css";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
+import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -131,6 +132,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
             <Route path="/devutilities/uuid" element={<UuidGenerator />} />
             <Route path="/devutilities/jwt" element={<JwtDecoder />} />
+            <Route path="/devutilities/jwt-encode" element={<JwtEncoder />} />
             <Route path="/devutilities/diff" element={<DiffChecker />} />
             <Route path="/devutilities/hash" element={<HashGenerator />} />
             <Route path="/devutilities/color" element={<ColorConverter />} />
