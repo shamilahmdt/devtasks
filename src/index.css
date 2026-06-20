@@ -79,3 +79,25 @@
 .dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(82, 82, 91, 0.7);
 }
+
+/* Splash screen animations */
+@keyframes logoZoom {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  20% {
+    opacity: 0.6;
+    filter: blur(4px);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-logo-zoom {
+  animation: logoZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

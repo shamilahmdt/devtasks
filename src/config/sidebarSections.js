@@ -222,6 +222,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/mock-json",
       },
       {
+        label: "JSON Schema Validator",
+        description: "Validate JSON data against a schema",
+        path: "/devutilities/json-schema-validator",
+      },
+      {
         label: "Markdown Table Generator",
         description: "Build markdown tables visually",
         path: "/devutilities/markdown-table",

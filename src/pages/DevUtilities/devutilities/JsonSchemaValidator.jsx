@@ -3,6 +3,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { toast } from "sonner";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import { Link } from "react-router-dom";
 
 const JsonSchemaValidator = () => {
   const { dark } = useTheme();
@@ -132,13 +133,38 @@ const JsonSchemaValidator = () => {
 
         {/* Header */}
         <div className="px-6 sm:px-8 pt-6 flex items-center justify-between">
-          <h1
-            className={`text-2xl font-black uppercase tracking-tight ${
-              dark ? "text-white" : "text-black"
-            }`}
-          >
-            JSON Schema Validator
-          </h1>
+          <div className="flex items-center gap-3">
+            <Link
+              to="/devutilities"
+              className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+                dark
+                  ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                  : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+              }`}
+              title="Back to Workspace"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </Link>
+            <h1
+              className={`text-2xl font-black uppercase tracking-tight ${
+                dark ? "text-white" : "text-black"
+              }`}
+            >
+              JSON Schema Validator
+            </h1>
+          </div>
 
           <div className="flex gap-2">
             <button
