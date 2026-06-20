@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -55,6 +55,7 @@ import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import "./index.css";
+import SplashScreen from "./components/SplashScreen";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
 import MarkdownTableGenerator from "./pages/DevUtilities/devutilities/MarkdownTableGenerator";
 import JsonSchemaValidator from "./pages/DevUtilities/devutilities/JsonSchemaValidator";
@@ -80,8 +81,98 @@ function App() {
 function AppInner({ toggleHUD, hudVisible }) {
   useKeyboardShortcuts(toggleHUD, hudVisible);
   const location = useLocation();
+  const currentPathRef = useRef(location.pathname);
+  currentPathRef.current = location.pathname;
+
   const showNavbar = location.pathname !== "/";
   const { dark } = useTheme();
+
+  // Flag to block scroll saving during route shifts and scroll restoration
+  const isRestoringRef = useRef(false);
+
+  // Temporary global scroll debugger
+  useEffect(() => {
+    const handleGlobalScroll = (e) => {
+      console.log("[Scroll Debug] scroll target:", e.target, "scrollTop:", e.target.scrollTop, "window.scrollY:", window.scrollY);
+    };
+    window.addEventListener("scroll", handleGlobalScroll, true);
+    return () => window.removeEventListener("scroll", handleGlobalScroll, true);
+  }, []);
+
+  // Scroll restoration logic for inner scrollable content wrapper
+  useEffect(() => {
+    isRestoringRef.current = true;
+
+    const scrollContainer = document.querySelector(".navbar-layout-content");
+    if (!scrollContainer) return;
+
+    const savedPosition = sessionStorage.getItem(`scroll_${location.pathname}`);
+    const timers = [];
+    if (savedPosition) {
+      const targetScroll = parseInt(savedPosition, 10);
+      console.log(`[Scroll Restoration] Restoring ${location.pathname} to ${targetScroll}`);
+      scrollContainer.scrollTop = targetScroll;
+      
+      timers.push(setTimeout(() => { scrollContainer.scrollTop = targetScroll; }, 50));
+      timers.push(setTimeout(() => { scrollContainer.scrollTop = targetScroll; }, 150));
+      timers.push(setTimeout(() => { scrollContainer.scrollTop = targetScroll; }, 300));
+      timers.push(setTimeout(() => { scrollContainer.scrollTop = targetScroll; }, 500));
+    } else {
+      console.log(`[Scroll Restoration] Resetting ${location.pathname} to 0`);
+      scrollContainer.scrollTop = 0;
+    }
+
+    // Safety fallback: allow scroll saving after 800ms
+    const safetyTimeout = setTimeout(() => {
+      if (isRestoringRef.current) {
+        isRestoringRef.current = false;
+        console.log(`[Scroll Restoration] Safety timer enabled scroll saving for ${location.pathname}`);
+      }
+    }, 800);
+
+    // End restoration immediately if the user interacts with the page
+    const handleUserInteraction = () => {
+      if (isRestoringRef.current) {
+        isRestoringRef.current = false;
+        console.log(`[Scroll Restoration] User interaction detected. Scroll saving enabled for ${location.pathname}`);
+      }
+    };
+
+    scrollContainer.addEventListener("wheel", handleUserInteraction, { passive: true });
+    scrollContainer.addEventListener("touchmove", handleUserInteraction, { passive: true });
+    scrollContainer.addEventListener("keydown", handleUserInteraction, { passive: true });
+    scrollContainer.addEventListener("mousedown", handleUserInteraction, { passive: true });
+
+    let saveTimeout;
+    const handleScroll = () => {
+      if (currentPathRef.current !== location.pathname) {
+        return;
+      }
+      if (isRestoringRef.current) {
+        return;
+      }
+      // Capture the scrolled scrollTop value immediately to avoid unmount layout shifts
+      const currentScrollTop = scrollContainer.scrollTop;
+
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        console.log(`[Scroll Restoration] Saving ${location.pathname} position: ${currentScrollTop}`);
+        sessionStorage.setItem(`scroll_${location.pathname}`, currentScrollTop);
+      }, 50);
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+    return () => {
+      scrollContainer.removeEventListener("scroll", handleScroll);
+      scrollContainer.removeEventListener("wheel", handleUserInteraction);
+      scrollContainer.removeEventListener("touchmove", handleUserInteraction);
+      scrollContainer.removeEventListener("keydown", handleUserInteraction);
+      scrollContainer.removeEventListener("mousedown", handleUserInteraction);
+      if (saveTimeout) clearTimeout(saveTimeout);
+      clearTimeout(safetyTimeout);
+      timers.forEach(clearTimeout);
+    };
+  }, [location.pathname]);
 
   return (
     <div
@@ -89,6 +180,8 @@ function AppInner({ toggleHUD, hudVisible }) {
         } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
         }`}
     >
+      <SplashScreen />
+
       <Toaster position="bottom-right" />
       {showNavbar && <Navbar />}
       <div
@@ -160,24 +253,11 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities" element={<DevUtilities />} />
             <Route path="/devutilities/regex" element={<RegexTester />} />
             <Route path="/devutilities/json" element={<JsonFormatter />} />
-            <Route
-              path="/devutilities/json-yaml"
-              element={<JsonYamlConverter />}
-            />
-            <Route
-              path="/devutilities/markdown"
-              element={<MarkdownPreviewer />}
-            />
-              path="/devutilities/html-entity"
-              element={<HtmlEntityConverter />}
-            />
             <Route path="/devutilities/json-yaml" element={<JsonYamlConverter />} />
             <Route path="/devutilities/markdown" element={<MarkdownPreviewer />} />
+            <Route path="/devutilities/html-entity" element={<HtmlEntityConverter />} />
             <Route path="/devutilities/base64" element={<Base64Url />} />
-            <Route
-              path="/devutilities/timestamp"
-              element={<TimestampConverter />}
-            />
+            <Route path="/devutilities/timestamp" element={<TimestampConverter />} />
             <Route path="/devutilities/uuid" element={<UuidGenerator />} />
             <Route path="/devutilities/jwt" element={<JwtDecoder />} />
             <Route path="/devutilities/diff" element={<DiffChecker />} />
@@ -185,28 +265,13 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/color" element={<ColorConverter />} />
             <Route path="/devutilities/code" element={<CodeSandbox />} />
             <Route path="/devutilities/qrcode" element={<QrCodeGenerator />} />
-            <Route
-              path="/devutilities/text-case"
-              element={<TextCaseConverter />}
-            />
-            <Route
-              path="/devutilities/mock-json"
-              element={<MockJsonGenerator />}
-            />
-            <Route
-              path="/devutilities/markdown-table"
-              element={<MarkdownTableGenerator />}
-            />
-            <Route
-              path="/devutilities/url-parser"
-              element={<UrlParserBuilder />}
-            />
             <Route path="/devutilities/text-case" element={<TextCaseConverter />} />
             <Route path="/devutilities/mock-json" element={<MockJsonGenerator />} />
             <Route path="/devutilities/markdown-table" element={<MarkdownTableGenerator />} />
             <Route path="/devutilities/url-parser" element={<UrlParserBuilder />} />
             <Route path="/devutilities/sql" element={<SqlFormatter />} />
             <Route path="/devutilities/jwt-encoder" element={<JwtEncoder />} />
+            <Route path="/devutilities/json-schema-validator" element={<JsonSchemaValidator />} />
 
           </Routes>
         </div>

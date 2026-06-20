@@ -445,7 +445,7 @@ const DevUtilities = () => {
 
   return (
     <div
-      className={`${t.wrapper} min-h-screen w-full font-sans overflow-y-auto overflow-x-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
+      className={`${t.wrapper} min-h-screen w-full font-sans overflow-x-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
       <title>Dev Utilities — DevTasks</title>
       <meta
