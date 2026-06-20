@@ -121,7 +121,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`${t.wrapper} min-h-screen w-full font-sans overflow-y-auto flex flex-col p-4 md:p-8 transition-colors duration-300`}
+      className={`${t.wrapper} min-h-screen w-full font-sans flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
       <title>Dashboard — DevTasks</title>
       <meta
