@@ -248,11 +248,6 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/flexbox-grid-generator",
       },
       {
-        label: "SQL Formatter",
-        description: "Format sql queries comletely offline",
-        path: "/devutilities/sql-formatter",
-      },
-      {
         label: "User Agent Parser",
         description: "Parse browser user-agent strings and inspect client environment",
         path: "/devutilities/user-agent",

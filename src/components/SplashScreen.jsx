@@ -5,8 +5,22 @@ const SplashScreen = () => {
   const { dark } = useTheme();
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    // Safety fallback timer: in case the image fails to load or takes too long,
+    // fade out and remove the splashscreen after 3 seconds anyway.
+    const safetyTimer = setTimeout(() => {
+      setSplashFade(true);
+      setTimeout(() => setShowSplash(false), 700);
+    }, 3000);
+
+    return () => clearTimeout(safetyTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!imageLoaded) return;
+
     const fadeTimer = setTimeout(() => {
       setSplashFade(true);
     }, 1500);
@@ -19,7 +33,7 @@ const SplashScreen = () => {
       clearTimeout(fadeTimer);
       clearTimeout(removeTimer);
     };
-  }, []);
+  }, [imageLoaded]);
 
   if (!showSplash) return null;
 
@@ -33,27 +47,30 @@ const SplashScreen = () => {
         <img
           src="/devtasks-logo.png"
           alt="DevTasks Logo"
-          className="w-24 h-24 sm:w-32 sm:h-32 object-contain animate-logo-zoom"
+          onLoad={() => setImageLoaded(true)}
+          className={`w-24 h-24 sm:w-32 sm:h-32 object-contain transition-opacity duration-300 ${
+            imageLoaded ? "animate-logo-zoom" : "opacity-0"
+          }`}
         />
         <div className="flex flex-col items-center">
           <h1
-            className={`text-2xl sm:text-3xl font-black uppercase tracking-[0.3em] font-sans transition-colors duration-300 ${
+            className={`text-2xl sm:text-3xl font-black uppercase tracking-[0.3em] font-sans transition-all duration-1000 ease-out ${
               dark ? "text-white" : "text-black"
-                }`}
-              >
-                DevTasks
-              </h1>
-              <p
-                className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] mt-1 transition-colors duration-300 ${
-                  dark ? "text-zinc-500" : "text-zinc-400"
-                }`}
-              >
-                Engineering Cockpit
-              </p>
-            </div>
-          </div>
+            } ${imageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+          >
+            DevTasks
+          </h1>
+          <p
+            className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.5em] mt-1 transition-all duration-1000 ease-out delay-150 ${
+              dark ? "text-zinc-500" : "text-zinc-400"
+            } ${imageLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1.5"}`}
+          >
+            Engineering Cockpit
+          </p>
         </div>
-      );
-    };
+      </div>
+    </div>
+  );
+};
 
 export default SplashScreen;
