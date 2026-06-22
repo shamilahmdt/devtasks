@@ -4,6 +4,7 @@ on:
   issue_comment:
     types:
       - created
+      - edited
 
   schedule:
     - cron: "0 */6 * * *"
@@ -39,44 +40,37 @@ jobs:
             }
 
             const triggers = [
-              "/assign",
-              "assign me",
-              "assign it to me",
-              "assign this to me",
-              "please assign",
-              "work on this",
-              "work on this issue",
-              "i want to work on this",
-              "can i take this",
-              "let me work on this",
-              "take this on",
-              "like to contribute",
-              "want to contribute"
+              /\/assign\b/i,
+              /\bassign\b[\s\S]*?\b(me|to\s+me)\b/i,
+              /\b(please|pls)\s+assign\b/i,
+              /\bwork\s+on\s+this\b/i,
+              /\bwork\s+on\s+this\s+issue\b/i,
+              /\bi\s+want\s+to\s+work\s+on\s+this\b/i,
+              /\bcan\s+i\s+take\s+this\b/i,
+              /\blet\s+me\s+work\s+on\s+this\b/i,
+              /\btake\s+this\s+on\b/i,
+              /\b(like|want)\s+to\s+contribute\b/i
             ];
 
-            const shouldAssign = triggers.some(trigger => {
-              if (trigger.startsWith('/')) {
-                return comment.startsWith(trigger);
+            let shouldAssign = false;
+            for (const regex of triggers) {
+              const match = comment.match(regex);
+              if (match) {
+                const index = match.index;
+                const preceding = comment.substring(0, index).trim();
+                const negations = ["don't", "dont", "can't", "cant", "cannot", "not", "won't", "wont", "unable"];
+                
+                const hasNegation = negations.some(neg => {
+                  const negRegex = new RegExp(`\\b${neg}\\b`);
+                  return negRegex.test(preceding);
+                });
+                
+                if (!hasNegation) {
+                  shouldAssign = true;
+                  break;
+                }
               }
-              
-              // For phrase triggers, check if they exist in the comment
-              const index = comment.indexOf(trigger);
-              if (index === -1) {
-                return false;
-              }
-              
-              // Check if the trigger is preceded by any negation words (e.g., "don't", "can't", "not")
-              const preceding = comment.substring(0, index).trim();
-              const negations = ["don't", "dont", "can't", "cant", "cannot", "not", "won't", "wont", "unable"];
-              
-              // Check if any negation word is present with word boundaries in the preceding text
-              const hasNegation = negations.some(neg => {
-                const regex = new RegExp(`\\b${neg}\\b`);
-                return regex.test(preceding);
-              });
-              
-              return !hasNegation;
-            });
+            }
 
             if (!shouldAssign) {
               return;
