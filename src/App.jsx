@@ -64,6 +64,7 @@ import MarkdownTableGenerator from "./pages/DevUtilities/devutilities/MarkdownTa
 import JsonSchemaValidator from "./pages/DevUtilities/devutilities/JsonSchemaValidator";
 import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridGenerator";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
+import CronExpressionBuilder from "./pages/DevUtilities/devutilities/CronExpressionBuilder";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -279,6 +280,7 @@ function AppInner({ toggleHUD, hudVisible }) {
               element={<JsonSchemaValidator />}
             />
             <Route path="/devutilities/cron" element={<CronExpression />} />
+            <Route path="/devutilities/cron-builder" element={<CronExpressionBuilder />} />
           </Routes>
         </div>
       </div>
