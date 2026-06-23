@@ -203,7 +203,7 @@ const AddSnippet = () => {
 
   return (
     <div
-      className={`min-h-screen px-4 sm:px-6 py-8 flex items-center justify-center transition-colors duration-300 overflow-y-auto md:overflow-hidden relative ${
+      className={`min-h-screen w-full px-4 sm:px-6 py-8 flex flex-col md:items-center md:justify-center transition-colors duration-300 relative ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -227,7 +227,7 @@ const AddSnippet = () => {
 
       {/* GLASS CONTAINER */}
       <div
-        className={`relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-full max-w-7xl mx-auto rounded-[32px] border shadow-2xl overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >

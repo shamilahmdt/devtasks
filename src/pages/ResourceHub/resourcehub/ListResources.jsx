@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { toast } from "sonner";
@@ -6,6 +6,20 @@ import { toast } from "sonner";
 const sampleResources = [
   {
     id: "sample-1",
+    title: "DevTasks",
+    category: "SITE",
+    description: "DevTasks workspace and main application portal.",
+    url: "https://dev-tasks-beta.vercel.app",
+  },
+  {
+    id: "sample-2",
+    title: "DevTasks Github",
+    category: "GITHUB",
+    description: "Official GitHub repository for the DevTasks project.",
+    url: "https://github.com/shamilahmdt/devtasks",
+  },
+  {
+    id: "sample-3",
     title: "React Documentation",
     category: "DOCUMENTATION",
     description:
@@ -13,40 +27,53 @@ const sampleResources = [
     url: "https://react.dev",
   },
   {
-    id: "sample-2",
+    id: "sample-4",
     title: "Tailwind CSS Guide",
     category: "DOCUMENTATION",
     description:
       "A practical guide to building responsive interfaces with Tailwind CSS.",
     url: "https://tailwindcss.com",
   },
-  {
-    id: "sample-3",
-    title: "Local Dev Server",
-    category: "LOCALHOST",
-    description: "Local development environment running on port 3000.",
-    url: "http://localhost:3000",
-  },
-  {
-    id: "sample-4",
-    title: "Figma Design File",
-    category: "FIGMA",
-    description: "Main product design system and component library.",
-    url: "https://figma.com/file/example",
-  },
 ];
 
-const filterTags = [
-  "All",
-  "GENERAL",
-  "LOCALHOST",
-  "STAGING",
-  "FIGMA",
+const DEFAULT_CATEGORIES = [
+  "SITE",
+  "GITHUB",
   "DOCUMENTATION",
 ];
 
 const getCategoryIcon = (category) => {
   switch (category) {
+    case "SITE":
+      return (
+        <svg
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+          />
+        </svg>
+      );
+    case "GITHUB":
+      return (
+        <svg
+          className="h-5 w-5"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+          />
+        </svg>
+      );
     case "FIGMA":
       return (
         <svg
@@ -194,23 +221,59 @@ function ListResources() {
 
   const t = dark ? theme.dark : theme.light;
 
-  const [resources, setResources] = useState([]);
+  const [categories] = useState(() => {
+    const saved = localStorage.getItem("resource_categories");
+    let parsed = saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
+    parsed = parsed.filter(cat => {
+      const u = cat.toUpperCase();
+      return u !== "MDN" && u !== "JAVASCRIPT" && u !== "LOCALHOST" && u !== "STAGING" && u !== "FIGMA" && u !== "GENERAL";
+    });
+    parsed = parsed.filter(cat => cat !== "SITE" && cat !== "GITHUB" && cat !== "DOCUMENTATION");
+    parsed = ["SITE", "GITHUB", "DOCUMENTATION", ...parsed];
+    localStorage.setItem("resource_categories", JSON.stringify(parsed));
+    return parsed;
+  });
+
+  const filterTags = ["All", ...categories];
+
+  const [resources, setResources] = useState(() => {
+    const stored = localStorage.getItem("dev_resources");
+    let loadedResources;
+    try {
+      loadedResources = stored ? JSON.parse(stored) : sampleResources;
+    } catch {
+      loadedResources = sampleResources;
+    }
+
+    // Clean up any MDN or JAVASCRIPT resources
+    loadedResources = loadedResources.filter(
+      (r) =>
+        r.category?.toUpperCase() !== "MDN" &&
+        r.category?.toUpperCase() !== "JAVASCRIPT"
+    );
+
+    // Ensure the 4 default resources are at the beginning and clean up old defaults
+    const cleaned = loadedResources.filter(r => 
+      r.url !== "https://dev-tasks-beta.vercel.app" && 
+      r.id !== "sample-1" &&
+      r.url !== "https://github.com/shamilahmdt/devtasks" &&
+      r.id !== "sample-2" &&
+      r.url !== "https://react.dev" &&
+      r.id !== "sample-3" &&
+      r.url !== "https://tailwindcss.com" &&
+      r.id !== "sample-4" &&
+      r.url !== "http://localhost:3000" &&
+      r.id !== "sample-5" &&
+      r.url !== "https://figma.com/file/example" &&
+      r.id !== "sample-6"
+    );
+
+    const merged = [...sampleResources, ...cleaned];
+    localStorage.setItem("dev_resources", JSON.stringify(merged));
+    return merged;
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState("All");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("dev_resources");
-    if (stored) {
-      try {
-        setResources(JSON.parse(stored));
-      } catch (e) {
-        setResources(sampleResources);
-      }
-    } else {
-      setResources(sampleResources);
-      localStorage.setItem("dev_resources", JSON.stringify(sampleResources));
-    }
-  }, []);
 
   const syncStorage = (updated) => {
     localStorage.setItem("dev_resources", JSON.stringify(updated));
@@ -220,7 +283,7 @@ function ListResources() {
     try {
       await navigator.clipboard.writeText(url || "");
       toast.success("Link copied to clipboard!");
-    } catch (err) {
+    } catch {
       toast.error("Failed to copy link");
     }
   };
@@ -283,7 +346,7 @@ function ListResources() {
 
   return (
     <div
-      className={`${t.wrapper} min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto md:overflow-hidden relative flex flex-col justify-center font-sans`}
+      className={`${t.wrapper} min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center font-sans`}
     >
       <title>Curated Developer Resources & Guides | DevTasks</title>
       <meta name="description" content="Browse and manage local server listings, Figma designs, documentation hubs, and staging environments. Keep your workspace references in one place." />
@@ -303,24 +366,37 @@ function ListResources() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col max-h-full overflow-hidden gap-8">
         {/* Header */}
         <header className="flex flex-col gap-4">
-          <Link
-            to="/resourcehub"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
-          >
-            <span>← Back to Workspace</span>
-          </Link>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
+          <div className="flex items-center gap-3">
+            <Link
+              to="/resourcehub"
+              className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+                dark
+                  ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                  : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+              }`}
+              title="Back to Workspace"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </Link>
+            <div>
               <p
                 className={`${t.eyebrow} text-xs font-black uppercase tracking-widest`}
               >
                 Saved developer references
               </p>
-              <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">
+              <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mt-1">
                 Resource Hub
               </h1>
             </div>

@@ -3,14 +3,22 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { toast } from "sonner";
 
-const DEFAULT_CATEGORIES = ["GENERAL", "LOCALHOST", "STAGING", "FIGMA", "DOCUMENTATION"];
+const DEFAULT_CATEGORIES = ["SITE", "GITHUB", "DOCUMENTATION"];
 
 const AddResource = () => {
   const navigate = useNavigate();
   const { dark } = useTheme();
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem("resource_categories");
-    return saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
+    let parsed = saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
+    parsed = parsed.filter(cat => {
+      const u = cat.toUpperCase();
+      return u !== "MDN" && u !== "JAVASCRIPT" && u !== "LOCALHOST" && u !== "STAGING" && u !== "FIGMA" && u !== "GENERAL";
+    });
+    parsed = parsed.filter(cat => cat !== "SITE" && cat !== "GITHUB" && cat !== "DOCUMENTATION");
+    parsed = ["SITE", "GITHUB", "DOCUMENTATION", ...parsed];
+    localStorage.setItem("resource_categories", JSON.stringify(parsed));
+    return parsed;
   });
   const [resource, setResource] = useState({
     id: null,
@@ -177,7 +185,7 @@ const AddResource = () => {
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] w-full px-4 sm:px-6 py-8 transition-colors duration-300 overflow-hidden relative flex flex-col justify-start ${
+      className={`min-h-[calc(100vh-76px)] w-full px-4 sm:px-6 py-8 transition-colors duration-300 relative flex flex-col justify-start ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -198,30 +206,41 @@ const AddResource = () => {
       <div
         className="relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto flex flex-col gap-6"
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-3">
           <Link
             to="/resourcehub"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
               dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
+                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
             }`}
+            title="Back to Workspace"
           >
-            <span>← Back to Workspace</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
           </Link>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1
-                className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
-                  dark ? "text-white" : "text-black"
-                }`}
-              >
-                {isEdit ? "Edit Resource" : "Add New Resource"}
-              </h1>
-              <p className="text-xs text-neutral-400 mt-0.5">
-                Save project links, docs, designs, and staging references
-              </p>
-            </div>
+          <div>
+            <h1
+              className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+                dark ? "text-white" : "text-black"
+              }`}
+            >
+              {isEdit ? "Edit Resource" : "Add New Resource"}
+            </h1>
+            <p className="text-xs text-neutral-400 mt-0.5">
+              Save project links, docs, designs, and staging references
+            </p>
           </div>
         </div>
 

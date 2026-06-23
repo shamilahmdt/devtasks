@@ -121,7 +121,7 @@ const ListSnippets = () => {
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto md:overflow-hidden relative flex flex-col justify-center ${
+      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#FDFDFD]"
       }`}
     >

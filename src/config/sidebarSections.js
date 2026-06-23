@@ -258,6 +258,19 @@ const SIDEBAR_SECTIONS = [
         description:
           "Calculate Unix file permissions in decimal and octal notation.",
         path: "/devutilities/chmod",
+        label: "CRON Expression Generator & Descriptor",
+        description: "Generate and inspect CRON expressions. Fully offline.",
+        path: "/devutilities/cron",
+      },
+      {
+        label: "CSS Gradient Generator",
+        description: "Create beautiful CSS gradients with live preview",
+        path: "/devutilities/css-gradient",
+      },
+      {
+        label: "String Inspector",
+        description: "Analyze character, word, sentence, and paragraph counts",
+        path: "/devutilities/string-inspector",
       },
     ],
   },

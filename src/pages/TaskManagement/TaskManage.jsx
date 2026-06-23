@@ -125,7 +125,7 @@ const TaskManage = () => {
 
   return (
     <div
-      className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
+      className={`${t.wrapper} min-h-screen md:h-screen w-full font-sans overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
       <title>Task Workspace — DevTasks</title>
       <meta

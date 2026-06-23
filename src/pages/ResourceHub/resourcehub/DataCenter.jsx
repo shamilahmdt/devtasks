@@ -3,14 +3,6 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 
-const TRACKED_CATEGORIES = [
-  "GENERAL",
-  "LOCALHOST",
-  "STAGING",
-  "FIGMA",
-  "DOCUMENTATION",
-];
-
 const getStoredResources = () => {
   try {
     const saved = localStorage.getItem("dev_resources");
@@ -24,7 +16,10 @@ const getStoredResources = () => {
 };
 
 const getStats = (resources) => {
-  const counts = TRACKED_CATEGORIES.reduce(
+  const savedCategories = localStorage.getItem("resource_categories");
+  const categories = savedCategories ? JSON.parse(savedCategories) : ["SITE", "GITHUB", "DOCUMENTATION"];
+
+  const counts = categories.reduce(
     (acc, category) => ({
       ...acc,
       [category]: resources.filter((resource) => resource.category === category)
@@ -171,9 +166,14 @@ const DataCenter = () => {
     event.target.value = "";
   };
 
+  const [categories] = useState(() => {
+    const saved = localStorage.getItem("resource_categories");
+    return saved ? JSON.parse(saved) : ["SITE", "GITHUB", "DOCUMENTATION"];
+  });
+
   const statCards = [
     { label: "Total Resources", value: resourceStats.total },
-    ...TRACKED_CATEGORIES.map((category) => ({
+    ...categories.map((category) => ({
       label: `${category} Resources`,
       value: resourceStats.counts[category] || 0,
     })),
@@ -213,18 +213,31 @@ const DataCenter = () => {
       >
         <div className={`h-2 w-full ${dark ? "bg-white" : "bg-black"}`} />
 
-        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex flex-col gap-4">
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3">
           <Link
             to="/resourcehub"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
               dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
+                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
             }`}
+            title="Back to Workspace"
           >
-            <span>← Back to Workspace</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
           </Link>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 w-full">
             <div>
               <h1
                 className={`text-2xl sm:text-4xl font-black uppercase tracking-tight transition-colors duration-300 ${

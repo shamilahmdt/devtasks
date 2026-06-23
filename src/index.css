@@ -101,3 +101,16 @@
 .animate-logo-zoom {
   animation: logoZoom 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Prevent auto-zoom when tapping inputs/textareas on iOS/iPhone */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent horizontal overflow scroll and page wobble globally on mobile viewports */
+html, body, #root {
+  max-width: 100%;
+  overflow-x: hidden;
+}

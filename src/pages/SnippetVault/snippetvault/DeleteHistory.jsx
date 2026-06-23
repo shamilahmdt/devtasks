@@ -108,7 +108,7 @@ const DeleteHistory = () => {
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] w-full font-sans overflow-y-auto md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300 ${
+      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] w-full font-sans overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col p-4 md:p-8 transition-colors duration-300 ${
         dark ? "bg-black text-white" : "bg-white text-black"
       }`}
     >

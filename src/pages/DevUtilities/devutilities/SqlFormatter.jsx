@@ -247,14 +247,14 @@ const SqlFormatter = () => {
       />
 
       <div
-        className={`w-full max-w-6xl mx-4 sm:mx-6 md:mx-auto rounded-3xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${
+        className={`w-full max-w-6xl md:mx-auto rounded-3xl shadow-lg p-4 sm:p-8 border transition-colors duration-300 ${
           dark ? "bg-zinc-900 border-zinc-700" : "bg-white border-neutral-100"
         }`}
       >
         {/* Header */}
         <div className="flex flex-col gap-4 mb-8">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 w-full min-w-0">
               <Link
                 to="/devutilities"
                 className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
@@ -279,7 +279,7 @@ const SqlFormatter = () => {
                 </svg>
               </Link>
               <h1
-                className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+                className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 min-w-0 flex-1 ${
                   dark ? "text-white" : "text-black"
                 }`}
               >
