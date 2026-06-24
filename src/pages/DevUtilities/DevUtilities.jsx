@@ -489,6 +489,42 @@ const DevUtilities = () => {
       path: "/devutilities/user-agent",
       icon: <FaCode />,
     },
+    {
+      title: "CRON Expression Generator & Descriptor",
+      description: "Generate and inspect CRON expressions. Fully offline.",
+      path: "/devutilities/cron",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
+
+    {
+  title: "String Inspector",
+  description:
+    "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
+  path: "/devutilities/string-inspector",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10" />
+    </svg>
+  ),
+},
+
+{
+  title: "Number Base Converter & Bitwise Visualizer",
+  description:
+    "Convert numbers between decimal, hexadecimal, binary, and octal, and visualize bitwise AND/OR/XOR/NOT/shift operations bit by bit.",
+  path: "/devutilities/number-base-converter",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 6v12a1 1 0 001 1h14a1 1 0 001-1V6M8 10h.01M8 14h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01" />
+    </svg>
+  ),
+},
+
+
   ];
 
   // There are some duplicate cards, so I'm just leaving this here.

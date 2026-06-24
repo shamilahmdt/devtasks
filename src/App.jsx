@@ -68,6 +68,7 @@ import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridG
 import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
+import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseConverter";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -291,6 +292,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/json-schema-validator" element={<JsonSchemaValidator />} />
             <Route path="/devutilities/cron" element={<CronExpression />} />
             <Route path="/devutilities/string-inspector" element={<StringInspector />} />
+            <Route path="/devutilities/number-base-converter" element={<NumberBaseConverter />} />
 
             <Route
               path="/devutilities/css-gradient"
