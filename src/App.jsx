@@ -61,6 +61,7 @@ import ShortcutsHUD from "./components/ShortcutsHUD";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 import "./index.css";
 import SplashScreen from "./components/SplashScreen";
 import MockJsonGenerator from "./pages/DevUtilities/devutilities/MockJsonDataGenerator";
@@ -210,7 +211,8 @@ function AppInner({ toggleHUD, hudVisible }) {
               : "w-full overflow-x-hidden"
           }
         >
-          <Routes>
+          <div className="flex-1">
+            <Routes>
 
             <Route path="/devutilities/user-agent" element={<UserAgentParser />} />
 
@@ -308,6 +310,8 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="*" element={<Navigate to="/" replace />} />
 
           </Routes>
+          </div>
+          {showNavbar && <Footer />}
         </div>
       </div>
     </div>

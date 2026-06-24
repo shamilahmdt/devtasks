@@ -205,8 +205,8 @@ const SnippetVault = () => {
           </div>
         </div>
 
-        <div className="shrink-0 mt-8 pt-8 border-t border-gray-50 opacity-10 hidden md:block">
-          <h2 className="text-[12vw] font-black tracking-tighter leading-none select-none text-center">
+        <div className="shrink-0 mt-2 pt- border-t border-gray-50 opacity-10 hidden md:block">
+          <h2 className="text-[10vw] font-black tracking-tighter leading-none select-none text-center">
             VAULT
           </h2>
         </div>

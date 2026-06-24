@@ -1,0 +1,20 @@
+/* TEAM */
+Developer: Shamil Ahammed T
+Site: https://shamil-ahammed-t.vercel.app
+GitHub: https://github.com/shamilahmdt/devtasks
+Location: India
+
+/* SITE */
+Project: DevTasks
+Description: A unified offline-first developer workspace for task management, code snippets, resource bookmarks, and 30+ developer utilities.
+Deployment: https://devtasksbeta.vercel.app
+Standards: HTML5, CSS3, JavaScript (ES2024)
+Framework: React 19 + Vite
+Components: Sonner, React Router, React Icons
+Software: VS Code, Git
+
+/* THANKS */
+React — https://react.dev
+Vite — https://vite.dev
+Tailwind CSS — https://tailwindcss.com
+Vercel — https://vercel.com
