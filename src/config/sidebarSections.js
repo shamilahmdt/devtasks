@@ -244,6 +244,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/hash",
       },
       {
+        label: "Bcrypt Generator",
+        description: "Generate and verify bcrypt password hashes entirely offline.",
+        path: "/devutilities/bcrypt",
+      },
+      {
         label: "JWT Encoder",
         description: "Create and sign JWT tokens",
         path: "/devutilities/jwt-encode",

@@ -53,6 +53,7 @@ import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -291,6 +292,10 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route
               path="/devutilities/url-parser"
               element={<UrlParserBuilder />}
+            />
+            <Route
+              path="/devutilities/bcrypt"
+              element={<BcryptGenerator />}
             />
             <Route path="/devutilities/sql" element={<SqlFormatter />} />
             <Route path="/devutilities/json-schema-validator" element={<JsonSchemaValidator />} />
