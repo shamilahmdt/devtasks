@@ -94,10 +94,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JSON YAML CSV Converter",
+      title: "JSON YAML Converter",
       description:
-        "Convert between JSON, YAML, and CSV formats with real-time validation and structured data parsing.",
-      path: "/devutilities/json-yaml-csv-converter",
+        "Convert JSON to YAML and YAML to JSON in real time with syntax validation.",
+      path: "/devutilities/json-yaml",
       icon: (
         <svg
           className="w-6 h-6"
@@ -545,28 +545,28 @@ const DevUtilities = () => {
     },
 
     {
-      title: "String Inspector",
-      description:
-        "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
-      path: "/devutilities/string-inspector",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10" />
-        </svg>
-      ),
-    },
+  title: "String Inspector",
+  description:
+    "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
+  path: "/devutilities/string-inspector",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10" />
+    </svg>
+  ),
+},
 
-    {
-      title: "Number Base Converter & Bitwise Visualizer",
-      description:
-        "Convert numbers between decimal, hexadecimal, binary, and octal, and visualize bitwise AND/OR/XOR/NOT/shift operations bit by bit.",
-      path: "/devutilities/number-base-converter",
-      icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 6v12a1 1 0 001 1h14a1 1 0 001-1V6M8 10h.01M8 14h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01" />
-        </svg>
-      ),
-    },
+{
+  title: "Number Base Converter & Bitwise Visualizer",
+  description:
+    "Convert numbers between decimal, hexadecimal, binary, and octal, and visualize bitwise AND/OR/XOR/NOT/shift operations bit by bit.",
+  path: "/devutilities/number-base-converter",
+  icon: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 6v12a1 1 0 001 1h14a1 1 0 001-1V6M8 10h.01M8 14h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01" />
+    </svg>
+  ),
+},
     {
       title: "CSS Gradient Generator",
       description: "Create beautiful CSS gradients with live preview",
@@ -647,10 +647,11 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
+              dark
                 ? "text-neutral-400 hover:text-white"
                 : "text-neutral-500 hover:text-black"
-              }`}
+            }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -686,10 +687,11 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-4 text-xs font-semibold outline-none transition-all duration-300 ${dark
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-4 text-xs font-semibold outline-none transition-all duration-300 ${
+                    dark
                       ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
                       : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
-                    }`}
+                  }`}
                 />
               </div>
               {searchQuery.trim() && matchedCards.length === 0 && (
@@ -737,94 +739,96 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-                className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  hasFavorites
                     ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
                     : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
-                  }`}
+                }`}
               >
-                <div className="mb-5 flex items-end justify-between gap-4">
-                  <div>
-                    <h2 className="text-2xl font-black uppercase tracking-tight">
-                      Favourite Tools
-                    </h2>
-                    <p className="mt-1 text-sm font-medium text-zinc-500">
-                      Your saved tools appear here first.
-                    </p>
+                  <div className="mb-5 flex items-end justify-between gap-4">
+                    <div>
+                      <h2 className="text-2xl font-black uppercase tracking-tight">
+                        Favourite Tools
+                      </h2>
+                      <p className="mt-1 text-sm font-medium text-zinc-500">
+                        Your saved tools appear here first.
+                      </p>
+                    </div>
+                    <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
+                      {favoriteCards.length} item{favoriteCards.length === 1 ? "" : "s"}
+                    </div>
                   </div>
-                  <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
-                    {favoriteCards.length} item{favoriteCards.length === 1 ? "" : "s"}
-                  </div>
-                </div>
 
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-                  {favoriteCards.map((card) => {
-                    const isFavorite = favoriteSet.has(card.path);
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+                    {favoriteCards.map((card) => {
+                      const isFavorite = favoriteSet.has(card.path);
 
-                    return (
-                      // Each card links to the tool, while the star updates local state.
-                      <Link
-                        key={card.path}
-                        to={card.path}
-                        id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
-                        className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
-                      >
-                        <button
-                          type="button"
-                          aria-label={
-                            isFavorite
-                              ? `Remove ${card.title} from favorites`
-                              : `Add ${card.title} to favorites`
-                          }
-                          aria-pressed={isFavorite}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            toggleFavorite(card.path);
-                          }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
-                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                              : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                            }`}
+                      return (
+                        // Each card links to the tool, while the star updates local state.
+                        <Link
+                          key={card.path}
+                          to={card.path}
+                          id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                          className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
                         >
-                          <svg
-                            className="h-5 w-5"
-                            viewBox="0 0 24 24"
-                            fill={isFavorite ? "currentColor" : "none"}
-                            stroke="currentColor"
-                            strokeWidth={1.9}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                          <button
+                            type="button"
+                            aria-label={
+                              isFavorite
+                                ? `Remove ${card.title} from favorites`
+                                : `Add ${card.title} to favorites`
+                            }
+                            aria-pressed={isFavorite}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              event.stopPropagation();
+                              toggleFavorite(card.path);
+                            }}
+                            className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                              isFavorite
+                                ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                                : dark
+                                  ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                  : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                            }`}
                           >
-                            {/* STAR ICON */}
-                            <path d="M12 3.6l2.93 5.94 6.55.95-4.74 4.62 1.12 6.52L12 18.55l-5.86 3.08 1.12-6.52L2.52 10.49l6.55-.95L12 3.6z" />
-                          </svg>
-                        </button>
-                        <div>
-                          <div
-                            className={`mb-6 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
-                          >
-                            {card.icon}
+                            <svg
+                              className="h-5 w-5"
+                              viewBox="0 0 24 24"
+                              fill={isFavorite ? "currentColor" : "none"}
+                              stroke="currentColor"
+                              strokeWidth={1.9}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              {/* STAR ICON */}
+                              <path d="M12 3.6l2.93 5.94 6.55.95-4.74 4.62 1.12 6.52L12 18.55l-5.86 3.08 1.12-6.52L2.52 10.49l6.55-.95L12 3.6z" />
+                            </svg>
+                          </button>
+                          <div>
+                            <div
+                              className={`mb-6 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
+                            >
+                              {card.icon}
+                            </div>
+                            <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
+                              {card.title}
+                            </h2>
+                            <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
+                              {card.description}
+                            </p>
                           </div>
-                          <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
-                            {card.title}
-                          </h2>
-                          <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
-                            {card.description}
-                          </p>
-                        </div>
-                        <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                          Open Tool{" "}
-                          <span className="ml-2 group-hover:translate-x-1 transition-transform">
-                            →
-                          </span>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                          <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                            Open Tool{" "}
+                            <span className="ml-2 group-hover:translate-x-1 transition-transform">
+                              →
+                            </span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
               </section>
 
               <section>
@@ -871,12 +875,13 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
                                 ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
                                 : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                            }`}
+                          }`}
                         >
                           <svg
                             className="h-5 w-5"
