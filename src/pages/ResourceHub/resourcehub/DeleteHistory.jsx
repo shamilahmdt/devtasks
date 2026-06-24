@@ -148,35 +148,41 @@ const DeleteHistory = () => {
         content="View and restore deleted resources."
       />
       <div className="max-w-3xl mx-auto">
-        {/* Back link */}
-        <Link
-          to="/resourcehub"
-          className={`inline-flex items-center gap-1.5 text-sm mb-8 ${t.backLink}`}
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-8">
+          <Link
+            to="/resourcehub"
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+              dark
+                ? "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600"
+                : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+            }`}
+            title="Back to Workspace"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back to Workspace
-        </Link>
-
-        {/* Page header */}
-        <div className="mb-8">
-          <h1 className={`text-2xl font-semibold tracking-tight ${t.heading}`}>
-            Delete History
-          </h1>
-          <p className={`mt-1 text-sm ${t.subtext}`}>
-            A log of all removed resources and bookmarks.
-          </p>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </Link>
+          <div>
+            <h1 className={`text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+              dark ? "text-white" : "text-black"
+            }`}>
+              Delete History
+            </h1>
+            <p className="text-xs text-neutral-400 mt-0.5">
+              A log of all removed resources and bookmarks.
+            </p>
+          </div>
         </div>
 
         <div className="space-y-5">

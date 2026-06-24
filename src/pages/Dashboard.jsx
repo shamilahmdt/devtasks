@@ -7,16 +7,27 @@ const Dashboard = () => {
   const { dark } = useTheme();
 
   const devUtilitiesSection = SIDEBAR_SECTIONS.find((s) => s.title === "Dev Utilities");
-  const toolsCount = devUtilitiesSection
-    ? devUtilitiesSection.items.filter((item) => item.path !== "/devutilities").length
-    : 11;
+  
+  // Filter out the home utility path and any duplicates
+  const uniqueTools = devUtilitiesSection
+    ? Array.from(
+        new Map(
+          devUtilitiesSection.items
+            .filter((item) => item.path !== "/devutilities")
+            .map((item) => [item.path, item])
+        ).values()
+      )
+    : [];
+
+  const toolsCount = devUtilitiesSection ? uniqueTools.length : 11;
   const toolsList = devUtilitiesSection
-    ? devUtilitiesSection.items
-        .filter((item) => item.path !== "/devutilities")
+    ? uniqueTools
         .map((item) => {
           const t = item.label.toUpperCase();
           if (t.includes("REGEX")) return "REGEXP";
           if (t.includes("YAML")) return "JSON/YAML";
+          if (t.includes("JSON SCHEMA")) return "JSON SCHEMA";
+          if (t.includes("MOCK JSON")) return "MOCK JSON";
           if (t.includes("JSON")) return "JSON";
           if (t.includes("BASE64")) return "BASE64/URL";
           if (t.includes("TIMESTAMP")) return "TIMESTAMP";
@@ -28,10 +39,18 @@ const Dashboard = () => {
           if (t.includes("CODE")) return "CODE";
           if (t.includes("QR")) return "QR";
           if (t.includes("SUBNET")) return "SUBNET";
+          if (t.includes("SQL")) return "SQL";
+          if (t.includes("URL")) return "URL";
+          if (t.includes("HTML")) return "HTML ENTITY";
+          if (t.includes("TEXT CASE")) return "TEXT CASE";
+          if (t.includes("MARKDOWN TABLE")) return "MD TABLE";
+          if (t.includes("MARKDOWN")) return "MARKDOWN";
+          if (t.includes("FLEXBOX")) return "FLEX/GRID";
+          if (t.includes("AGENT")) return "USER AGENT";
           return t;
         })
         .join(" • ")
-    : "REGEXP • JSON • BASE64/URL • TIMESTAMP • UUID • JWT • DIFF • CODE • HASH • COLOR • QR";
+    : "REGEXP • JSON • BASE64/URL • TIMESTAMP • UUID • JWT • DIFF • CODE • HASH • COLOR • QR • SQL";
   
   // --- STATE FOR TASK PROGRESS ---
   const [taskStats, setTaskStats] = useState({ total: 0, completed: 0, percentage: 0 });
@@ -45,34 +64,46 @@ const Dashboard = () => {
   // --- LOAD INITIAL DATA ---
   useEffect(() => {
     // Tasks Stats
-    const savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-      const parsed = JSON.parse(savedTasks);
-      const total = parsed.length;
-      const completed = parsed.filter((t) => t.completed).length;
-      const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-      setTaskStats({ total, completed, percentage });
+    try {
+      const savedTasks = localStorage.getItem("tasks");
+      if (savedTasks) {
+        const parsed = JSON.parse(savedTasks);
+        if (Array.isArray(parsed)) {
+          const total = parsed.length;
+          const completed = parsed.filter((t) => t.completed).length;
+          const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+          setTaskStats({ total, completed, percentage });
+        }
+      }
+    } catch (e) {
+      console.error("Error parsing tasks stats:", e);
     }
 
     // Snippets Stats
-    const savedSnippets = localStorage.getItem("dev_snippets");
-    if (savedSnippets) {
-      const parsed = JSON.parse(savedSnippets);
-      const total = parsed.length;
-      if (total > 0) {
-        const counts = {};
-        parsed.forEach((s) => {
-          const cat = s.category || "GENERAL";
-          counts[cat] = (counts[cat] || 0) + 1;
-        });
-        const breakdownStr = Object.keys(counts).slice(0, 3).join(" • ");
-        setSnippetStats({
-          total,
-          breakdown: breakdownStr + (Object.keys(counts).length > 3 ? "..." : "")
-        });
-      } else {
-        setSnippetStats({ total: 0, breakdown: "Empty vault directory" });
+    try {
+      const savedSnippets = localStorage.getItem("dev_snippets");
+      if (savedSnippets) {
+        const parsed = JSON.parse(savedSnippets);
+        if (Array.isArray(parsed)) {
+          const total = parsed.length;
+          if (total > 0) {
+            const counts = {};
+            parsed.forEach((s) => {
+              const cat = s.category || "GENERAL";
+              counts[cat] = (counts[cat] || 0) + 1;
+            });
+            const breakdownStr = Object.keys(counts).slice(0, 3).join(" • ");
+            setSnippetStats({
+              total,
+              breakdown: breakdownStr + (Object.keys(counts).length > 3 ? "..." : "")
+            });
+          } else {
+            setSnippetStats({ total: 0, breakdown: "Empty vault directory" });
+          }
+        }
       }
+    } catch (e) {
+      console.error("Error parsing snippets stats:", e);
     }
 
     // Resources Stats
@@ -80,23 +111,25 @@ const Dashboard = () => {
     if (savedResources) {
       try {
         const parsed = JSON.parse(savedResources);
-        const total = parsed.length;
-        if (total > 0) {
-          const counts = {};
-          parsed.forEach((r) => {
-            const cat = r.category || "GENERAL";
-            counts[cat] = (counts[cat] || 0) + 1;
-          });
-          const breakdownStr = Object.keys(counts).slice(0, 3).join(" • ");
-          setResourceStats({
-            total,
-            breakdown: breakdownStr + (Object.keys(counts).length > 3 ? "..." : "")
-          });
-        } else {
-          setResourceStats({ total: 0, breakdown: "No active resources" });
+        if (Array.isArray(parsed)) {
+          const total = parsed.length;
+          if (total > 0) {
+            const counts = {};
+            parsed.forEach((r) => {
+              const cat = r.category || "GENERAL";
+              counts[cat] = (counts[cat] || 0) + 1;
+            });
+            const breakdownStr = Object.keys(counts).slice(0, 3).join(" • ");
+            setResourceStats({
+              total,
+              breakdown: breakdownStr + (Object.keys(counts).length > 3 ? "..." : "")
+            });
+          } else {
+            setResourceStats({ total: 0, breakdown: "No active resources" });
+          }
         }
       } catch (e) {
-        console.error(e);
+        console.error("Error parsing resources stats:", e);
         setResourceStats({ total: 0, breakdown: "No active resources" });
       }
     }
@@ -121,7 +154,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`${t.wrapper} min-h-screen w-full font-sans overflow-y-auto flex flex-col p-4 md:p-8 transition-colors duration-300`}
+      className={`${t.wrapper} min-h-screen w-full font-sans flex flex-col p-4 md:p-8 transition-colors duration-300`}
     >
       <title>Dashboard — DevTasks</title>
       <meta

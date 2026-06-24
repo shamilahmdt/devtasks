@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import useSidebar from "../hooks/useSidebar";
 import useSidebarSection from "../hooks/useSidebarSection";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -12,6 +12,23 @@ const Sidebar = () => {
     isMobileMode,
     setIsSidebarOpen,
   } = useSidebar();
+
+  const activeLinkRef = useRef(null);
+
+  const activeLinkCallback = (el) => {
+    if (el && el.offsetParent !== null) {
+      activeLinkRef.current = el;
+    }
+  };
+
+  useEffect(() => {
+    if (isSidebarOpen && activeLinkRef.current) {
+      activeLinkRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [location.pathname, isSidebarOpen]);
   const { activeSection, hasSidebarSection } = useSidebarSection();
 
   const isItemActive = (item) => {
@@ -95,6 +112,7 @@ const Sidebar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
+                  ref={isActive ? activeLinkCallback : null}
                   onClick={() => setIsSidebarOpen(false)}
                   className={`group relative flex items-start gap-3 rounded-lg border pl-5 pr-4 py-3 transition-all duration-300 ${
                     isActive
@@ -218,6 +236,7 @@ const Sidebar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
+                    ref={isActive ? activeLinkCallback : null}
                     className={`group relative flex items-start gap-3 rounded-lg border pl-5 pr-4 py-3 transition-all duration-300 ${
                       isActive
                         ? dark

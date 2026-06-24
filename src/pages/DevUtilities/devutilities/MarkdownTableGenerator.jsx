@@ -121,7 +121,7 @@ const MarkdownTableGenerator = () => {
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto relative ${
+      className={`min-h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden relative ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >

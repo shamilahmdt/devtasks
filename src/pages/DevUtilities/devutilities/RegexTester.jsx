@@ -149,7 +149,7 @@ support@company.org`);
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto md:overflow-hidden relative flex flex-col justify-center ${
+      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -173,7 +173,7 @@ support@company.org`);
 
       {/* Main card */}
       <div
-        className={`relative z-10 w-full max-w-5xl mx-4 sm:mx-6 md:mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full md:max-h-[85vh] overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-full max-w-5xl md:mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full md:max-h-[85vh] overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >
@@ -185,7 +185,7 @@ support@company.org`);
         />
 
         {/* Header */}
-        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3">
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 flex items-center gap-3 w-full min-w-0">
           <Link
             to="/devutilities"
             className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
@@ -210,7 +210,7 @@ support@company.org`);
             </svg>
           </Link>
           <h1
-            className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+            className={`text-xl sm:text-2xl font-black uppercase tracking-tight transition-colors duration-300 min-w-0 flex-1 ${
               dark ? "text-white" : "text-black"
             }`}
           >

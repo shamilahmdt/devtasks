@@ -63,7 +63,7 @@ const UuidGenerator = () => {
 
   return (
     <div
-      className={`h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-hidden relative flex flex-col justify-center ${
+      className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center ${
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
@@ -85,7 +85,7 @@ const UuidGenerator = () => {
       />
 
       <div
-        className={`relative z-10 w-[85%] max-w-none mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full overflow-hidden transition-all duration-300 ${
+        className={`relative z-10 w-full max-w-5xl md:w-[85%] mx-auto rounded-[32px] border shadow-xl flex flex-col max-h-full overflow-hidden transition-all duration-300 ${
           dark ? "bg-zinc-900 border-zinc-800" : "bg-white border-neutral-200"
         }`}
       >
