@@ -51,6 +51,7 @@ import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import JwtEncoder from "./pages/DevUtilities/devutilities/JwtEncoder";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
+import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
 
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
@@ -297,6 +298,10 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route
               path="/devutilities/css-gradient"
               element={<CssGradientGenerator />}
+            />
+            <Route
+              path="/devutilities/glassmorphism"
+              element={<CssGlassmorphismPlayground />}
             />
             <Route path="*" element={<Navigate to="/" replace />} />
 

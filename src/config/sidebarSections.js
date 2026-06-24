@@ -268,6 +268,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/css-gradient",
       },
       {
+        label: "Glassmorphism Playground",
+        description: "Design glassmorphism effects with shadows and blur",
+        path: "/devutilities/glassmorphism",
+      },
+      {
         label: "String Inspector",
         description: "Analyze character, word, sentence, and paragraph counts",
         path: "/devutilities/string-inspector",
