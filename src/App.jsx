@@ -36,7 +36,7 @@ import DataCenterResource from "./pages/ResourceHub/resourcehub/DataCenter";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
-import JsonYamlConverter from "./pages/DevUtilities/devutilities/JsonYamlConverter";
+import JsonYamlCsvConverter from "./pages/DevUtilities/devutilities/JsonYamlCsvConverter";
 import MarkdownPreviewer from "./pages/DevUtilities/devutilities/MarkdownPreviewer";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
@@ -250,7 +250,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             <Route path="/devutilities/json" element={<JsonFormatter />} />
             <Route
               path="/devutilities/json-yaml"
-              element={<JsonYamlConverter />}
+              element={<JsonYamlCsvConverter />}
             />
             <Route
               path="/devutilities/markdown"

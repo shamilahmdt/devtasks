@@ -142,9 +142,9 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json",
       },
       {
-        label: "JSON YAML Converter",
-        description: "Convert JSON and YAML",
-        path: "/devutilities/json-yaml",
+        label: "JSON YAML CSV Converter",
+        description: "Convert JSON, YAML and CSV formats",
+        path: "/devutilities/json-yaml-csv",
       },
       {
         label: "JSON Schema Validator",
