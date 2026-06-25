@@ -52,6 +52,26 @@ const DevUtilities = () => {
 
   const cards = [
     {
+      title: "SVG Optimizer",
+      description: "Optimize, clean and preview SVG code instantly",
+      path: "/devutilities/svg-optimizer",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h10"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Regex Tester",
       description:
         "Test regular expressions with flags, highlights, matching text, and capturing groups.",
@@ -183,8 +203,18 @@ const DevUtilities = () => {
         "Encode and inspect JSON Web Token header and payload data directly in the browser, completely offline.",
       path: "/devutilities/jwt-encode",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
         </svg>
       ),
     },
@@ -252,34 +282,44 @@ const DevUtilities = () => {
       ),
     },
     {
-    title: "Bcrypt Generator",
-    description:
-      "Generate and verify bcrypt password hashes entirely offline.",
-    path: "/devutilities/bcrypt",
-    icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-      />
-    </svg>
-  ),
-},
+      title: "Bcrypt Generator",
+      description:
+        "Generate and verify bcrypt password hashes entirely offline.",
+      path: "/devutilities/bcrypt",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+      ),
+    },
     {
       title: "Color Converter & Contrast Checker",
       description:
         "Convert HEX, RGB, HSL, and CMYK colors, generate palettes, and verify WCAG contrast offline.",
       path: "/devutilities/color",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-3M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-3M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
         </svg>
       ),
     },
@@ -499,8 +539,18 @@ const DevUtilities = () => {
         "Generate flexbox and grid layouts for responsive design. Fully offline.",
       path: "/devutilities/flexbox-grid-generator",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h3a1 1 0 011 1v6a1 1 0 01-1 1h-3a1 1 0 01-1-1v-6z" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h3a1 1 0 011 1v6a1 1 0 01-1 1h-3a1 1 0 01-1-1v-6z"
+          />
         </svg>
       ),
     },
@@ -510,7 +560,12 @@ const DevUtilities = () => {
         "Calculate IPv4 subnet masks, host ranges, wildcard masks, and visualize CIDR bit maps — completely offline.",
       path: "/devutilities/subnet",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -533,7 +588,12 @@ const DevUtilities = () => {
         "Calculate Unix file permissions in octal and symbolic formats visually.",
       path: "/devutilities/chmod",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -548,8 +608,18 @@ const DevUtilities = () => {
       description: "Generate and inspect CRON expressions. Fully offline.",
       path: "/devutilities/cron",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
         </svg>
       ),
     },
@@ -559,41 +629,76 @@ const DevUtilities = () => {
         "Design modern glassmorphism effects with backdrop blur, shadows, and live CSS export.",
       path: "/devutilities/glassmorphism",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
         </svg>
       ),
     },
 
     {
-  title: "String Inspector",
-  description:
-    "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
-  path: "/devutilities/string-inspector",
-  icon: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10" />
-    </svg>
-  ),
-},
+      title: "String Inspector",
+      description:
+        "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
+      path: "/devutilities/string-inspector",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10"
+          />
+        </svg>
+      ),
+    },
 
-{
-  title: "Number Base Converter & Bitwise Visualizer",
-  description:
-    "Convert numbers between decimal, hexadecimal, binary, and octal, and visualize bitwise AND/OR/XOR/NOT/shift operations bit by bit.",
-  path: "/devutilities/number-base-converter",
-  icon: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 6v12a1 1 0 001 1h14a1 1 0 001-1V6M8 10h.01M8 14h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01" />
-    </svg>
-  ),
-},
+    {
+      title: "Number Base Converter & Bitwise Visualizer",
+      description:
+        "Convert numbers between decimal, hexadecimal, binary, and octal, and visualize bitwise AND/OR/XOR/NOT/shift operations bit by bit.",
+      path: "/devutilities/number-base-converter",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 6v12a1 1 0 001 1h14a1 1 0 001-1V6M8 10h.01M8 14h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01"
+          />
+        </svg>
+      ),
+    },
     {
       title: "CSS Gradient Generator",
       description: "Create beautiful CSS gradients with live preview",
       path: "/devutilities/css-gradient",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -626,8 +731,12 @@ const DevUtilities = () => {
     },
   ];
 
-  const devUtilsSection = SIDEBAR_SECTIONS.find((s) => s.title === "Dev Utilities");
-  const pathOrder = devUtilsSection ? devUtilsSection.items.map((item) => item.path) : [];
+  const devUtilsSection = SIDEBAR_SECTIONS.find(
+    (s) => s.title === "Dev Utilities",
+  );
+  const pathOrder = devUtilsSection
+    ? devUtilsSection.items.map((item) => item.path)
+    : [];
 
   const sortedCards = [...cards].sort((a, b) => {
     const indexA = pathOrder.indexOf(a.path);
@@ -646,17 +755,22 @@ const DevUtilities = () => {
   const matchedCards = uniqueCards.filter(
     (card) =>
       card.title.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
-      card.description.toLowerCase().includes(searchQuery.toLowerCase().trim())
+      card.description.toLowerCase().includes(searchQuery.toLowerCase().trim()),
   );
 
-  const filteredUniqueCards = (searchQuery.trim() && matchedCards.length === 0)
-    ? uniqueCards
-    : matchedCards;
+  const filteredUniqueCards =
+    searchQuery.trim() && matchedCards.length === 0
+      ? uniqueCards
+      : matchedCards;
 
   // Splitting both favourite and other cards
   const favoriteSet = new Set(favoritePaths);
-  const favoriteCards = filteredUniqueCards.filter((card) => favoriteSet.has(card.path));
-  const otherCards = filteredUniqueCards.filter((card) => !favoriteSet.has(card.path));
+  const favoriteCards = filteredUniqueCards.filter((card) =>
+    favoriteSet.has(card.path),
+  );
+  const otherCards = filteredUniqueCards.filter(
+    (card) => !favoriteSet.has(card.path),
+  );
 
   const hasFavorites = favoriteCards.length > 0;
 
@@ -787,90 +901,90 @@ const DevUtilities = () => {
                     : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
                 }`}
               >
-                  <div className="mb-5 flex items-end justify-between gap-4">
-                    <div>
-                      <h2 className="text-2xl font-black uppercase tracking-tight">
-                        Favourite Tools
-                      </h2>
-                      <p className="mt-1 text-sm font-medium text-zinc-500">
-                        Your saved tools appear here first.
-                      </p>
-                    </div>
-                    <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
-                      {favoriteCards.length} item{favoriteCards.length === 1 ? "" : "s"}
-                    </div>
+                <div className="mb-5 flex items-end justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-black uppercase tracking-tight">
+                      Favourite Tools
+                    </h2>
+                    <p className="mt-1 text-sm font-medium text-zinc-500">
+                      Your saved tools appear here first.
+                    </p>
                   </div>
+                  <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
+                    {favoriteCards.length} item
+                    {favoriteCards.length === 1 ? "" : "s"}
+                  </div>
+                </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+                  {favoriteCards.map((card) => {
+                    const isFavorite = favoriteSet.has(card.path);
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-                    {favoriteCards.map((card) => {
-                      const isFavorite = favoriteSet.has(card.path);
-
-                      return (
-                        // Each card links to the tool, while the star updates local state.
-                        <Link
-                          key={card.path}
-                          to={card.path}
-                          id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
-                          className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
+                    return (
+                      // Each card links to the tool, while the star updates local state.
+                      <Link
+                        key={card.path}
+                        to={card.path}
+                        id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
+                      >
+                        <button
+                          type="button"
+                          aria-label={
+                            isFavorite
+                              ? `Remove ${card.title} from favorites`
+                              : `Add ${card.title} to favorites`
+                          }
+                          aria-pressed={isFavorite}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            toggleFavorite(card.path);
+                          }}
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
+                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                              : dark
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                          }`}
                         >
-                          <button
-                            type="button"
-                            aria-label={
-                              isFavorite
-                                ? `Remove ${card.title} from favorites`
-                                : `Add ${card.title} to favorites`
-                            }
-                            aria-pressed={isFavorite}
-                            onClick={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              toggleFavorite(card.path);
-                            }}
-                            className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                              isFavorite
-                                ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                                : dark
-                                  ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                  : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                            }`}
+                          <svg
+                            className="h-5 w-5"
+                            viewBox="0 0 24 24"
+                            fill={isFavorite ? "currentColor" : "none"}
+                            stroke="currentColor"
+                            strokeWidth={1.9}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           >
-                            <svg
-                              className="h-5 w-5"
-                              viewBox="0 0 24 24"
-                              fill={isFavorite ? "currentColor" : "none"}
-                              stroke="currentColor"
-                              strokeWidth={1.9}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              {/* STAR ICON */}
-                              <path d="M12 3.6l2.93 5.94 6.55.95-4.74 4.62 1.12 6.52L12 18.55l-5.86 3.08 1.12-6.52L2.52 10.49l6.55-.95L12 3.6z" />
-                            </svg>
-                          </button>
-                          <div>
-                            <div
-                              className={`mb-6 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
-                            >
-                              {card.icon}
-                            </div>
-                            <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
-                              {card.title}
-                            </h2>
-                            <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
-                              {card.description}
-                            </p>
+                            {/* STAR ICON */}
+                            <path d="M12 3.6l2.93 5.94 6.55.95-4.74 4.62 1.12 6.52L12 18.55l-5.86 3.08 1.12-6.52L2.52 10.49l6.55-.95L12 3.6z" />
+                          </svg>
+                        </button>
+                        <div>
+                          <div
+                            className={`mb-6 p-3 w-fit rounded-xl transition-colors shadow-sm ${t.icon}`}
+                          >
+                            {card.icon}
                           </div>
-                          <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                            Open Tool{" "}
-                            <span className="ml-2 group-hover:translate-x-1 transition-transform">
-                              →
-                            </span>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
+                          <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
+                            {card.title}
+                          </h2>
+                          <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
+                            {card.description}
+                          </p>
+                        </div>
+                        <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                          Open Tool{" "}
+                          <span className="ml-2 group-hover:translate-x-1 transition-transform">
+                            →
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               </section>
 
               <section>
@@ -886,7 +1000,8 @@ const DevUtilities = () => {
                         </p>
                       </div>
                       <div className="text-xs font-black uppercase tracking-widest text-zinc-500">
-                        {otherCards.length} item{otherCards.length === 1 ? "" : "s"}
+                        {otherCards.length} item
+                        {otherCards.length === 1 ? "" : "s"}
                       </div>
                     </>
                   )}

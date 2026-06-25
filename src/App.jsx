@@ -74,6 +74,7 @@ import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
 import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseConverter";
 import LoremIpsumGenerator from "./pages/DevUtilities/devutilities/LoremIpsumGenerator";
+import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -315,6 +316,7 @@ function AppInner({ toggleHUD, hudVisible }) {
             />
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/devutilities/lorem-ipsum" element={<LoremIpsumGenerator />} />
+            <Route path="/devutilities/svg-optimizer" element={<SvgOptimizer />} />
 
           </Routes>
           
