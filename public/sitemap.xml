@@ -143,12 +143,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://devtasks.example.com/devutilities/xml-json</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://devtasks.example.com/devutilities/markdown</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>

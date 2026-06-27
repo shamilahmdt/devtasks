@@ -6,7 +6,7 @@ import { useTheme } from "../../../context/ThemeContext";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const FORMATS = ["json", "yaml", "csv"];
+const FORMATS = ["json", "yaml", "csv", "xml"];
 
 const DELIMITER_OPTIONS = [
     { label: "Comma (,)", value: "," },
@@ -62,8 +62,200 @@ const formatYamlParseError = (error) => {
 const formatErrorFor = (format, error, source) => {
     if (format === "json") return { title: "Invalid JSON", message: formatJsonParseError(error, source) };
     if (format === "yaml") return { title: "Invalid YAML", message: formatYamlParseError(error) };
+    if (format === "xml") return { title: "Invalid XML", message: formatXmlParseError(error instanceof Error ? error.message : String(error)) };
     return { title: "Invalid CSV", message: error instanceof Error ? error.message : "Invalid CSV input." };
 };
+
+// ─── XML Parser & Serializer Helpers ──────────────────────────────────────────
+
+function parseXmlDoc(xmlString) {
+  const doc = new DOMParser().parseFromString(xmlString, "application/xml");
+  const errorNode = doc.querySelector("parsererror");
+  if (errorNode) throw new Error(errorNode.textContent.trim());
+  return doc;
+}
+
+function elementToValue(rootEl) {
+  const allElements = [];           
+  const explicitStack = [rootEl];   
+
+  while (explicitStack.length > 0) {
+    const el = explicitStack.pop();
+    allElements.push(el);
+
+    for (let i = el.children.length - 1; i >= 0; i--) {
+      explicitStack.push(el.children[i]);
+    }
+  }
+
+  const valueMap = new Map();
+
+  for (let i = allElements.length - 1; i >= 0; i--) {
+    const el = allElements[i];
+
+    const result = {};
+    for (const attr of el.attributes) {
+      result[`@${attr.name}`] = attr.value;
+    }
+
+    if (el.children.length === 0) {
+      const text = el.textContent.trim();
+
+      if (el.attributes.length === 0) {
+        valueMap.set(el, text);
+        continue;
+      }
+
+      if (text) result["#text"] = text;
+      valueMap.set(el, result);
+      continue;
+    }
+
+    const groups = new Map();
+
+    for (let j = 0; j < el.children.length; j++) {
+      const child = el.children[j];
+      const tag   = child.tagName;
+
+      if (!groups.has(tag)) groups.set(tag, []);
+      groups.get(tag).push(child);
+    }
+
+    for (const [tag, children] of groups) {
+      result[tag] =
+        children.length === 1
+          ? valueMap.get(children[0])
+          : children.map(c => valueMap.get(c));
+    }
+
+    valueMap.set(el, result);
+  }
+
+  return valueMap.get(rootEl);
+}
+
+function xmlToJson(xmlString) {
+  const doc = parseXmlDoc(xmlString);
+  const root = doc.documentElement;
+  return { [root.tagName]: elementToValue(root) };
+}
+
+function buildElement(doc, rootTagName, rootValue) {
+  const rootEl = doc.createElement(rootTagName);
+  if (rootValue === null || rootValue === undefined) return rootEl;
+
+  const queue = [{ el: rootEl, value: rootValue }];
+  let head = 0;
+
+  while (head < queue.length) {
+    const { el, value } = queue[head++];
+
+    if (value === null || value === undefined || typeof value !== "object") {
+      el.textContent = String(value ?? "");
+      continue;
+    }
+
+    if (Array.isArray(value)) {
+      el.textContent = JSON.stringify(value);
+      continue;
+    }
+
+    for (const [key, val] of Object.entries(value)) {
+      if (key.startsWith("@")) {
+        el.setAttribute(key.slice(1), String(val));
+      } else if (key === "#text") {
+        el.appendChild(doc.createTextNode(String(val)));
+      } else if (Array.isArray(val)) {
+        for (const item of val) {
+          const childEl = doc.createElement(key);
+          el.appendChild(childEl);
+          queue.push({ el: childEl, value: item });
+        }
+      } else {
+        const childEl = doc.createElement(key);
+        el.appendChild(childEl);
+        queue.push({ el: childEl, value: val });
+      }
+    }
+  }
+
+  return rootEl;
+}
+
+function jsonToXml(jsonString) {
+  const parsed = JSON.parse(jsonString);
+
+  const rootKeys = Object.keys(parsed);
+  if (rootKeys.length === 0) {
+    throw new Error("JSON object must have at least one key to become an XML root element.");
+  }
+  if (rootKeys.length > 1) {
+    throw new Error(
+      `XML requires exactly one root element. Found ${rootKeys.length} root keys: ${rootKeys.join(", ")}.`
+    );
+  }
+
+  const rootTag = rootKeys[0];
+  const domDoc = document.implementation.createDocument("", "", null);
+  domDoc.appendChild(buildElement(domDoc, rootTag, parsed[rootTag]));
+
+  return new XMLSerializer().serializeToString(domDoc).replace(/ xmlns=""/g, "");
+}
+
+function prettyPrintXml(xmlString) {
+  const doc = parseXmlDoc(xmlString);
+
+  function serializeNode(node, depth) {
+    const pad = "  ".repeat(depth);
+
+    if (node.nodeType === Node.TEXT_NODE) return null;
+    if (node.nodeType !== Node.ELEMENT_NODE) return null;
+
+    const attrs = Array.from(node.attributes)
+      .map((a) => ` ${a.name}="${a.value}"`)
+      .join("");
+
+    const hasElementChildren = Array.from(node.childNodes).some(
+      (c) => c.nodeType === Node.ELEMENT_NODE
+    );
+
+    if (!hasElementChildren && !node.textContent.trim()) {
+      return `${pad}<${node.tagName}${attrs} />`;
+    }
+
+    if (!hasElementChildren) {
+      return `${pad}<${node.tagName}${attrs}>${node.textContent.trim()}</${node.tagName}>`;
+    }
+
+    const children = Array.from(node.childNodes)
+      .map((c) => serializeNode(c, depth + 1))
+      .filter(Boolean);
+
+    return [
+      `${pad}<${node.tagName}${attrs}>`,
+      ...children,
+      `${pad}</${node.tagName}>`,
+    ].join("\n");
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n${serializeNode(doc.documentElement, 0)}`;
+}
+
+function formatXmlParseError(rawMessage) {
+  const firstLine = (rawMessage ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .find(Boolean);
+
+  if (!firstLine) return "Invalid XML syntax.";
+
+  const match = firstLine.match(/line\s+(\d+)\s+at\s+column\s+(\d+)[:\s]+(.+)/i);
+  if (match) {
+    return `${match[3].trim()} (line ${match[1]}, column ${match[2]})`;
+  }
+
+  return firstLine;
+}
 
 // ─── CSV Parser ───────────────────────────────────────────────────────────────
 //
@@ -343,10 +535,11 @@ const parseSource = (text, format, delimiter, hasHeader) => {
     switch (format) {
         case "json": return JSON.parse(text);
         case "yaml": {
-    const res = load(text);
-    return res ?? {};
-}
+            const res = load(text);
+            return res ?? {};
+        }
         case "csv": return parseCsv(text, delimiter, hasHeader);
+        case "xml": return xmlToJson(text);
         default: throw new Error(`Unknown source format: ${format}`);
     }
 };
@@ -360,6 +553,7 @@ const serializeTarget = (value, format, delimiter, hasHeader) => {
         case "json": return JSON.stringify(value ?? null, null, 2);
         case "yaml": return dump(value ?? null, YAML_OPTIONS);
         case "csv": return serializeCsv(value, delimiter, hasHeader);
+        case "xml": return prettyPrintXml(jsonToXml(JSON.stringify(value)));
         default: throw new Error(`Unknown target format: ${format}`);
     }
 };
@@ -413,6 +607,7 @@ const getSample = (format, delimiter) => {
         case "json": return JSON.stringify(SAMPLE_OBJECT, null, 2);
         case "yaml": return dump(SAMPLE_OBJECT, YAML_OPTIONS);
         case "csv": return serializeCsv(SAMPLE_CSV_ROWS, delimiter, true);
+        case "xml": return prettyPrintXml(jsonToXml(JSON.stringify({ devtasks: SAMPLE_OBJECT })));
         default: return "";
     }
 };
@@ -478,7 +673,7 @@ const FormatPills = ({ value, onChange, t }) => (
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-const JsonYamlCsvConverter = () => {
+const JsonYamlCsvXmlConverter = () => {
     const { dark } = useTheme();
     const t = buildTheme(dark);
 
@@ -619,8 +814,8 @@ const JsonYamlCsvConverter = () => {
 
     return (
         <div className={`min-h-[calc(100vh-76px)] px-4 py-6 transition-colors duration-300 sm:px-6 ${t.page}`}>
-            <title>JSON YAML CSV Converter — DevTasks</title>
-            <meta name="description" content="Convert between JSON, YAML, and CSV formats offline with live validation." />
+            <title>JSON YAML CSV XML Converter — DevTasks</title>
+            <meta name="description" content="Convert between JSON, YAML, CSV, and XML formats offline with live validation." />
 
             <div className={`mx-auto flex w-full max-w-7xl flex-col overflow-hidden rounded-3xl border shadow-xl transition-colors duration-300 ${t.panel}`}>
 
@@ -644,7 +839,7 @@ const JsonYamlCsvConverter = () => {
                             </Link>
                             <div>
                                 <h1 className={`text-xl font-black uppercase tracking-tight sm:text-2xl ${t.heading}`}>
-                                    JSON · YAML · CSV Converter
+                                    JSON · YAML · CSV · XML Converter
                                 </h1>
                                 <p className={`mt-0.5 text-sm font-medium ${t.subtext}`}>
                                     Live conversion · works offline · no data leaves your browser
@@ -807,4 +1002,4 @@ const JsonYamlCsvConverter = () => {
     );
 };
 
-export default JsonYamlCsvConverter;
+export default JsonYamlCsvXmlConverter;

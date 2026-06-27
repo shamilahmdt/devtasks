@@ -37,8 +37,7 @@ import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
 import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
-import JsonYamlCsvConverter from "./pages/DevUtilities/devutilities/JsonYamlCsvConverter";
-import XmlJsonConverter from "./pages/DevUtilities/devutilities/XmlJsonConverter";
+import JsonYamlCsvXmlConverter from "./pages/DevUtilities/devutilities/JsonYamlCsvXmlConverter";
 import MarkdownPreviewer from "./pages/DevUtilities/devutilities/MarkdownPreviewer";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
@@ -359,9 +358,16 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route path="/devutilities/json" element={<JsonFormatter />} />
               <Route
                 path="/devutilities/json-csv-yaml"
-                element={<JsonYamlCsvConverter />}
+                element={<JsonYamlCsvXmlConverter />}
               />
-              <Route path="/devutilities/xml-json" element={<XmlJsonConverter />} />
+              <Route
+                path="/devutilities/xml-json"
+                element={<Navigate to="/devutilities/json-csv-yaml" replace />}
+              />
+              <Route
+                path="/devutilities/json-yaml"
+                element={<Navigate to="/devutilities/json-csv-yaml" replace />}
+              />
               <Route
                 path="/devutilities/markdown"
                 element={<MarkdownPreviewer />}
