@@ -180,8 +180,8 @@ function AppInner({ toggleHUD, hudVisible }) {
   // Flag to block scroll saving during route shifts and scroll restoration
   const isRestoringRef = useRef(false);
 
-  // Scroll restoration logic for inner scrollable content wrapper
   useEffect(() => {
+    const pathAtEffectStart = location.pathname;
     isRestoringRef.current = true;
 
     const scrollContainer = document.querySelector(".navbar-layout-content");
@@ -247,7 +247,7 @@ function AppInner({ toggleHUD, hudVisible }) {
 
     let saveTimeout;
     const handleScroll = () => {
-      if (currentPathRef.current !== location.pathname) {
+      if (pathAtEffectStart !== location.pathname) {
         return;
       }
       if (isRestoringRef.current) {

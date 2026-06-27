@@ -48,7 +48,14 @@ const DevUtilities = () => {
     }
   });
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return sessionStorage.getItem("devutilities_search_query") || "";
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("devutilities_search_query", searchQuery);
+  }, [searchQuery]);
 
   const cards = [
     {
