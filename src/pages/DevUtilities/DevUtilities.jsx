@@ -155,6 +155,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "XML JSON Converter",
+      description:
+        "Convert XML to JSON and JSON to XML in real time with live syntax validation and pretty-printing.",
+      path: "/devutilities/xml-json",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l-3 3 3 3M16 9l3 3-3 3M12 3v18"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "URL Parser & Query Builder",
       description:
         "Parse URLs into protocol, hostname, port, pathname, hash, and editable query parameters in real time.",

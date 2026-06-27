@@ -147,6 +147,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-csv-yaml",
       },
       {
+        label: "JSON YAML Converter",
+        description: "Convert JSON and YAML",
+        path: "/devutilities/json-yaml",
+      },
+      {
         label: "JSON Schema Validator",
         description: "Validate JSON data against a schema",
         path: "/devutilities/json-schema-validator",
@@ -314,4 +319,3 @@ const SIDEBAR_SECTIONS = [
 ];
 
 export default SIDEBAR_SECTIONS;
-

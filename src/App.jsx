@@ -38,6 +38,7 @@ import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
 import JsonFormatter from "./pages/DevUtilities/devutilities/JsonFormatter";
 import JsonYamlCsvConverter from "./pages/DevUtilities/devutilities/JsonYamlCsvConverter";
+import XmlJsonConverter from "./pages/DevUtilities/devutilities/XmlJsonConverter";
 import MarkdownPreviewer from "./pages/DevUtilities/devutilities/MarkdownPreviewer";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
@@ -287,6 +288,7 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/json-csv-yaml"
                 element={<JsonYamlCsvConverter />}
               />
+              <Route path="/devutilities/xml-json" element={<XmlJsonConverter />} />
               <Route
                 path="/devutilities/markdown"
                 element={<MarkdownPreviewer />}
