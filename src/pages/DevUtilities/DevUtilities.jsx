@@ -144,7 +144,7 @@ const DevUtilities = () => {
       title: "JSON YAML CSV XML Converter",
       description:
         "Convert between JSON, YAML, CSV and XML formats in real time with syntax validation.",
-      path: "/devutilities/json-csv-yaml",
+      path: "/devutilities/json-yaml-csv-xml",
       icon: (
         <svg
           className="w-6 h-6"

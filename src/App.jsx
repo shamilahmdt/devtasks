@@ -356,16 +356,20 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route path="/devutilities/css-unit-converter" element={<CssUnitConverter />} />
               <Route path="/devutilities/json" element={<JsonFormatter />} />
               <Route
-                path="/devutilities/json-csv-yaml"
+                path="/devutilities/json-yaml-csv-xml"
                 element={<JsonYamlCsvXmlConverter />}
               />
               <Route
+                path="/devutilities/json-csv-yaml"
+                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+              />
+              <Route
                 path="/devutilities/xml-json"
-                element={<Navigate to="/devutilities/json-csv-yaml" replace />}
+                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
               />
               <Route
                 path="/devutilities/json-yaml"
-                element={<Navigate to="/devutilities/json-csv-yaml" replace />}
+                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
               />
               <Route
                 path="/devutilities/markdown"
