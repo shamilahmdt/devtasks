@@ -79,6 +79,7 @@ import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseCon
 import LoremIpsumGenerator from "./pages/DevUtilities/devutilities/LoremIpsumGenerator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
 import SIDEBAR_SECTIONS from "./config/sidebarSections";
+import TokenGenerator from "./pages/DevUtilities/devutilities/TokenGenerator";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -464,6 +465,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/html-multi-converter"
                 element={<HtmlMultiConverter />}
+              />
+              <Route
+                path="/devutilities/design-tokens"
+                element={<TokenGenerator />}
               />
             </Routes>
             
