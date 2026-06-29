@@ -9,7 +9,7 @@ export default function Base64ImageConverter() {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
     const [base64, setBase64] = useState("");
-
+    
 const [metadata, setMetadata] = useState({
   name: "",
   type: "",
@@ -87,13 +87,34 @@ const handleClear = () => {
       </h1>
 
       <label
-        className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-xl cursor-pointer ${
-          dark ? "border-zinc-600" : "border-zinc-300"
-        }`}
-      >
-        <p className="mb-2 font-semibold">
-          Click to upload an image
-        </p>
+  onDragOver={(e) => e.preventDefault()}
+  onDrop={(e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    handleImage(file);
+  }}
+  className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-xl cursor-pointer ${
+    dark ? "border-zinc-600" : "border-zinc-300"
+  }`}
+>
+        <div className="text-center">
+  <p className="text-lg font-bold">
+    Drag & Drop an Image
+  </p>
+
+  <p className="mt-2 text-sm opacity-70">
+    or click to browse
+  </p>
+
+  <p className="mt-2 text-xs opacity-50">
+    PNG • JPG • JPEG • GIF • SVG • WebP (Max 5MB)
+  </p>
+</div>
+{image && (
+  <p className="mt-4 text-sm opacity-70">
+    Selected: {image.name}
+  </p>
+)}
 
         <input
           type="file"
@@ -118,7 +139,7 @@ const handleClear = () => {
         Image Details
       </h3>
 
-      <p><strong>Name:</strong> {metadata.name}</p>
+      <p className="mb-2"><strong>Name:</strong> {metadata.name}</p>
       <p><strong>Type:</strong> {metadata.type}</p>
       <p><strong>Size:</strong> {metadata.size}</p>
       <p>
@@ -135,8 +156,8 @@ const handleClear = () => {
       <textarea
         value={base64}
         readOnly
-        rows={8}
-        className={`w-full rounded-xl border p-3 ${
+        rows={12}
+        className={`w-full rounded-xl border p-3 resize-none ${
           dark
             ? "bg-zinc-900 border-zinc-700 text-white"
             : "bg-white border-zinc-300 text-black"
@@ -147,14 +168,22 @@ const handleClear = () => {
     <div className="flex gap-4 mt-4">
       <button
         onClick={handleCopy}
-        className="px-4 py-2 rounded-lg bg-black text-white"
+        className={`px-5 py-2 rounded-xl border transition-all ${
+  dark
+    ? "bg-zinc-800 border-zinc-700 hover:bg-zinc-700"
+    : "bg-white border-zinc-300 hover:bg-zinc-100"
+}`}
       >
         Copy Base64
       </button>
 
       <button
         onClick={handleClear}
-        className="px-4 py-2 rounded-lg border"
+        className={`px-5 py-2 rounded-xl border transition-all ${
+  dark
+    ? "bg-zinc-800 border-zinc-700 hover:bg-zinc-700"
+    : "bg-white border-zinc-300 hover:bg-zinc-100"
+}`}
       >
         Clear
       </button>
