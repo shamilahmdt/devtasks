@@ -803,6 +803,10 @@ const DevUtilities = () => {
       description:
         "JSON Path and JSON Query Playground. Fully offline.",
       path: "/devutilities/jsonpath-playground",
+      title: "Design Token Generator",
+      description:
+        "Generate design system tokens for colors, typography, and spacing. Export as CSS variables, Tailwind config, or Sass. Fully offline.",
+      path: "/devutilities/design-tokens",
       icon: (
         <svg
           className="w-6 h-6"
@@ -814,7 +818,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M8 9l-3 3 3 3m8-6l3 3-3 3M13 5l-2 14"
+            d="M7 7a3 3 0 116 0c0 .9-.4 1.7-1 2.3l-4.7 4.7a2 2 0 102.8 2.8l.7-.7h1.7a3.5 3.5 0 100-7h-.5M14 7h.01"
           />
         </svg>
       ),
