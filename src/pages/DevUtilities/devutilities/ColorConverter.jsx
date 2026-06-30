@@ -144,6 +144,19 @@ function rgbToCmyk(r, g, b) {
   };
 }
 
+function cmykToRgb(c, m, y, k) {
+  const cyan = c / 100;
+  const magenta = m / 100;
+  const yellow = y / 100;
+  const key = k / 100;
+
+  return {
+    r: Math.round(255 * (1 - cyan) * (1 - key)),
+    g: Math.round(255 * (1 - magenta) * (1 - key)),
+    b: Math.round(255 * (1 - yellow) * (1 - key)),
+  };
+}
+
 function parseNumberList(input) {
   return input.match(/-?\d+(?:\.\d+)?/g)?.map((value) => Number(value)) ?? null;
 }
