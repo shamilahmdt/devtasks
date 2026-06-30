@@ -12,7 +12,9 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
+<url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/keycode-inspector</loc>
+</url>
   <!-- Task Management -->
   <url>
     <loc>https://dev-tasks-beta.vercel.app/taskmanage</loc>

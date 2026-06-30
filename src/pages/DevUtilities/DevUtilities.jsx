@@ -183,6 +183,27 @@ const DevUtilities = () => {
       ),
     },
     {
+  title: "Keyboard Keycode Inspector",
+  description:
+    "Inspect keyboard events, key codes, modifiers and physical keyboard layout in real time.",
+  path: "/devutilities/keycode-inspector",
+  icon: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 8h16M4 12h16M4 16h16"
+      />
+    </svg>
+  ),
+},
+    {
       title: "UUID Generator",
       description:
         "Generate RFC4122-compliant v4 UUIDs offline with formatting options.",

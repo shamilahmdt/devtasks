@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { Toaster } from "sonner";
 import Home from "./pages/Home";
+import KeycodeInspector from "./pages/DevUtilities/devutilities/KeycodeInspector";
 import Dashboard from "./pages/Dashboard";
 import TaskManage from "./pages/TaskManagement/TaskManage";
 import AddTasks from "./pages/TaskManagement/taskmanage/AddTasks";
@@ -356,6 +357,10 @@ function AppInner({ toggleHUD, hudVisible }) {
 
               {/* Dev Utilities */}
               <Route path="/devutilities" element={<DevUtilities />} />
+              <Route
+  path="/devutilities/keycode-inspector"
+  element={<KeycodeInspector />}
+/>
               <Route path="/devutilities/regex" element={<RegexTester />} />
               <Route path="/devutilities/css-unit-converter" element={<CssUnitConverter />} />
               <Route path="/devutilities/json" element={<JsonFormatter />} />

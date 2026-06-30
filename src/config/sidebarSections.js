@@ -137,6 +137,11 @@ const SIDEBAR_SECTIONS = [
         exact: true,
       },
       {
+    label: "Keyboard Keycode Inspector",
+    path: "/devutilities/keycode-inspector",
+    description: "Inspect keyboard events in real time."
+},
+      {
         label: "JSON Formatter",
         description: "Format and validate JSON",
         path: "/devutilities/json",
