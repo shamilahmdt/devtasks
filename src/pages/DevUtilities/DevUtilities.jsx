@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { FaCode } from "react-icons/fa";
+import { FaCode, FaCodeBranch } from "react-icons/fa";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
 const DevUtilities = () => {
@@ -965,6 +965,13 @@ const DevUtilities = () => {
           />
         </svg>
       ),
+    },
+    {
+      title: "Git Command Builder",
+      description:
+        "Scenario-based Git command builder to help find and customize commands for common tasks.",
+      path: "/devutilities/git-builder",
+      icon: <FaCodeBranch />,
     },
   ];
 
