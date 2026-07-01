@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 
 const SCENARIOS = [
   // Commits
@@ -111,7 +111,7 @@ const SCENARIOS = [
       { id: "message", type: "text", label: "Stash Message", default: "WIP feature" }
     ],
     generate: (inputs) => [
-      { cmd: `git stash save "${inputs.message}"`, desc: "Save local changes to a new stash with a specific message." }
+      { cmd: `git stash push -m "${inputs.message}"`, desc: "Save local changes to a new stash with a specific message." }
     ]
   },
   {
@@ -166,7 +166,7 @@ const SCENARIOS = [
       { id: "filepath", type: "text", label: "File Path", default: "src/App.jsx" }
     ],
     generate: (inputs) => [
-      { cmd: `git checkout -- ${inputs.filepath}`, desc: "Restore the file to its state in the last commit." }
+      { cmd: `git restore --source=HEAD --staged --worktree -- ${inputs.filepath}`, desc: "Restore the file to its state in the last commit (HEAD), discarding both staged and unstaged changes." }
     ]
   },
   {
@@ -257,15 +257,23 @@ const GitCommandBuilder = () => {
 
   const generatedCommands = selectedScenario.generate(inputs);
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    toast.success("Command copied to clipboard");
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Command copied to clipboard");
+    } catch {
+      toast.error("Failed to copy command to clipboard");
+    }
   };
 
-  const copyAll = () => {
-    const fullCommand = generatedCommands.map(c => c.cmd).join(" && \\\n");
-    navigator.clipboard.writeText(fullCommand);
-    toast.success("All commands copied to clipboard");
+  const copyAll = async () => {
+    const fullCommand = generatedCommands.map((c) => c.cmd).join(" && \\\n");
+    try {
+      await navigator.clipboard.writeText(fullCommand);
+      toast.success("All commands copied to clipboard");
+    } catch {
+      toast.error("Failed to copy commands to clipboard");
+    }
   };
 
   // Group scenarios by category
@@ -479,7 +487,8 @@ const GitCommandBuilder = () => {
                         </div>
                         <button
                           onClick={() => copyToClipboard(cmdItem.cmd)}
-                          className="opacity-0 group-hover:opacity-100 p-1.5 rounded bg-zinc-800 text-zinc-400 hover:text-white transition-all shrink-0"
+                          aria-label="Copy command"
+                          className="opacity-0 group-hover:opacity-100 focus:opacity-100 focus-visible:opacity-100 p-1.5 rounded bg-zinc-800 text-zinc-400 hover:text-white transition-all shrink-0"
                           title="Copy Command"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
