@@ -137,10 +137,10 @@ const SIDEBAR_SECTIONS = [
         exact: true,
       },
       {
-    label: "Keyboard Keycode Inspector",
-    path: "/devutilities/keycode-inspector",
-    description: "Inspect keyboard events in real time."
-},
+        label: "Keyboard Keycode Inspector",
+        path: "/devutilities/keycode-inspector",
+        description: "Inspect keyboard events in real time.",
+      },
       {
         label: "JSON Formatter",
         description: "Format and validate JSON",
@@ -347,6 +347,12 @@ const SIDEBAR_SECTIONS = [
         description:
           "Generate design system tokens for colors, typography, and spacing. Export as CSS variables, Tailwind config, or Sass. Fully offline.",
         path: "/devutilities/design-tokens",
+      },
+      {
+        label: "SQL Schema Converter",
+        description:
+          "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
+        path: "/devutilities/sql-converter",
       },
     ],
   },

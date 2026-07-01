@@ -10,12 +10,14 @@ const DevUtilities = () => {
   const theme = {
     light: {
       wrapper: "bg-[#F8F9FA] text-zinc-900",
-      card: "bg-white border-zinc-200/85 hover:border-zinc-400 hover:shadow-md hover:-translate-y-1",
+      card:
+        "bg-white border-zinc-200/85 hover:border-zinc-400 hover:shadow-md hover:-translate-y-1",
       icon: "bg-black text-white border border-black/10",
     },
     dark: {
       wrapper: "bg-[#090A0F] text-zinc-100",
-      card: "bg-zinc-900/50 border-zinc-800/85 hover:border-zinc-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:-translate-y-1",
+      card:
+        "bg-zinc-900/50 border-zinc-800/85 hover:border-zinc-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:-translate-y-1",
       icon: "bg-white text-black border border-white/10",
     },
   };
@@ -73,7 +75,8 @@ const DevUtilities = () => {
     },
     {
       title: "CSS Unit & Fluid Typography",
-      description: "Convert CSS units instantly and generate fluid typography clamp() functions.",
+      description:
+        "Convert CSS units instantly and generate fluid typography clamp() functions.",
       path: "/devutilities/css-unit-converter",
       icon: (
         <svg
@@ -176,26 +179,26 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "Keyboard Keycode Inspector",
-  description:
-    "Inspect keyboard events, key codes, modifiers and physical keyboard layout in real time.",
-  path: "/devutilities/keycode-inspector",
-  icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 8h16M4 12h16M4 16h16"
-      />
-    </svg>
-  ),
-},
+      title: "Keyboard Keycode Inspector",
+      description:
+        "Inspect keyboard events, key codes, modifiers and physical keyboard layout in real time.",
+      path: "/devutilities/keycode-inspector",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 8h16M4 12h16M4 16h16"
+          />
+        </svg>
+      ),
+    },
     {
       title: "UUID Generator",
       description:
@@ -575,6 +578,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "SQL Schema Converter",
+      description:
+        "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
+      path: "/devutilities/sql-converter",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4C7.582 4 4 5.79 4 8s3.582 4 8 4 8-1.79 8-4-3.582-4-8-4zm8 4v4c0 2.21-3.582 4-8 4s-8-1.79-8-4V8m16 4v4c0 2.21-3.582 4-8 4s-8-1.79-8-4v-4"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "HTML Entity Converter",
       description:
         "Encode and decode HTML/XML entities using named or numeric formats. Fully offline.",
@@ -862,8 +886,7 @@ const DevUtilities = () => {
     },
     {
       title: "JSON Path & JSON Query Playground",
-      description:
-        "JSON Path and JSON Query Playground. Fully offline.",
+      description: "JSON Path and JSON Query Playground. Fully offline.",
       path: "/devutilities/jsonpath-playground",
       icon: (
         <svg
@@ -976,10 +999,11 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
+              dark
                 ? "text-neutral-400 hover:text-white"
                 : "text-neutral-500 hover:text-black"
-              }`}
+            }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -1015,10 +1039,11 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
+                    dark
                       ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
                       : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
-                    }`}
+                  }`}
                 />
                 {searchQuery && (
                   <button
@@ -1069,7 +1094,12 @@ const DevUtilities = () => {
                     if (t.includes("TIMESTAMP")) return "TIMESTAMP";
                     if (t.includes("UUID")) return "UUID";
                     if (t.includes("JWT ENCODE")) return "JWT ENCODE";
-                    if (t.includes("JWT DECODE") || t === "JWT DECODER" || (t.includes("JWT") && !t.includes("ENCODE"))) return "JWT DECODE";
+                    if (
+                      t.includes("JWT DECODE") ||
+                      t === "JWT DECODER" ||
+                      (t.includes("JWT") && !t.includes("ENCODE"))
+                    )
+                      return "JWT DECODE";
                     if (t.includes("DIFF")) return "DIFF";
                     if (t.includes("HASH")) return "HASH";
                     if (t.includes("COLOR")) return "COLOR";
@@ -1112,10 +1142,11 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-                className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  hasFavorites
                     ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
                     : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
-                  }`}
+                }`}
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div>
@@ -1141,7 +1172,9 @@ const DevUtilities = () => {
                       <Link
                         key={card.path}
                         to={card.path}
-                        id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        id={`devutilities-card-${card.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
                       >
                         <button
@@ -1157,12 +1190,13 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                            }`}
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                          }`}
                         >
                           <svg
                             className="h-5 w-5"
@@ -1231,7 +1265,9 @@ const DevUtilities = () => {
                       <Link
                         key={card.path}
                         to={card.path}
-                        id={`devutilities-card-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                        id={`devutilities-card-${card.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                         className={`group relative p-6 border rounded-3xl transition-all duration-300 flex flex-col justify-between min-h-70 h-full ${t.card}`}
                       >
                         <button
@@ -1247,12 +1283,13 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                            }`}
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                          }`}
                         >
                           <svg
                             className="h-5 w-5"

@@ -61,6 +61,7 @@ import PasswordGenerator from "./pages/DevUtilities/devutilities/PasswordGenerat
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
+import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConverter";
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
 import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
@@ -105,7 +106,6 @@ function AppInner({ toggleHUD, hudVisible }) {
   useKeyboardShortcuts(toggleHUD, hudVisible);
   const location = useLocation();
 
-
   const showNavbar = location.pathname !== "/";
   const { dark } = useTheme();
 
@@ -113,11 +113,14 @@ function AppInner({ toggleHUD, hudVisible }) {
   useEffect(() => {
     // Find active section and item
     const activeSection = SIDEBAR_SECTIONS.find((section) =>
-      section.match(location.pathname)
+      section.match(location.pathname),
     );
-    let title = "DevTasks — Developer Workspace: Tasks, Snippets, Resources & DevUtilities";
-    let description = "DevTasks is a unified developer workspace. Manage engineering task roadmaps, vault secure code snippets, reference curated bookmark links, and run offline dev utilities with ease.";
-    let keywords = "devtasks, dev tasks, developer todo workspace, engineer task manager, roadmap builder, bug tracking checklist, code snippet manager, bookmarks manager, dev workflow optimizer";
+    let title =
+      "DevTasks — Developer Workspace: Tasks, Snippets, Resources & DevUtilities";
+    let description =
+      "DevTasks is a unified developer workspace. Manage engineering task roadmaps, vault secure code snippets, reference curated bookmark links, and run offline dev utilities with ease.";
+    let keywords =
+      "devtasks, dev tasks, developer todo workspace, engineer task manager, roadmap builder, bug tracking checklist, code snippet manager, bookmarks manager, dev workflow optimizer";
 
     if (activeSection) {
       const activeItem = activeSection.items.find((item) => {
@@ -164,13 +167,17 @@ function AppInner({ toggleHUD, hudVisible }) {
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", title);
 
-    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    const twitterTitle = document.querySelector(
+      'meta[property="twitter:title"]',
+    );
     if (twitterTitle) twitterTitle.setAttribute("content", title);
 
     const ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) ogDesc.setAttribute("content", description);
 
-    const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+    const twitterDesc = document.querySelector(
+      'meta[property="twitter:description"]',
+    );
     if (twitterDesc) twitterDesc.setAttribute("content", description);
 
     // Canonical link
@@ -360,7 +367,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssAnimationGenerator />}
               />
               <Route path="/devutilities/regex" element={<RegexTester />} />
-              <Route path="/devutilities/css-unit-converter" element={<CssUnitConverter />} />
+              <Route
+                path="/devutilities/css-unit-converter"
+                element={<CssUnitConverter />}
+              />
               <Route path="/devutilities/json" element={<JsonFormatter />} />
               <Route
                 path="/devutilities/json-yaml-csv-xml"
@@ -368,15 +378,21 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/json-csv-yaml"
-                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+                element={
+                  <Navigate to="/devutilities/json-yaml-csv-xml" replace />
+                }
               />
               <Route
                 path="/devutilities/xml-json"
-                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+                element={
+                  <Navigate to="/devutilities/json-yaml-csv-xml" replace />
+                }
               />
               <Route
                 path="/devutilities/json-yaml"
-                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+                element={
+                  <Navigate to="/devutilities/json-yaml-csv-xml" replace />
+                }
               />
               <Route
                 path="/devutilities/markdown"
@@ -387,7 +403,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<HtmlEntityConverter />}
               />
               <Route path="/devutilities/base64" element={<Base64Url />} />
-              <Route path="/devutilities/base64-image" element={<Base64Image />} />
+              <Route
+                path="/devutilities/base64-image"
+                element={<Base64Image />}
+              />
               <Route
                 path="/devutilities/timestamp"
                 element={<TimestampConverter />}
@@ -475,14 +494,20 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/html-multi-converter"
                 element={<HtmlMultiConverter />}
               />
-              <Route path="/devutilities/jsonpath-playground" element={<JsonPathEvaluator />} />
+              <Route
+                path="/devutilities/jsonpath-playground"
+                element={<JsonPathEvaluator />}
+              />
               <Route
                 path="/devutilities/design-tokens"
                 element={<TokenGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
+              <Route
+                path="/devutilities/sql-converter"
+                element={<SqlSchemaConverter />}
+              />
             </Routes>
-            
           </div>
           {showNavbar && <Footer />}
         </div>
