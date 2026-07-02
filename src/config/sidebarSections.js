@@ -370,6 +370,11 @@ const SIDEBAR_SECTIONS = [
           "Scenario-based Git command builder to help find and customize commands for common tasks.",
         path: "/devutilities/git-builder",
       },
+      {
+        label: "Image Optimizer",
+        description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
+        path: "/devutilities/image-optimizer",
+      },
     ],
   },
 ];

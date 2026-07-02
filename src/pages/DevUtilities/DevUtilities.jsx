@@ -10,14 +10,12 @@ const DevUtilities = () => {
   const theme = {
     light: {
       wrapper: "bg-[#F8F9FA] text-zinc-900",
-      card:
-        "bg-white border-zinc-200/85 hover:border-zinc-400 hover:shadow-md hover:-translate-y-1",
+      card: "bg-white border-zinc-200/85 hover:border-zinc-400 hover:shadow-md hover:-translate-y-1",
       icon: "bg-black text-white border border-black/10",
     },
     dark: {
       wrapper: "bg-[#090A0F] text-zinc-100",
-      card:
-        "bg-zinc-900/50 border-zinc-800/85 hover:border-zinc-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:-translate-y-1",
+      card: "bg-zinc-900/50 border-zinc-800/85 hover:border-zinc-600 hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)] hover:-translate-y-1",
       icon: "bg-white text-black border border-white/10",
     },
   };
@@ -138,8 +136,7 @@ const DevUtilities = () => {
     },
     {
       title: "JSON → Types Converter",
-      description:
-        "Convert JSON into TypeScript interfaces and Go structs.",
+      description: "Convert JSON into TypeScript interfaces and Go structs.",
       icon: "🧩",
       path: "/devutilities/json-types-converter",
     },
@@ -412,6 +409,27 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M3 18L8.5 5.5L14 18M4.5 14h8M21 12v6m0-3a2.5 2.5 0 10-5 0 2.5 2.5 0 005 0"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Image Optimizer",
+      description:
+        "Compress, resize, and convert PNG, JPEG, and GIF images to WebP, JPEG, or PNG entirely in your browser.",
+      path: "/devutilities/image-optimizer",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16l4-4 4 4 6-6M4 20h16M6 4h12a2 2 0 012 2v12H4V6a2 2 0 012-2z"
           />
         </svg>
       ),
@@ -1000,8 +1018,22 @@ const DevUtilities = () => {
     }
 
     // 2. Split query into terms, filter out common stop words, and check if all terms match
-    const stopWords = new Set(["to", "and", "or", "a", "an", "the", "in", "into", "for", "with", "from"]);
-    const queryWords = query.split(/\s+/).filter((word) => !stopWords.has(word) && word.length > 0);
+    const stopWords = new Set([
+      "to",
+      "and",
+      "or",
+      "a",
+      "an",
+      "the",
+      "in",
+      "into",
+      "for",
+      "with",
+      "from",
+    ]);
+    const queryWords = query
+      .split(/\s+/)
+      .filter((word) => !stopWords.has(word) && word.length > 0);
 
     if (queryWords.length > 0) {
       const cardContent = `${cardTitle} ${cardDesc} ${cardPath}`;
@@ -1251,8 +1283,8 @@ const DevUtilities = () => {
                             isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
-                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                           }`}
                         >
                           <svg
@@ -1344,8 +1376,8 @@ const DevUtilities = () => {
                             isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
-                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                           }`}
                         >
                           <svg
