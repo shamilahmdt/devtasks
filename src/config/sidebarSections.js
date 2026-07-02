@@ -207,6 +207,10 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/base64-image",
       },
       {
+  label: "JSON → Types Converter",
+  path: "/devutilities/json-types-converter",
+},
+      {
         label: "HTML Entity Converter",
         description: "Encode/decode HTML entities",
         path: "/devutilities/html-entity",

@@ -19,6 +19,7 @@ import AddTasks from "./pages/TaskManagement/taskmanage/AddTasks";
 import DataCenter from "./pages/TaskManagement/taskmanage/DataCenter";
 import DeleteHistory from "./pages/TaskManagement/taskmanage/DeleteHistory";
 import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
+import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -145,7 +146,7 @@ function AppInner({ toggleHUD, hudVisible }) {
       }
     }
 
-    // Apply metadata
+   
     document.title = title;
 
     let descMeta = document.querySelector('meta[name="description"]');
@@ -164,7 +165,7 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
     keysMeta.setAttribute("content", keywords);
 
-    // Open Graph & Twitter Titles & Descriptions
+    
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", title);
 
@@ -189,7 +190,7 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
   }, [location.pathname]);
 
-  // Flag to block scroll saving during route shifts and scroll restoration
+  
   const isRestoringRef = useRef(false);
 
   useEffect(() => {
@@ -230,14 +231,14 @@ function AppInner({ toggleHUD, hudVisible }) {
       scrollContainer.scrollTop = 0;
     }
 
-    // Safety fallback: allow scroll saving after 800ms
+   
     const safetyTimeout = setTimeout(() => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
       }
     }, 800);
 
-    // End restoration immediately if the user interacts with the page
+   
     const handleUserInteraction = () => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
@@ -265,7 +266,7 @@ function AppInner({ toggleHUD, hudVisible }) {
       if (isRestoringRef.current) {
         return;
       }
-      // Capture the scrolled scrollTop value immediately to avoid unmount layout shifts
+      
       const currentScrollTop = scrollContainer.scrollTop;
 
       if (saveTimeout) clearTimeout(saveTimeout);
@@ -408,6 +409,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/base64-image"
                 element={<Base64Image />}
               />
+              <Route
+  path="/devutilities/json-types-converter"
+  element={<JsonTypesConverter />}
+/>
               <Route
                 path="/devutilities/timestamp"
                 element={<TimestampConverter />}

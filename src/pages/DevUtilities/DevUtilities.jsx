@@ -137,6 +137,13 @@ const DevUtilities = () => {
       ),
     },
     {
+  title: "JSON → Types Converter",
+  description:
+    "Convert JSON into TypeScript interfaces and Go structs.",
+  icon: "🧩",
+  path: "/devutilities/json-types-converter",
+},
+    {
       title: "JSON YAML CSV XML Converter",
       description:
         "Convert between JSON, YAML, CSV and XML formats in real time with syntax validation.",
