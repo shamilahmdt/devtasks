@@ -982,11 +982,34 @@ const DevUtilities = () => {
     new Map(sortedCards.map((card) => [card.path, card])).values(),
   );
 
-  const matchedCards = uniqueCards.filter(
-    (card) =>
-      card.title.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
-      card.description.toLowerCase().includes(searchQuery.toLowerCase().trim()),
-  );
+  const matchedCards = uniqueCards.filter((card) => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+
+    const cardTitle = card.title.toLowerCase();
+    const cardDesc = card.description.toLowerCase();
+    const cardPath = card.path.toLowerCase();
+
+    // 1. Direct substring match on title, description, or path
+    if (
+      cardTitle.includes(query) ||
+      cardDesc.includes(query) ||
+      cardPath.includes(query)
+    ) {
+      return true;
+    }
+
+    // 2. Split query into terms, filter out common stop words, and check if all terms match
+    const stopWords = new Set(["to", "and", "or", "a", "an", "the", "in", "into", "for", "with", "from"]);
+    const queryWords = query.split(/\s+/).filter((word) => !stopWords.has(word) && word.length > 0);
+
+    if (queryWords.length > 0) {
+      const cardContent = `${cardTitle} ${cardDesc} ${cardPath}`;
+      return queryWords.every((word) => cardContent.includes(word));
+    }
+
+    return false;
+  });
 
   const filteredUniqueCards =
     searchQuery.trim() && matchedCards.length === 0
