@@ -376,6 +376,11 @@ const SIDEBAR_SECTIONS = [
           "Scenario-based Git command builder to help find and customize commands for common tasks.",
         path: "/devutilities/git-builder",
       },
+      {
+        label: "URL Slug Generator & Text Sanitizer",
+        description: "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
+        path: "/devutilities/slug-generator",
+      },
     ],
   },
 ];

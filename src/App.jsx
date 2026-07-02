@@ -67,6 +67,7 @@ import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConve
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
 import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
+import SlugGenerator from "./pages/DevUtilities/devutilities/SlugGenerator";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
 import TokenGenerator from "./pages/DevUtilities/devutilities/TokenGenerator";
@@ -521,6 +522,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/sql-converter"
                 element={<SqlSchemaConverter />}
+              />
+              <Route
+                path="/devutilities/slug-generator"
+                element={<SlugGenerator />}
               />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route path="*" element={<Navigate to="/" replace />} />

@@ -809,6 +809,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "URL Slug Generator & Text Sanitizer",
+      description:
+        "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
+      path: "/devutilities/slug-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5M10.172 13.828a4 4 0 010-5.656l3-3a4 4 0 015.656 5.656l-1.5 1.5"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Animation Generator",
       description:
         "Create custom keyframe animations, customize duration and timing functions, and copy generated CSS.",
