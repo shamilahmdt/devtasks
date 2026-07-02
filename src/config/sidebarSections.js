@@ -275,6 +275,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/jwt",
       },
       {
+        label: "CSS Clip-path Maker & Shape Generator",
+        description:
+          "Design CSS clip-path shapes with draggable vertices, presets, and instant copy-ready CSS output.",
+        path: "/devutilities/clip-path",
+      },
+      {
         label: "CSS Animation Generator",
         description:
           "Create custom keyframe animations, customize duration and timing functions, and copy generated CSS.",

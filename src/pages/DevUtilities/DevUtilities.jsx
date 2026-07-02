@@ -782,6 +782,33 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Clip-path Maker & Shape Generator",
+      description:
+        "Design CSS clip-path shapes with draggable vertices, presets, and instant copy-ready CSS output.",
+      path: "/devutilities/clip-path",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 2l7 4v8l-7 8-7-8V6l7-4z"
+          />
+          <circle cx="12" cy="2" r="1" fill="currentColor" stroke="none" />
+          <circle cx="19" cy="6" r="1" fill="currentColor" stroke="none" />
+          <circle cx="19" cy="14" r="1" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="22" r="1" fill="currentColor" stroke="none" />
+          <circle cx="5" cy="14" r="1" fill="currentColor" stroke="none" />
+          <circle cx="5" cy="6" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Animation Generator",
       description:
         "Create custom keyframe animations, customize duration and timing functions, and copy generated CSS.",

@@ -33,6 +33,7 @@ import Base64Image from "./pages/DevUtilities/devutilities/Base64Image";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
 import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
+import ClipPathMaker from "./pages/DevUtilities/devutilities/ClipPathMaker";
 import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
 import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
@@ -475,6 +476,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/subnet"
                 element={<SubnetCalculator />}
+              />
+              <Route
+                path="/devutilities/clip-path"
+                element={<ClipPathMaker />}
               />
 
               <Route
