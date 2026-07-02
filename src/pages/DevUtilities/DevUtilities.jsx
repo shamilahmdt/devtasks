@@ -137,12 +137,12 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "JSON → Types Converter",
-  description:
-    "Convert JSON into TypeScript interfaces and Go structs.",
-  icon: "🧩",
-  path: "/devutilities/json-types-converter",
-},
+      title: "JSON → Types Converter",
+      description:
+        "Convert JSON into TypeScript interfaces and Go structs.",
+      icon: "🧩",
+      path: "/devutilities/json-types-converter",
+    },
     {
       title: "JSON YAML CSV XML Converter",
       description:
@@ -953,27 +953,6 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "SQL Schema Converter",
-      description:
-        "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
-      path: "/devutilities/sql-converter",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.58 4 8 4s8-1.79 8-4M4 7c0-2.21 3.58-4 8-4s8 1.79 8 4m0 5c0 2.21-3.58 4-8 4s-8-1.79-8-4"
-          />
-        </svg>
-      ),
-    },
-    {
       title: "Git Command Builder",
       description:
         "Scenario-based Git command builder to help find and customize commands for common tasks.",
@@ -1003,11 +982,34 @@ const DevUtilities = () => {
     new Map(sortedCards.map((card) => [card.path, card])).values(),
   );
 
-  const matchedCards = uniqueCards.filter(
-    (card) =>
-      card.title.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
-      card.description.toLowerCase().includes(searchQuery.toLowerCase().trim()),
-  );
+  const matchedCards = uniqueCards.filter((card) => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+
+    const cardTitle = card.title.toLowerCase();
+    const cardDesc = card.description.toLowerCase();
+    const cardPath = card.path.toLowerCase();
+
+    // 1. Direct substring match on title, description, or path
+    if (
+      cardTitle.includes(query) ||
+      cardDesc.includes(query) ||
+      cardPath.includes(query)
+    ) {
+      return true;
+    }
+
+    // 2. Split query into terms, filter out common stop words, and check if all terms match
+    const stopWords = new Set(["to", "and", "or", "a", "an", "the", "in", "into", "for", "with", "from"]);
+    const queryWords = query.split(/\s+/).filter((word) => !stopWords.has(word) && word.length > 0);
+
+    if (queryWords.length > 0) {
+      const cardContent = `${cardTitle} ${cardDesc} ${cardPath}`;
+      return queryWords.every((word) => cardContent.includes(word));
+    }
+
+    return false;
+  });
 
   const filteredUniqueCards =
     searchQuery.trim() && matchedCards.length === 0

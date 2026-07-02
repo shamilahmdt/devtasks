@@ -207,9 +207,10 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/base64-image",
       },
       {
-  label: "JSON → Types Converter",
-  path: "/devutilities/json-types-converter",
-},
+        label: "JSON → Types Converter",
+        description: "Convert JSON into TypeScript interfaces and Go structs.",
+        path: "/devutilities/json-types-converter",
+      },
       {
         label: "HTML Entity Converter",
         description: "Encode/decode HTML entities",
@@ -362,6 +363,12 @@ const SIDEBAR_SECTIONS = [
         description:
           "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
         path: "/devutilities/sql-converter",
+      },
+      {
+        label: "Git Command Builder",
+        description:
+          "Scenario-based Git command builder to help find and customize commands for common tasks.",
+        path: "/devutilities/git-builder",
       },
     ],
   },
