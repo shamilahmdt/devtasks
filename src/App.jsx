@@ -74,6 +74,7 @@ import UserAgentParser from "./pages/DevUtilities/devutilities/UserAgentParser";
 import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
+import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -516,6 +517,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/sql-converter"
                 element={<SqlSchemaConverter />}
+              />
+              <Route
+                path="/devutilities/image-optimizer"
+                element={<ImageOptimizer />}
               />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route path="*" element={<Navigate to="/" replace />} />
