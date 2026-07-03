@@ -388,12 +388,6 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/slug-generator",
       },
       {
-  label: "Robots.txt Generator",
-  description: "Generate robots.txt files for your website.",
-  path: "/devutilities/robots-txt-generator",
-},
-
-      {
         label: "Image Optimizer",
         description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
         path: "/devutilities/image-optimizer",

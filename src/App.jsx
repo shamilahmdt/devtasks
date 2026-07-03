@@ -349,10 +349,6 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/snippetvault/data-center"
                 element={<DataCenterSnippet />}
               />
-              <Route
-  path="/devutilities/robots-txt-generator"
-  element={<RobotsTxtGenerator />}
-/>
 
               {/* Resource Hub */}
               <Route path="/resourcehub" element={<ResourceHub />} />

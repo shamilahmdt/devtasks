@@ -13,9 +13,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-  <loc>https://devtasks.pages.dev/devutilities/robots-txt-generator</loc>
-</url>
-  <url>
     <loc>https://dev-tasks-beta.vercel.app/dashboard</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
