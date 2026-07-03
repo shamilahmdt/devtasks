@@ -602,7 +602,7 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-     {
+    {
       title: "Robots.txt Generator",
       description:
         "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
@@ -1110,8 +1110,7 @@ const DevUtilities = () => {
     },
   ];
 
-
-  const devUtilsSection = SIDEBAR_SECTIONS.find
+  const devUtilsSection = SIDEBAR_SECTIONS.find(
     (s) => s.title === "Dev Utilities",
   );
   const pathOrder = devUtilsSection
