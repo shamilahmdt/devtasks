@@ -542,6 +542,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/image-optimizer"
                 element={<ImageOptimizer />}
               />
+              <Route
+                path="/devutilities/robots-generator"
+                element={<RobotsTxtGenerator />}
+              />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

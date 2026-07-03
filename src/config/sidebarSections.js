@@ -398,6 +398,11 @@ const SIDEBAR_SECTIONS = [
         description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
         path: "/devutilities/image-optimizer",
       },
+      {
+        label: "robots.txt Generator",
+        description: "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file.",
+        path: "/devutilities/robots-generator",
+      },
     ],
   },
 ];
