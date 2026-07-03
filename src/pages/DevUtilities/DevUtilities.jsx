@@ -603,26 +603,26 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "Robots.txt Generator",
-  description:
-    "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
-  path: "/devutilities/robots-txt-generator",
-  icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 12h6m-6 4h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"
-      />
-    </svg>
-  ),
-},
+      title: "Robots.txt Generator",
+      description:
+        "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
+      path: "/devutilities/robots-txt-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"
+          />
+        </svg>
+      ),
+    },
     {
       title: "SQL Formatter & Minifier",
       description:
@@ -1066,6 +1066,26 @@ const DevUtilities = () => {
         "Scenario-based Git command builder to help find and customize commands for common tasks.",
       path: "/devutilities/git-builder",
       icon: <FaCodeBranch />,
+    },
+    {
+      title: "API Status Checker",
+      description: "Check API endpoints, HTTP status codes and response times.",
+      path: "/devutilities/api-status-checker",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m0-11.314L7.05 7.05m10.9 10.9l-1.414-1.414"
+          />
+        </svg>
+      ),
     },
   ];
 
