@@ -187,26 +187,34 @@ export default function JsonTypesConverter() {
       toast.error("Failed to copy code");
     }
   };
+  
+  
+const handleDownload = () => {
+  if (!output) return;
 
-  const handleDownload = () => {
-    if (!output) return;
-    const extension = language === "typescript" ? "ts" : "go";
-    const cleanRootName = rootName.trim()
-      ? rootName.replace(/[^a-zA-Z0-9_]/g, "")
-      : "types";
-    const filename = `${cleanRootName.toLowerCase()}.${extension}`;
-    const blob = new Blob([output], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    toast.success(`Downloaded ${filename}`);
-  };
+  const extension = language === "typescript" ? "ts" : "go";
 
+  const cleanRootName = rootName.trim()
+    ? rootName.replace(/[^a-zA-Z0-9_]/g, "")
+    : "types";
+
+  const filename = `${cleanRootName.toLowerCase()}.${extension}`;
+
+  const blob = new Blob([output], {
+    type: "text/plain;charset=utf-8",
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast.success(`Downloaded ${filename}`);
+};
   return (
     <div
       className={`min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center ${
@@ -479,31 +487,22 @@ export default function JsonTypesConverter() {
                   Generated {language === "typescript" ? "TypeScript" : "Go Structs"}
                 </label>
                 <div className="flex gap-2">
+                  <div className="flex gap-2">
+  <button
+    onClick={handleCopy}
+    className="border rounded px-4 py-2"
+  >
+    Copy
+  </button>
+
+  
+</div>
                   <button
-                    type="button"
-                    onClick={handleCopy}
-                    disabled={!output}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all duration-300 active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${
-                      dark
-                        ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-white"
-                        : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-black"
-                    }`}
-                  >
-                    Copy
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDownload}
-                    disabled={!output}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all duration-300 active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${
-                      dark
-                        ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-white"
-                        : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50 hover:text-black"
-                    }`}
-                    title="Download as File"
-                  >
-                    Download
-                  </button>
+  onClick={handleDownload}
+  className="border rounded px-4 py-2"
+>
+  Download
+</button>
                 </div>
               </div>
 
@@ -523,6 +522,7 @@ export default function JsonTypesConverter() {
                     </span>
                   )}
                 </pre>
+                
               </div>
             </div>
 

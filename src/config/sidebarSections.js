@@ -26,6 +26,7 @@ const SIDEBAR_SECTIONS = [
       },
     ],
   },
+  
   {
     title: "Task Management",
     description: "Roadmaps, logs, and backups",
@@ -386,6 +387,12 @@ const SIDEBAR_SECTIONS = [
         description: "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
         path: "/devutilities/slug-generator",
       },
+      {
+  label: "Robots.txt Generator",
+  description: "Generate robots.txt files for your website.",
+  path: "/devutilities/robots-txt-generator",
+},
+
       {
         label: "Image Optimizer",
         description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",

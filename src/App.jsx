@@ -20,6 +20,7 @@ import DataCenter from "./pages/TaskManagement/taskmanage/DataCenter";
 import DeleteHistory from "./pages/TaskManagement/taskmanage/DeleteHistory";
 import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
 import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
+import RobotsTxtGenerator from "./pages/DevUtilities/devutilities/RobotsTxtGenerator";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -348,6 +349,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/snippetvault/data-center"
                 element={<DataCenterSnippet />}
               />
+              <Route
+  path="/devutilities/robots-txt-generator"
+  element={<RobotsTxtGenerator />}
+/>
 
               {/* Resource Hub */}
               <Route path="/resourcehub" element={<ResourceHub />} />
