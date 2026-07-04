@@ -26,7 +26,7 @@ const SIDEBAR_SECTIONS = [
       },
     ],
   },
-  
+
   {
     title: "Task Management",
     description: "Roadmaps, logs, and backups",
@@ -366,6 +366,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/design-tokens",
       },
       {
+        label: "Docker Configuration Generator",
+        description: "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
+        path: "/devutilities/docker-generator",
+      },
+      {
         label: "Word Counter",
         description: "Character & word count tool",
         path: "/devutilities/word-counter",
@@ -383,8 +388,15 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/git-builder",
       },
       {
+        label: ".gitignore Generator",
+        description:
+          "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
+        path: "/devutilities/gitignore-generator",
+      },
+      {
         label: "URL Slug Generator & Text Sanitizer",
-        description: "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
+        description:
+          "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
         path: "/devutilities/slug-generator",
       },
       {
@@ -397,15 +409,24 @@ const SIDEBAR_SECTIONS = [
         description:
           "Convert text strings into custom ASCII art banners for code comments and terminals.",
         path: "/devutilities/ascii-banner",
+
       },
       {
         label: "Image Optimizer",
-        description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
+        description:
+          "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
         path: "/devutilities/image-optimizer",
       },
       {
+        label: "API Status Checker",
+        description:
+          "Test API endpoints and inspect HTTP status, response time and output",
+        path: "/devutilities/api-status-checker",
+      },
+      {
         label: "robots.txt Generator",
-        description: "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file.",
+        description:
+          "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file.",
         path: "/devutilities/robots-generator",
       },
     ],

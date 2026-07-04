@@ -603,26 +603,26 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "Robots.txt Generator",
-  description:
-    "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
-  path: "/devutilities/robots-txt-generator",
-  icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 12h6m-6 4h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"
-      />
-    </svg>
-  ),
-},
+      title: "Robots.txt Generator",
+      description:
+        "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
+      path: "/devutilities/robots-txt-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"
+          />
+        </svg>
+      ),
+    },
     {
       title: "SQL Formatter & Minifier",
       description:
@@ -1041,6 +1041,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "Docker Configuration Generator",
+      description:
+        "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
+      path: "/devutilities/docker-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM4 9h16M8 13h.01M12 13h.01M16 13h.01"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Word Counter",
       description: "Count characters and words in your text instantly.",
       path: "/devutilities/word-counter",
@@ -1066,6 +1087,30 @@ const DevUtilities = () => {
         "Scenario-based Git command builder to help find and customize commands for common tasks.",
       path: "/devutilities/git-builder",
       icon: <FaCodeBranch />,
+    },
+    {
+      title: "API Status Checker",
+      description: "Check API endpoints, HTTP status codes and response times.",
+      path: "/devutilities/api-status-checker",
+      title: ".gitignore Generator",
+      description:
+        "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
+      path: "/devutilities/gitignore-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          />
+        </svg>
+      ),
     },
     {
       title: "robots.txt Generator",

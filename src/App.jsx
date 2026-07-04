@@ -79,7 +79,13 @@ import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
+
 import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
+
+
+import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
+import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
+import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
 
 
 import Footer from "./components/Footer";
@@ -154,7 +160,6 @@ function AppInner({ toggleHUD, hudVisible }) {
       }
     }
 
-   
     document.title = title;
 
     let descMeta = document.querySelector('meta[name="description"]');
@@ -173,7 +178,6 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
     keysMeta.setAttribute("content", keywords);
 
-    
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", title);
 
@@ -198,7 +202,6 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
   }, [location.pathname]);
 
-  
   const isRestoringRef = useRef(false);
 
   useEffect(() => {
@@ -239,14 +242,12 @@ function AppInner({ toggleHUD, hudVisible }) {
       scrollContainer.scrollTop = 0;
     }
 
-   
     const safetyTimeout = setTimeout(() => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
       }
     }, 800);
 
-   
     const handleUserInteraction = () => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
@@ -274,7 +275,7 @@ function AppInner({ toggleHUD, hudVisible }) {
       if (isRestoringRef.current) {
         return;
       }
-      
+
       const currentScrollTop = scrollContainer.scrollTop;
 
       if (saveTimeout) clearTimeout(saveTimeout);
@@ -352,9 +353,9 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<DataCenterSnippet />}
               />
               <Route
-  path="/devutilities/robots-txt-generator"
-  element={<RobotsTxtGenerator />}
-/>
+                path="/devutilities/robots-txt-generator"
+                element={<RobotsTxtGenerator />}
+              />
 
               {/* Resource Hub */}
               <Route path="/resourcehub" element={<ResourceHub />} />
@@ -426,9 +427,9 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<Base64Image />}
               />
               <Route
-  path="/devutilities/json-types-converter"
-  element={<JsonTypesConverter />}
-/>
+                path="/devutilities/json-types-converter"
+                element={<JsonTypesConverter />}
+              />
               <Route
                 path="/devutilities/timestamp"
                 element={<TimestampConverter />}
@@ -545,11 +546,27 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<ImageOptimizer />}
               />
               <Route
+                path="/devutilities/git-builder"
+                element={<GitCommandBuilder />}
+              />
+              <Route
+                path="/devutilities/api-status-checker"
+                element={<NetworkRequestTester />}
+              />
+              <Route
                 path="/devutilities/robots-generator"
                 element={<RobotsTxtGenerator />}
               />
               <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
+              <Route
+                path="/devutilities/docker-generator"
+                element={<DockerGenerator />}
+              />
+              <Route
+                path="/devutilities/gitignore-generator"
+                element={<GitignoreGenerator />}
+              />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
