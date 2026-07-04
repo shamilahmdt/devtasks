@@ -196,7 +196,7 @@ const Dashboard = () => {
                 Manage your engineering command center
               </p>
             </div>
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl border text-xs font-semibold w-fit ${
+            <div className={`hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl border text-xs font-semibold w-fit ${
               dark ? "bg-zinc-900/30 border-zinc-800 text-zinc-400" : "bg-neutral-50 border-neutral-200 text-neutral-500"
             }`}>
               <span>Tip: Press</span>

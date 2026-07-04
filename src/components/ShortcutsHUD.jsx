@@ -17,6 +17,7 @@ const shortcuts = [
   { keys: ["Alt", "V"], desc: "Go to Snippet Workspace" },
   { keys: ["Alt", "B"], desc: "Go to Resource Hub" },
   { keys: ["Alt", "U"], desc: "Go to Dev Utilities" },
+  { keys: ["Alt", "L"], desc: "Toggle Theme (Light / Dark)" },
 ];
 
 export default function ShortcutsHUD({ visible, onClose }) {

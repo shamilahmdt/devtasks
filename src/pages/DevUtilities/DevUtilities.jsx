@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { FaCode, FaCodeBranch, FaDocker, FaFont  } from "react-icons/fa";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
 const DevUtilities = () => {
@@ -137,8 +136,22 @@ const DevUtilities = () => {
     {
       title: "JSON → Types Converter",
       description: "Convert JSON into TypeScript interfaces and Go structs.",
-      icon: "🧩",
       path: "/devutilities/json-types-converter",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+          />
+        </svg>
+      ),
     },
     {
       title: "XML Validator & Formatter",
@@ -733,7 +746,21 @@ const DevUtilities = () => {
       description:
         "Parse browser user-agent strings and inspect client environment information.",
       path: "/devutilities/user-agent",
-      icon: <FaCode />,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      ),
     },
     {
       title: "Chmod Calculator",
@@ -1086,16 +1113,6 @@ const DevUtilities = () => {
       description:
         "Scenario-based Git command builder to help find and customize commands for common tasks.",
       path: "/devutilities/git-builder",
-      icon: <FaCodeBranch />,
-    },
-    {
-      title: "API Status Checker",
-      description: "Check API endpoints, HTTP status codes and response times.",
-      path: "/devutilities/api-status-checker",
-      title: ".gitignore Generator",
-      description:
-        "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
-      path: "/devutilities/gitignore-generator",
       icon: (
         <svg
           className="w-6 h-6"
@@ -1107,16 +1124,45 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            d="M6 18V6"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 12c0-3.3 2.7-6 6-6h3"
+          />
+          <circle cx="6" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+          <circle cx="6" cy="18" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+          <circle cx="16" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      title: "API Status Checker",
+      description: "Test API endpoints and inspect HTTP status, response time and output.",
+      path: "/devutilities/api-status-checker",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
           />
         </svg>
       ),
     },
     {
-      title: "robots.txt Generator",
+      title: ".gitignore Generator",
       description:
-        "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file offline.",
-      path: "/devutilities/robots-generator",
+        "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
+      path: "/devutilities/gitignore-generator",
       icon: (
         <svg
           className="w-6 h-6"
@@ -1138,7 +1184,21 @@ const DevUtilities = () => {
       title: "ASCII Art Generator",
       description: "Convert text strings into custom ASCII art banners for code comments and terminals.",
       path: "/devutilities/ascii-banner",
-      icon: <FaFont />,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h7"
+          />
+        </svg>
+      ),
     },
   ];
 

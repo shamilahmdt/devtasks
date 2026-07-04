@@ -31,6 +31,43 @@ const SCENARIOS = [
     ]
   },
   {
+    id: "commit_changes",
+    category: "Commits",
+    name: "Commit Tracked Changes with Message",
+    inputs: [
+      { id: "message", type: "text", label: "Commit Message", default: "work in progress" }
+    ],
+    generate: (inputs) => [
+      { cmd: `git commit -am "${inputs.message}"`, desc: "Commit all modified and tracked files with a descriptive comment." }
+    ]
+  },
+  {
+    id: "create_tag",
+    category: "Commits",
+    name: "Create Annotated Tag (Release Comment)",
+    inputs: [
+      { id: "version", type: "text", label: "Tag Version", default: "v1.0.0" },
+      { id: "message", type: "text", label: "Release Message", default: "Release version v1.0.0" }
+    ],
+    generate: (inputs) => [
+      { cmd: `git tag -a ${inputs.version} -m "${inputs.message}"`, desc: "Create a local annotated tag with a release comment." },
+      { cmd: `git push origin ${inputs.version}`, desc: "Push the created tag to the remote repository." }
+    ]
+  },
+  {
+    id: "git_notes",
+    category: "Commits",
+    name: "Add Git Note (Commit Comment)",
+    inputs: [
+      { id: "message", type: "text", label: "Note Comment", default: "Verified build successfully" },
+      { id: "hash", type: "text", label: "Commit Hash (Optional)", default: "HEAD" }
+    ],
+    generate: (inputs) => [
+      { cmd: `git notes add -m "${inputs.message}" ${inputs.hash}`, desc: "Add a note/metadata comment to the specified commit without changing its hash." },
+      { cmd: `git push origin refs/notes/*`, desc: "Push local notes to the remote repository." }
+    ]
+  },
+  {
     id: "revert_commit",
     category: "Commits",
     name: "Revert Specific Commit",

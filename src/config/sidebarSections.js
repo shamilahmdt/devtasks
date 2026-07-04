@@ -423,12 +423,6 @@ const SIDEBAR_SECTIONS = [
           "Test API endpoints and inspect HTTP status, response time and output",
         path: "/devutilities/api-status-checker",
       },
-      {
-        label: "robots.txt Generator",
-        description:
-          "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file.",
-        path: "/devutilities/robots-generator",
-      },
     ],
   },
 ];

@@ -546,16 +546,8 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<ImageOptimizer />}
               />
               <Route
-                path="/devutilities/git-builder"
-                element={<GitCommandBuilder />}
-              />
-              <Route
                 path="/devutilities/api-status-checker"
                 element={<NetworkRequestTester />}
-              />
-              <Route
-                path="/devutilities/robots-generator"
-                element={<RobotsTxtGenerator />}
               />
               <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
