@@ -388,6 +388,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/git-builder",
       },
       {
+        label: ".gitignore Generator",
+        description:
+          "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
+        path: "/devutilities/gitignore-generator",
+      },
+      {
         label: "URL Slug Generator & Text Sanitizer",
         description: "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
         path: "/devutilities/slug-generator",

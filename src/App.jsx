@@ -80,6 +80,7 @@ import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
+import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -547,6 +548,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/docker-generator"
                 element={<DockerGenerator />}
+              />
+              <Route
+                path="/devutilities/gitignore-generator"
+                element={<GitignoreGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
