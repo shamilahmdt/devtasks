@@ -2,6 +2,166 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { useState } from "react";
 
+// -----------------------------
+// SVG → React JSX converter
+// -----------------------------
+const HTML_TO_REACT_ATTRS = {
+  class: "className",
+  for: "htmlFor",
+  tabindex: "tabIndex",
+  readonly: "readOnly",
+  maxlength: "maxLength",
+  cellspacing: "cellSpacing",
+  cellpadding: "cellPadding",
+  rowspan: "rowSpan",
+  colspan: "colSpan",
+  enctype: "encType",
+  contenteditable: "contentEditable",
+  crossorigin: "crossOrigin",
+  accesskey: "accessKey",
+  autocomplete: "autoComplete",
+  autofocus: "autoFocus",
+  autoplay: "autoPlay",
+  formaction: "formAction",
+  novalidate: "noValidate",
+};
+
+/**
+ * Convert a hyphenated SVG/CSS attribute name to camelCase.
+ * e.g. "stroke-width" → "strokeWidth", "clip-path" → "clipPath"
+ */
+function hyphenToCamel(name) {
+  return name.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+}
+
+/**
+ * Convert a CSS property value to a JS-appropriate value.
+ * Numeric values (with optional units stripped) become numbers, others stay strings.
+ */
+function cssValueToJs(value) {
+  const trimmed = value.trim();
+  // Pure numbers (including decimals)
+  if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
+    return parseFloat(trimmed);
+  }
+  // Numbers with px units → strip px and return number
+  if (/^-?\d+(\.\d+)?px$/.test(trimmed)) {
+    return parseFloat(trimmed);
+  }
+  return `"${trimmed}"`;
+}
+
+/**
+ * Convert an inline style="..." string to a React style={{ ... }} object string.
+ */
+function convertInlineStyle(styleStr) {
+  const pairs = styleStr
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  const entries = pairs.map((pair) => {
+    const colonIdx = pair.indexOf(":");
+    if (colonIdx === -1) return null;
+    const prop = pair.slice(0, colonIdx).trim();
+    const val = pair.slice(colonIdx + 1).trim();
+    return `${hyphenToCamel(prop)}: ${cssValueToJs(val)}`;
+  });
+
+  return `{{ ${entries.filter(Boolean).join(", ")} }}`;
+}
+
+/**
+ * Transform optimized SVG into React-compatible JSX:
+ * - Rename HTML attrs → React equivalents
+ * - Convert hyphenated SVG attrs → camelCase
+ * - Convert inline style strings → style objects
+ * - Optionally strip width/height
+ */
+function svgToJsx(svg, { stripDimensions = false } = {}) {
+  let result = svg;
+
+  // Convert inline style="..." to React style={{ ... }}
+  result = result.replace(/\bstyle="([^"]*)"/g, (_, styleVal) => {
+    return `style=${convertInlineStyle(styleVal)}`;
+  });
+
+  // Strip width/height attributes if requested
+  if (stripDimensions) {
+    result = result.replace(/\s(width|height)="[^"]*"/g, "");
+  }
+
+  // Replace known HTML→React attribute mappings (whole-word, in tags only)
+  result = result.replace(/<[^>]+>/g, (tag) => {
+    // Replace known HTML attrs
+    for (const [html, react] of Object.entries(HTML_TO_REACT_ATTRS)) {
+      const regex = new RegExp(`\\b${html}=`, "g");
+      tag = tag.replace(regex, `${react}=`);
+    }
+    // Convert any remaining hyphenated attributes to camelCase
+    // Match attribute names like "stroke-width", "fill-rule", etc.
+    tag = tag.replace(/\s([a-z]+-[a-z][-a-z]*)(?==)/g, (match, attr) => {
+      // Don't convert data-* or aria-* attributes
+      if (attr.startsWith("data-") || attr.startsWith("aria-")) return match;
+      return ` ${hyphenToCamel(attr)}`;
+    });
+    return tag;
+  });
+
+  return result;
+}
+
+/**
+ * Wrap JSX SVG in a React component string.
+ */
+function wrapInComponent(
+  jsxSvg,
+  { componentName, useTypescript, useForwardRef },
+) {
+  const name = componentName || "SvgIcon";
+  const trimmedSvg = jsxSvg.trim();
+
+  // Inject props spread (and ref if needed) into the root <svg> tag
+  const injectProps = (svg, includeRef) => {
+    return svg.replace(/^<svg/, includeRef ? "<svg ref={ref} {...props}" : "<svg {...props}");
+  };
+
+  const svgWithProps = injectProps(trimmedSvg, useForwardRef);
+
+  const imports = [];
+  const lines = [];
+
+  if (useForwardRef && useTypescript) {
+    imports.push("import { forwardRef, SVGProps } from 'react';");
+    lines.push("");
+    lines.push(
+      `export const ${name} = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>((props, ref) => (`,
+    );
+    lines.push(`  ${svgWithProps}`);
+    lines.push("));");
+  } else if (useForwardRef) {
+    imports.push("import { forwardRef } from 'react';");
+    lines.push("");
+    lines.push(`export const ${name} = forwardRef((props, ref) => (`);
+    lines.push(`  ${svgWithProps}`);
+    lines.push("));");
+  } else if (useTypescript) {
+    imports.push("import { SVGProps } from 'react';");
+    lines.push("");
+    lines.push(
+      `export const ${name} = (props: SVGProps<SVGSVGElement>) => (`,
+    );
+    lines.push(`  ${svgWithProps}`);
+    lines.push(");");
+  } else {
+    lines.push(`export const ${name} = (props) => (`);
+    lines.push(`  ${svgWithProps}`);
+    lines.push(");");
+  }
+
+  return [...imports, ...lines].join("\n");
+}
+
 function SvgOptimizer() {
   const { dark } = useTheme();
 
@@ -17,6 +177,13 @@ function SvgOptimizer() {
     minify: false,
     beautify: false,
   });
+
+  // React export options
+  const [reactExport, setReactExport] = useState(false);
+  const [tsxMode, setTsxMode] = useState(false);
+  const [useForwardRef, setUseForwardRef] = useState(false);
+  const [stripDimensions, setStripDimensions] = useState(false);
+  const [componentName, setComponentName] = useState("SvgIcon");
 
   // -----------------------------
   // SAMPLE SVG
@@ -79,23 +246,57 @@ function SvgOptimizer() {
   };
 
   // -----------------------------
+  // Build the final display string
+  // (raw SVG or React component)
+  // -----------------------------
+  const getOutputText = () => {
+    if (!output) return "";
+    if (!reactExport) return output;
+
+    const jsx = svgToJsx(output, { stripDimensions });
+    return wrapInComponent(jsx, {
+      componentName,
+      useTypescript: tsxMode,
+      useForwardRef,
+    });
+  };
+
+  const displayOutput = getOutputText();
+
+  // -----------------------------
   // COPY
   // -----------------------------
   const handleCopy = () => {
-    if (output) navigator.clipboard.writeText(output);
+    if (displayOutput) navigator.clipboard.writeText(displayOutput);
   };
 
   // -----------------------------
   // DOWNLOAD
   // -----------------------------
   const handleDownload = () => {
-    const blob = new Blob([output], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
+    if (!displayOutput) return;
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "optimized.svg";
-    a.click();
+    if (reactExport) {
+      const ext = tsxMode ? "tsx" : "jsx";
+      const fileName = `${componentName || "SvgIcon"}.${ext}`;
+      const blob = new Blob([displayOutput], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      URL.revokeObjectURL(url);
+    } else {
+      const blob = new Blob([displayOutput], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "optimized.svg";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   };
 
   const toggleOption = (key) => {
@@ -127,7 +328,7 @@ function SvgOptimizer() {
             ←
           </Link>
 
-          <h1 className="font-black uppercase">SVG Optimizer</h1>
+          <h1 className="font-black uppercase">SVG Optimizer & React JSX Generator</h1>
         </div>
 
         {/* MAIN GRID */}
@@ -164,7 +365,7 @@ function SvgOptimizer() {
           </div>
 
           {/* CENTER OPTIONS */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 overflow-y-auto">
             <label className="text-xs font-bold uppercase">
               Options
             </label>
@@ -186,6 +387,62 @@ function SvgOptimizer() {
                 {label}
               </button>
             ))}
+
+            {/* React Export Section */}
+            <div className="mt-3 border-t pt-3">
+              <button
+                onClick={() => setReactExport((v) => !v)}
+                className={`w-full border py-2 rounded-xl text-xs font-bold cursor-pointer ${
+                  reactExport ? "bg-black text-white" : ""
+                }`}
+              >
+                Export as React Component (JSX)
+              </button>
+
+              {reactExport && (
+                <div className="flex flex-col gap-2 mt-2 pl-2 border-l-2 border-zinc-600">
+                  <button
+                    onClick={() => setTsxMode((v) => !v)}
+                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
+                      tsxMode ? "bg-black text-white" : ""
+                    }`}
+                  >
+                    TypeScript Support (TSX)
+                  </button>
+
+                  <button
+                    onClick={() => setUseForwardRef((v) => !v)}
+                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
+                      useForwardRef ? "bg-black text-white" : ""
+                    }`}
+                  >
+                    Use forwardRef
+                  </button>
+
+                  <button
+                    onClick={() => setStripDimensions((v) => !v)}
+                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
+                      stripDimensions ? "bg-black text-white" : ""
+                    }`}
+                  >
+                    Strip Dimensions
+                  </button>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs font-bold uppercase">
+                      Component Name
+                    </label>
+                    <input
+                      type="text"
+                      value={componentName}
+                      onChange={(e) => setComponentName(e.target.value)}
+                      placeholder="SvgIcon"
+                      className="border py-2 px-3 rounded-xl text-xs font-mono"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* RIGHT SIDE */}
@@ -222,11 +479,11 @@ function SvgOptimizer() {
 
             {/* OUTPUT */}
             <label className="text-xs font-bold uppercase">
-              Clean Output
+              {reactExport ? "React Component Output" : "Clean Output"}
             </label>
 
             <textarea
-              value={output}
+              value={displayOutput}
               readOnly
               className="h-32 p-3 border rounded-xl text-sm font-mono"
             />
@@ -238,7 +495,11 @@ function SvgOptimizer() {
               </button>
 
               <button onClick={handleDownload} className="border py-2 rounded-xl cursor-pointer">
-                Download
+                {reactExport
+                  ? tsxMode
+                    ? "Download .tsx"
+                    : "Download .jsx"
+                  : "Download"}
               </button>
             </div>
           </div>

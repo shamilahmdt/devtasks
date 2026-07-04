@@ -51,8 +51,9 @@ const DevUtilities = () => {
 
   const cards = [
     {
-      title: "SVG Optimizer",
-      description: "Optimize, clean and preview SVG code instantly",
+      title: "SVG Optimizer & React JSX Generator",
+      description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
+      keywords: "jsx react component tsx",
       path: "/devutilities/svg-optimizer",
       icon: (
         <svg
@@ -1230,12 +1231,14 @@ const DevUtilities = () => {
     const cardTitle = card.title.toLowerCase();
     const cardDesc = card.description.toLowerCase();
     const cardPath = card.path.toLowerCase();
+    const cardKeywords = (card.keywords || "").toLowerCase();
 
     // 1. Direct substring match on title, description, or path
     if (
       cardTitle.includes(query) ||
       cardDesc.includes(query) ||
-      cardPath.includes(query)
+      cardPath.includes(query) ||
+      cardKeywords.includes(query)
     ) {
       return true;
     }
@@ -1259,7 +1262,7 @@ const DevUtilities = () => {
       .filter((word) => !stopWords.has(word) && word.length > 0);
 
     if (queryWords.length > 0) {
-      const cardContent = `${cardTitle} ${cardDesc} ${cardPath}`;
+      const cardContent = `${cardTitle} ${cardDesc} ${cardPath} ${cardKeywords}`;
       return queryWords.every((word) => cardContent.includes(word));
     }
 

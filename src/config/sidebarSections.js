@@ -334,8 +334,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/cron",
       },
       {
-        label: "SVG Optimizer",
-        description: "Optimize, clean, and preview SVG code instantly",
+        label: "SVG Optimizer & React JSX Generator",
+        description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
         path: "/devutilities/svg-optimizer",
       },
       {
