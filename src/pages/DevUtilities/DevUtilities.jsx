@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { FaCode, FaCodeBranch } from "react-icons/fa";
+import { FaCode, FaCodeBranch, FaDocker, FaFont  } from "react-icons/fa";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
 const DevUtilities = () => {
@@ -1132,6 +1132,13 @@ const DevUtilities = () => {
           />
         </svg>
       ),
+    },
+
+    {
+      title: "ASCII Art Generator",
+      description: "Convert text strings into custom ASCII art banners for code comments and terminals.",
+      path: "/devutilities/ascii-banner",
+      icon: <FaFont />,
     },
   ];
 

@@ -79,9 +79,14 @@ import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
+
+import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
+
+
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
+
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -552,6 +557,7 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/robots-generator"
                 element={<RobotsTxtGenerator />}
               />
+              <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route
                 path="/devutilities/docker-generator"

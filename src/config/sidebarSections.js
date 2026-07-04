@@ -403,6 +403,13 @@ const SIDEBAR_SECTIONS = [
         label: "Robots.txt Generator",
         description: "Generate robots.txt files for your website.",
         path: "/devutilities/robots-txt-generator",
+      },  
+      {
+        label: "ASCII Art Generator",
+        description:
+          "Convert text strings into custom ASCII art banners for code comments and terminals.",
+        path: "/devutilities/ascii-banner",
+
       },
       {
         label: "Image Optimizer",
