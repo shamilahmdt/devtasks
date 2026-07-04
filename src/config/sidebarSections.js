@@ -366,6 +366,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/design-tokens",
       },
       {
+        label: "Docker Configuration Generator",
+        description: "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
+        path: "/devutilities/docker-generator",
+      },
+      {
         label: "Word Counter",
         description: "Character & word count tool",
         path: "/devutilities/word-counter",
@@ -381,6 +386,12 @@ const SIDEBAR_SECTIONS = [
         description:
           "Scenario-based Git command builder to help find and customize commands for common tasks.",
         path: "/devutilities/git-builder",
+      },
+      {
+        label: ".gitignore Generator",
+        description:
+          "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
+        path: "/devutilities/gitignore-generator",
       },
       {
         label: "URL Slug Generator & Text Sanitizer",
