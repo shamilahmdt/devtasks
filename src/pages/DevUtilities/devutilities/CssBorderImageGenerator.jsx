@@ -41,6 +41,39 @@ export default function CssBorderImageGenerator() {
   const [outset, setOutset] = useState(0);
   const [repeat, setRepeat] = useState("stretch");
   const [radius, setRadius] = useState(20);
+  const [isDragActive, setIsDragActive] = useState(false);
+
+  const handleFile = (file) => {
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImageUrl(event.target.result);
+        toast.success("Image loaded successfully");
+      };
+      reader.readAsDataURL(file);
+    } else {
+      toast.error("Please upload a valid image file");
+    }
+  };
+
+  const handleDrag = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.type === "dragenter" || event.type === "dragover") {
+      setIsDragActive(true);
+    } else if (event.type === "dragleave") {
+      setIsDragActive(false);
+    }
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragActive(false);
+    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+      handleFile(event.dataTransfer.files[0]);
+    }
+  };
 
   const t = dark ? theme.dark : theme.light;
 
@@ -60,12 +93,12 @@ export default function CssBorderImageGenerator() {
   );
 
   const cssCode = useMemo(
-    () => `border-image-source: url('${imageUrl ? imageUrl : '...'}');
-border-image-slice: ${slice};
+    () => `border-image-slice: ${slice};
 border-image-width: ${borderImageWidth}px;
 border-image-outset: ${outset}px;
 border-image-repeat: ${repeat};
-border-radius: ${radius}px;`,
+border-radius: ${radius}px;
+border-image-source: url('${imageUrl ? imageUrl : '...'}');`,
     [borderImageWidth, imageUrl, outset, radius, repeat, slice],
   );
 
@@ -131,22 +164,68 @@ border-radius: ${radius}px;`,
               </div>
 
               <div className="space-y-4">
-                <div className="flex flex-col gap-2">
-                  <label className={t.label}>Image URL</label>
-                  <div className="flex items-start gap-2">
-                    <FaImage className="mt-3 h-4 w-4 shrink-0 text-zinc-400" />
-                    <textarea
-                      rows={1}
-                      value={imageUrl}
-                      onChange={(event) => setImageUrl(event.target.value)}
-                      onInput={(event) => {
-                        event.target.style.height = "auto";
-                        event.target.style.height = `${event.target.scrollHeight}px`;
+                <div className="flex flex-col gap-3">
+                  <label className={t.label}>Image Source</label>
+                  
+                  {/* Drag and Drop Zone */}
+                  <div
+                    onDragEnter={handleDrag}
+                    onDragOver={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDrop={handleDrop}
+                    onClick={() => document.getElementById('file-upload').click()}
+                    className={`relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-200 cursor-pointer
+                      ${isDragActive 
+                        ? 'border-indigo-500 bg-indigo-500/5 dark:bg-indigo-500/10' 
+                        : 'border-zinc-300 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-950/20'
+                      }`}
+                  >
+                    <input
+                      id="file-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(event) => {
+                        if (event.target.files && event.target.files[0]) {
+                          handleFile(event.target.files[0]);
+                        }
                       }}
-                      placeholder="Paste an image URL"
-                      className={`w-full resize-none overflow-hidden rounded-xl border px-3 py-2.5 text-sm leading-relaxed ${t.input}`}
-                      spellCheck={false}
                     />
+                    <FaImage className={`h-8 w-8 ${isDragActive ? 'text-indigo-500' : 'text-zinc-400'}`} />
+                    <div className="text-sm font-medium">
+                      {imageUrl && imageUrl.startsWith('data:') ? (
+                        <span className="text-emerald-500">✓ Image loaded from device</span>
+                      ) : (
+                        <span>Drag & drop image here, or <span className="text-indigo-500 dark:text-indigo-400 underline">browse</span></span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-zinc-400">Supports PNG, JPG, GIF, WebP</p>
+                  </div>
+
+                  {/* Textarea for URL fallback */}
+                  <div className="mt-1 flex flex-col gap-1.5">
+                    <span className="text-[10px] text-zinc-400 font-semibold tracking-wider uppercase">Or enter image URL</span>
+                    <div className="flex items-start gap-2">
+                      <textarea
+                        rows={1}
+                        value={imageUrl && imageUrl.startsWith('data:') ? '' : imageUrl}
+                        onChange={(event) => setImageUrl(event.target.value)}
+                        placeholder={imageUrl && imageUrl.startsWith('data:') ? "Using uploaded image (clear to paste URL)" : "Paste an image URL"}
+                        disabled={imageUrl && imageUrl.startsWith('data:')}
+                        className={`w-full resize-none overflow-hidden rounded-xl border px-3 py-2.5 text-sm leading-relaxed ${t.input} ${
+                          imageUrl && imageUrl.startsWith('data:') ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        spellCheck={false}
+                      />
+                      {imageUrl && (
+                        <button
+                          onClick={() => setImageUrl('')}
+                          className={`rounded-xl border px-3 py-2 text-xs font-semibold shrink-0 ${t.buttonSecondary}`}
+                        >
+                          Clear
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
 
