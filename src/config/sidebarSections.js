@@ -309,6 +309,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/css-unit-converter",
       },
       {
+        label: "CSS Border-Image Generator",
+        description: "Design custom sliced image borders and generate copy-ready CSS properties visually.",
+        path: "/devutilities/border-image",
+      },
+      {
         label: "Flexbox & Grid Generator",
         description: "Generate CSS flexbox and grid completely offline",
         path: "/devutilities/flexbox-grid-generator",

@@ -1201,6 +1201,27 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "CSS border-image Generator",
+      description:
+        "Design custom sliced image borders and generate copy-ready CSS properties visually.",
+      path: "/devutilities/border-image",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16v12H4zM8 10h8v4H8z"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(

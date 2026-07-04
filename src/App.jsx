@@ -39,6 +39,7 @@ import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
 import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
+import CssBorderImageGenerator from "./pages/DevUtilities/devutilities/CssBorderImageGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
@@ -558,6 +559,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/gitignore-generator"
                 element={<GitignoreGenerator />}
+              />
+              <Route
+                path="/devutilities/border-image"
+                element={<CssBorderImageGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
