@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import {
+  FaCopy,
+  FaDownload,
+  FaTrash,
+  FaFileCode,
+  FaEye,
+  FaCheck,
+  FaReact,
+} from "react-icons/fa";
 
 // -----------------------------
 // SVG → React JSX converter
@@ -26,34 +36,21 @@ const HTML_TO_REACT_ATTRS = {
   novalidate: "noValidate",
 };
 
-/**
- * Convert a hyphenated SVG/CSS attribute name to camelCase.
- * e.g. "stroke-width" → "strokeWidth", "clip-path" → "clipPath"
- */
 function hyphenToCamel(name) {
   return name.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
 
-/**
- * Convert a CSS property value to a JS-appropriate value.
- * Numeric values (with optional units stripped) become numbers, others stay strings.
- */
 function cssValueToJs(value) {
   const trimmed = value.trim();
-  // Pure numbers (including decimals)
   if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
     return parseFloat(trimmed);
   }
-  // Numbers with px units → strip px and return number
   if (/^-?\d+(\.\d+)?px$/.test(trimmed)) {
     return parseFloat(trimmed);
   }
   return `"${trimmed}"`;
 }
 
-/**
- * Convert an inline style="..." string to a React style={{ ... }} object string.
- */
 function convertInlineStyle(styleStr) {
   const pairs = styleStr
     .split(";")
@@ -71,37 +68,23 @@ function convertInlineStyle(styleStr) {
   return `{{ ${entries.filter(Boolean).join(", ")} }}`;
 }
 
-/**
- * Transform optimized SVG into React-compatible JSX:
- * - Rename HTML attrs → React equivalents
- * - Convert hyphenated SVG attrs → camelCase
- * - Convert inline style strings → style objects
- * - Optionally strip width/height
- */
 function svgToJsx(svg, { stripDimensions = false } = {}) {
   let result = svg;
 
-  // Convert inline style="..." to React style={{ ... }}
   result = result.replace(/\bstyle="([^"]*)"/g, (_, styleVal) => {
     return `style=${convertInlineStyle(styleVal)}`;
   });
 
-  // Strip width/height attributes if requested
   if (stripDimensions) {
     result = result.replace(/\s(width|height)="[^"]*"/g, "");
   }
 
-  // Replace known HTML→React attribute mappings (whole-word, in tags only)
   result = result.replace(/<[^>]+>/g, (tag) => {
-    // Replace known HTML attrs
     for (const [html, react] of Object.entries(HTML_TO_REACT_ATTRS)) {
       const regex = new RegExp(`\\b${html}=`, "g");
       tag = tag.replace(regex, `${react}=`);
     }
-    // Convert any remaining hyphenated attributes to camelCase
-    // Match attribute names like "stroke-width", "fill-rule", etc.
     tag = tag.replace(/\s([a-z]+-[a-z][-a-z]*)(?==)/g, (match, attr) => {
-      // Don't convert data-* or aria-* attributes
       if (attr.startsWith("data-") || attr.startsWith("aria-")) return match;
       return ` ${hyphenToCamel(attr)}`;
     });
@@ -111,9 +94,6 @@ function svgToJsx(svg, { stripDimensions = false } = {}) {
   return result;
 }
 
-/**
- * Wrap JSX SVG in a React component string.
- */
 function wrapInComponent(
   jsxSvg,
   { componentName, useTypescript, useForwardRef },
@@ -121,9 +101,11 @@ function wrapInComponent(
   const name = componentName || "SvgIcon";
   const trimmedSvg = jsxSvg.trim();
 
-  // Inject props spread (and ref if needed) into the root <svg> tag
   const injectProps = (svg, includeRef) => {
-    return svg.replace(/^<svg/, includeRef ? "<svg ref={ref} {...props}" : "<svg {...props}");
+    return svg.replace(
+      /^<svg/,
+      includeRef ? "<svg ref={ref} {...props}" : "<svg {...props}"
+    );
   };
 
   const svgWithProps = injectProps(trimmedSvg, useForwardRef);
@@ -135,7 +117,7 @@ function wrapInComponent(
     imports.push("import { forwardRef, SVGProps } from 'react';");
     lines.push("");
     lines.push(
-      `export const ${name} = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>((props, ref) => (`,
+      `export const ${name} = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>((props, ref) => (`
     );
     lines.push(`  ${svgWithProps}`);
     lines.push("));");
@@ -149,7 +131,7 @@ function wrapInComponent(
     imports.push("import { SVGProps } from 'react';");
     lines.push("");
     lines.push(
-      `export const ${name} = (props: SVGProps<SVGSVGElement>) => (`,
+      `export const ${name} = (props: SVGProps<SVGSVGElement>) => (`
     );
     lines.push(`  ${svgWithProps}`);
     lines.push(");");
@@ -167,14 +149,39 @@ function SvgOptimizer() {
 
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [previewBg, setPreviewBg] = useState("checker");
+  const [isDragging, setIsDragging] = useState(false);
 
-  const [previewBg, setPreviewBg] = useState("dark");
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file && (file.type === "image/svg+xml" || file.name.endsWith(".svg"))) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setInput(event.target.result);
+        toast.success(`Loaded SVG file: ${file.name}`);
+      };
+      reader.readAsText(file);
+    } else {
+      toast.error("Please drop a valid SVG file");
+    }
+  };
 
   const [options, setOptions] = useState({
-    xml: false,
-    comments: false,
-    metadata: false,
-    minify: false,
+    xml: true,
+    comments: true,
+    metadata: true,
+    minify: true,
     beautify: false,
   });
 
@@ -185,33 +192,14 @@ function SvgOptimizer() {
   const [stripDimensions, setStripDimensions] = useState(false);
   const [componentName, setComponentName] = useState("SvgIcon");
 
-  // -----------------------------
-  // SAMPLE SVG
-  // -----------------------------
-  const handleSample = () => {
-    setInput(`<?xml version="1.0"?>
-<!-- Figma Export -->
-<svg width="120" height="120">
-  <metadata>figma junk data</metadata>
-  <rect id="box1" class="shape" width="120" height="120" fill="blue"/>
-</svg>`);
-  };
+  // Auto-optimize whenever input or options change
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput("");
+      return;
+    }
 
-  // -----------------------------
-  // CLEAR
-  // -----------------------------
-  const handleClear = () => {
-    setInput("");
-    setOutput("");
-  };
-
-  // -----------------------------
-  // OPTIMIZER CORE
-  // -----------------------------
-  const optimizeSvg = () => {
     let result = input;
-
-    if (!result) return;
 
     // XML declaration
     if (options.xml) {
@@ -235,20 +223,33 @@ function SvgOptimizer() {
       result = result.replace(/\s+/g, " ").trim();
     }
 
-    // Beautify (basic)
+    // Beautify (basic layout structure formatting)
     if (options.beautify) {
-      result = result
-        .replace(/></g, ">\n<")
-        .trim();
+      result = result.replace(/>\s*</g, ">\n<").trim();
     }
 
     setOutput(result);
+  }, [input, options]);
+
+  const handleSample = () => {
+    setInput(`<?xml version="1.0" encoding="UTF-8"?>
+<!-- Figma Export / Custom SVG Graphic -->
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <metadata>editor:figma;version:1.0;</metadata>
+  <rect width="100" height="100" rx="20" fill="#3B82F6"/>
+  <circle cx="50" cy="50" r="25" fill="white" class="main-circle" style="stroke: #1E3A8A; stroke-width: 4px; opacity: 0.9;"/>
+  <!-- Decorative elements -->
+  <path d="M45 45L55 55" stroke="#3B82F6" stroke-width="6" stroke-linecap="round"/>
+</svg>`);
+    toast.success("Sample SVG loaded");
   };
 
-  // -----------------------------
-  // Build the final display string
-  // (raw SVG or React component)
-  // -----------------------------
+  const handleClear = () => {
+    setInput("");
+    setOutput("");
+    toast.success("Cleared workspace");
+  };
+
   const getOutputText = () => {
     if (!output) return "";
     if (!reactExport) return output;
@@ -263,16 +264,18 @@ function SvgOptimizer() {
 
   const displayOutput = getOutputText();
 
-  // -----------------------------
-  // COPY
-  // -----------------------------
-  const handleCopy = () => {
-    if (displayOutput) navigator.clipboard.writeText(displayOutput);
+  const handleCopy = async () => {
+    if (!displayOutput) return;
+    try {
+      await navigator.clipboard.writeText(displayOutput);
+      toast.success(
+        reactExport ? "React Component copied!" : "Optimized SVG copied!"
+      );
+    } catch {
+      toast.error("Failed to copy text");
+    }
   };
 
-  // -----------------------------
-  // DOWNLOAD
-  // -----------------------------
   const handleDownload = () => {
     if (!displayOutput) return;
 
@@ -287,6 +290,7 @@ function SvgOptimizer() {
       a.download = fileName;
       a.click();
       URL.revokeObjectURL(url);
+      toast.success(`Downloaded ${fileName}`);
     } else {
       const blob = new Blob([displayOutput], { type: "image/svg+xml" });
       const url = URL.createObjectURL(blob);
@@ -296,211 +300,466 @@ function SvgOptimizer() {
       a.download = "optimized.svg";
       a.click();
       URL.revokeObjectURL(url);
+      toast.success("Downloaded optimized.svg");
     }
   };
 
   const toggleOption = (key) => {
-    setOptions((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+    setOptions((prev) => {
+      const newOpts = { ...prev, [key]: !prev[key] };
+      // Mutual exclusion for minify and beautify
+      if (key === "minify" && newOpts.minify) {
+        newOpts.beautify = false;
+      }
+      if (key === "beautify" && newOpts.beautify) {
+        newOpts.minify = false;
+      }
+      return newOpts;
+    });
   };
+
+  // Calculations for size statistics
+  const originalSize = input ? new Blob([input]).size : 0;
+  const optimizedSize = output ? new Blob([output]).size : 0;
+  const savingsPercent =
+    originalSize > 0
+      ? (((originalSize - optimizedSize) / originalSize) * 100).toFixed(1)
+      : 0;
+
+  const formatSize = (bytes) => {
+    if (bytes === 0) return "0 B";
+    const k = 1024;
+    const sizes = ["B", "KB", "MB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
+
+  const theme = {
+    light: {
+      wrapper: "bg-[#F8F9FA] text-zinc-900",
+      heading: "text-zinc-900",
+      subtext: "text-zinc-500",
+      card: "bg-white border-zinc-200/85 shadow-sm",
+      input:
+        "bg-zinc-50 border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 focus:outline-none",
+      buttonPrimary:
+        "bg-zinc-900 text-white hover:bg-zinc-800 transition-colors shadow-sm",
+      buttonSecondary:
+        "bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50 hover:text-zinc-900 transition-colors",
+      label: "text-zinc-500 font-semibold tracking-wider text-xs uppercase",
+      infoCard: "bg-zinc-50/55 border-zinc-150/85 text-zinc-600",
+      badge: "bg-zinc-100 text-zinc-700",
+      toggleActive: "bg-zinc-900 text-white border-zinc-950",
+      toggleInactive:
+        "bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50",
+    },
+    dark: {
+      wrapper: "bg-[#090A0F] text-zinc-100",
+      heading: "text-zinc-100",
+      subtext: "text-zinc-400",
+      card: "bg-zinc-900/50 border-zinc-800/85 backdrop-blur-md shadow-lg",
+      input:
+        "bg-zinc-950/70 border-zinc-800 text-zinc-100 placeholder-zinc-600 focus:border-zinc-600 focus:ring-2 focus:ring-white/5 focus:outline-none",
+      buttonPrimary:
+        "bg-white text-zinc-950 hover:bg-zinc-200 transition-colors shadow-sm",
+      buttonSecondary:
+        "bg-zinc-900 text-zinc-300 border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors",
+      label: "text-zinc-400 font-semibold tracking-wider text-xs uppercase",
+      infoCard: "bg-zinc-900/40 border-zinc-800/60 text-zinc-400",
+      badge: "bg-zinc-800/50 text-zinc-300",
+      toggleActive: "bg-white text-zinc-950 border-white",
+      toggleInactive:
+        "bg-zinc-950/40 text-zinc-400 border-zinc-800 hover:bg-zinc-900",
+    },
+  };
+
+  const t = dark ? theme.dark : theme.light;
 
   return (
     <div
-      className={`min-h-[calc(100vh-76px)] px-4 py-6 flex justify-center ${
-        dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
-      }`}
+      className={`min-h-screen ${t.wrapper} px-4 sm:px-6 py-10 transition-colors duration-300 relative overflow-x-hidden`}
     >
-      <div
-        className={`w-full max-w-6xl rounded-3xl border shadow-xl overflow-hidden ${
-          dark
-            ? "bg-zinc-900 border-zinc-800"
-            : "bg-white border-neutral-200"
-        }`}
-      >
-        {/* HEADER */}
-        <div className="flex items-center gap-3 p-4 border-b">
+      <title>SVG Optimizer & React JSX Generator — DevTasks</title>
+      <meta
+        name="description"
+        content="Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly."
+      />
+
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8">
           <Link
             to="/devutilities"
-            className="px-3 py-2 border rounded-xl"
+            className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+              dark
+                ? "bg-zinc-900/50 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+                : "bg-white border-zinc-200 text-zinc-600 hover:text-zinc-900 hover:border-zinc-350"
+            }`}
+            title="Back to Workspace"
           >
-            ←
+            <svg
+              className="w-4.5 h-4.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
           </Link>
-
-          <h1 className="font-black uppercase">SVG Optimizer & React JSX Generator</h1>
+          <div>
+            <h1 className={`text-2xl font-bold tracking-tight ${t.heading}`}>
+              SVG Optimizer & React JSX Generator
+            </h1>
+            <p className={`mt-1 text-sm ${t.subtext}`}>
+              Optimize, clean, and convert SVG code into optimized React
+              JSX/TSX components instantly.
+            </p>
+          </div>
         </div>
 
-        {/* MAIN GRID */}
-        <div className="grid md:grid-cols-3 gap-4 p-4 h-[80vh]">
-          {/* INPUT */}
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold uppercase">
-              Input SVG
-            </label>
-
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Paste SVG here..."
-              className="flex-1 p-3 border rounded-xl text-sm font-mono"
-            />
-
-            <button
-              onClick={optimizeSvg}
-              className="border py-2 rounded-xl font-bold cursor-pointer"
+        {/* Dashboard Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Column: Code input, options (7 Columns) */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Input card */}
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`rounded-3xl border ${t.card} p-6 sm:p-8 space-y-6 relative overflow-hidden transition-all duration-200 ${
+                isDragging ? "ring-2 ring-blue-500 scale-[1.01]" : ""
+              }`}
             >
-              Optimize
-            </button>
-
-            <div className="grid grid-cols-2 gap-2">
-              <button onClick={handleSample} className="border py-2 rounded-xl cursor-pointer">
-                Load Sample
-              </button>
-
-              <button onClick={handleClear} className="border py-2 rounded-xl cursor-pointer">
-                Clear
-              </button>
-            </div>
-          </div>
-
-          {/* CENTER OPTIONS */}
-          <div className="flex flex-col gap-2 overflow-y-auto">
-            <label className="text-xs font-bold uppercase">
-              Options
-            </label>
-
-            {[
-              ["xml", "Remove XML"],
-              ["comments", "Remove Comments"],
-              ["metadata", "Remove Metadata"],
-              ["minify", "Minify"],
-              ["beautify", "Beautify"],
-            ].map(([key, label]) => (
-              <button
-                key={key}
-                onClick={() => toggleOption(key)}
-                className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
-                  options[key] ? "bg-black text-white" : ""
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-
-            {/* React Export Section */}
-            <div className="mt-3 border-t pt-3">
-              <button
-                onClick={() => setReactExport((v) => !v)}
-                className={`w-full border py-2 rounded-xl text-xs font-bold cursor-pointer ${
-                  reactExport ? "bg-black text-white" : ""
-                }`}
-              >
-                Export as React Component (JSX)
-              </button>
-
-              {reactExport && (
-                <div className="flex flex-col gap-2 mt-2 pl-2 border-l-2 border-zinc-600">
-                  <button
-                    onClick={() => setTsxMode((v) => !v)}
-                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
-                      tsxMode ? "bg-black text-white" : ""
-                    }`}
+              {isDragging && (
+                <div className="absolute inset-0 bg-blue-500/10 backdrop-blur-sm flex flex-col items-center justify-center border-2 border-dashed border-blue-500 rounded-3xl z-30 pointer-events-none">
+                  <FaFileCode className="text-blue-500 text-4xl animate-bounce mb-2" />
+                  <span className="text-sm font-bold uppercase tracking-wider text-blue-500">
+                    Drop SVG File Here
+                  </span>
+                </div>
+              )}
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2.5">
+                  <FaFileCode className="text-zinc-500 w-4.5 h-4.5" />
+                  <h2
+                    className={`font-bold text-lg tracking-tight ${t.heading}`}
                   >
-                    TypeScript Support (TSX)
-                  </button>
-
+                    SVG Input Source
+                  </h2>
+                </div>
+                <div className="flex gap-2">
                   <button
-                    onClick={() => setUseForwardRef((v) => !v)}
-                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
-                      useForwardRef ? "bg-black text-white" : ""
-                    }`}
+                    onClick={handleSample}
+                    className={`px-3 py-1.5 rounded-lg border text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer ${t.buttonSecondary}`}
                   >
-                    Use forwardRef
+                    Sample SVG
                   </button>
-
                   <button
-                    onClick={() => setStripDimensions((v) => !v)}
-                    className={`border py-2 rounded-xl text-xs font-bold cursor-pointer ${
-                      stripDimensions ? "bg-black text-white" : ""
-                    }`}
+                    onClick={handleClear}
+                    className={`px-3 py-1.5 rounded-lg border text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer ${t.buttonSecondary}`}
                   >
-                    Strip Dimensions
+                    <FaTrash className="inline mr-1" /> Clear
                   </button>
+                </div>
+              </div>
 
-                  <div className="flex flex-col gap-1">
-                    <label className="text-xs font-bold uppercase">
-                      Component Name
-                    </label>
-                    <input
-                      type="text"
-                      value={componentName}
-                      onChange={(e) => setComponentName(e.target.value)}
-                      placeholder="SvgIcon"
-                      className="border py-2 px-3 rounded-xl text-xs font-mono"
-                    />
+              <div className="space-y-2.5">
+                <textarea
+                  rows={12}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Paste raw SVG tag here (<svg>...</svg>)..."
+                  className={`w-full p-4 rounded-2xl border transition-all duration-200 text-xs font-mono leading-relaxed ${t.input}`}
+                />
+                <button
+                  onClick={() => {
+                    if (!input.trim()) {
+                      toast.error("Please enter SVG input source first");
+                      return;
+                    }
+                    toast.success(
+                      reactExport
+                        ? `Successfully generated React Component "${componentName}"!`
+                        : "Successfully optimized SVG code!"
+                    );
+                  }}
+                  className={`w-full py-3.5 px-6 rounded-2xl font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 text-sm shadow-md ${
+                    dark
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white"
+                      : "bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white"
+                  } active:scale-[0.98]`}
+                >
+                  <FaFileCode className="text-base" />
+                  {reactExport ? "Generate React Component" : "Optimize SVG Code"}
+                </button>
+              </div>
+
+              {/* Optimization statistics badge */}
+              {originalSize > 0 && (
+                <div
+                  className={`grid grid-cols-3 gap-4 p-4 rounded-2xl border text-center ${t.infoCard}`}
+                >
+                  <div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider opacity-60">
+                      Original Size
+                    </div>
+                    <div className="text-sm font-black mt-0.5">
+                      {formatSize(originalSize)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider opacity-60">
+                      Optimized Size
+                    </div>
+                    <div className="text-sm font-black mt-0.5 text-emerald-500">
+                      {formatSize(optimizedSize)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold tracking-wider opacity-60">
+                      Savings
+                    </div>
+                    <div className="text-sm font-black mt-0.5 text-blue-500">
+                      {savingsPercent > 0 ? `${savingsPercent}%` : "0%"}
+                    </div>
                   </div>
                 </div>
               )}
             </div>
-          </div>
 
-          {/* RIGHT SIDE */}
-          <div className="flex flex-col gap-3">
-            {/* PREVIEW */}
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-bold uppercase">
-                Live Preview
-              </label>
+            {/* Config & Settings Card */}
+            <div className={`rounded-3xl border ${t.card} p-6 sm:p-8 space-y-6`}>
+              <h3 className={`font-bold text-base tracking-tight ${t.heading}`}>
+                Optimization Settings
+              </h3>
 
-              <div className="flex gap-1 text-xs">
-                {["dark", "light", "checker"].map((bg) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                  ["xml", "Remove XML Declaration"],
+                  ["comments", "Remove XML Comments"],
+                  ["metadata", "Remove Editor Metadata"],
+                  ["minify", "Minify Code"],
+                  ["beautify", "Beautify Layout"],
+                ].map(([key, label]) => (
                   <button
-                    key={bg}
-                    onClick={() => setPreviewBg(bg)}
-                    className="border px-2 py-1 rounded cursor-pointer"
+                    key={key}
+                    onClick={() => toggleOption(key)}
+                    className={`border px-4 py-3 rounded-2xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                      options[key] ? t.toggleActive : t.toggleInactive
+                    }`}
                   >
-                    {bg}
+                    <span>{label}</span>
+                    {options[key] && <FaCheck className="text-xs" />}
                   </button>
                 ))}
               </div>
+
+              {/* React JSX Export options */}
+              <div className="border-t border-zinc-200/20 pt-6 space-y-4">
+                <div
+                  onClick={() => setReactExport((v) => !v)}
+                  className={`relative p-5 border rounded-2xl cursor-pointer transition-all duration-300 flex items-center justify-between shadow-sm select-none ${
+                    reactExport
+                      ? dark
+                        ? "bg-blue-600/10 border-blue-500/50 shadow-blue-500/5"
+                        : "bg-blue-50 border-blue-300 shadow-blue-500/5"
+                      : dark
+                      ? "bg-zinc-950/40 border-zinc-800 hover:border-zinc-700"
+                      : "bg-zinc-50/50 border-zinc-250 hover:border-zinc-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3.5">
+                    <div
+                      className={`p-3 rounded-xl transition-all duration-300 ${
+                        reactExport
+                          ? "bg-blue-500 text-white"
+                          : dark
+                          ? "bg-zinc-900 text-zinc-500"
+                          : "bg-zinc-200/60 text-zinc-600"
+                      }`}
+                    >
+                      <FaReact className={`w-5 h-5 ${reactExport ? "animate-[spin_6s_linear_infinite]" : ""}`} />
+                    </div>
+                    <div>
+                      <h4 className={`font-bold text-sm leading-snug ${reactExport ? "text-blue-600 dark:text-blue-400" : ""}`}>
+                        Convert into React Functional Component
+                      </h4>
+                      <p className={`text-[11px] mt-0.5 ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+                        Convert clean SVG tags into functional React JSX or TSX code
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Custom Toggle Switch */}
+                  <div
+                    className={`w-11 h-6 rounded-full p-0.5 transition-colors duration-300 shrink-0 ${
+                      reactExport ? "bg-blue-500" : dark ? "bg-zinc-800" : "bg-zinc-200"
+                    }`}
+                  >
+                    <div
+                      className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 ${
+                        reactExport ? "translate-x-5" : "translate-x-0"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                {reactExport && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-4 border-l-2 border-zinc-500/30 mt-4 space-y-1 md:space-y-0">
+                    <div className="space-y-3">
+                      <button
+                        onClick={() => setTsxMode((v) => !v)}
+                        className={`w-full border px-4 py-3 rounded-2xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                          tsxMode ? t.toggleActive : t.toggleInactive
+                        }`}
+                      >
+                        <span>TypeScript (TSX) Output</span>
+                        {tsxMode && <FaCheck />}
+                      </button>
+
+                      <button
+                        onClick={() => setUseForwardRef((v) => !v)}
+                        className={`w-full border px-4 py-3 rounded-2xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                          useForwardRef ? t.toggleActive : t.toggleInactive
+                        }`}
+                      >
+                        <span>Use forwardRef</span>
+                        {useForwardRef && <FaCheck />}
+                      </button>
+
+                      <button
+                        onClick={() => setStripDimensions((v) => !v)}
+                        className={`w-full border px-4 py-3 rounded-2xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                          stripDimensions ? t.toggleActive : t.toggleInactive
+                        }`}
+                      >
+                        <span>Strip width/height</span>
+                        {stripDimensions && <FaCheck />}
+                      </button>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className={t.label}>React Component Name</label>
+                      <input
+                        type="text"
+                        value={componentName}
+                        onChange={(e) => setComponentName(e.target.value)}
+                        placeholder="SvgIcon"
+                        className={`w-full p-3.5 rounded-2xl border transition-all duration-200 text-sm font-mono ${t.input}`}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Live preview & Resulting code output (5 Columns) */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Live Preview Card */}
+            <div className={`rounded-3xl border ${t.card} p-6 sm:p-8 space-y-4`}>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <FaEye className="text-zinc-500" />
+                  <h3
+                    className={`font-bold text-base tracking-tight ${t.heading}`}
+                  >
+                    Live Preview
+                  </h3>
+                </div>
+
+                <div className="flex gap-1">
+                  {[
+                    ["dark", "Dark"],
+                    ["light", "Light"],
+                    ["checker", "Grid"],
+                  ].map(([bg, label]) => (
+                    <button
+                      key={bg}
+                      onClick={() => setPreviewBg(bg)}
+                      className={`px-2 py-1 rounded-lg border text-[10px] font-bold uppercase transition-colors cursor-pointer ${
+                        previewBg === bg
+                          ? dark
+                            ? "bg-white text-zinc-900 border-white"
+                            : "bg-zinc-900 text-white border-zinc-950"
+                          : dark
+                          ? "bg-zinc-950/60 border-zinc-800 text-zinc-400 hover:text-white"
+                          : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:text-zinc-900"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Rendering canvas */}
+              <div
+                className={`w-full h-48 rounded-2xl border border-zinc-200/10 flex items-center justify-center overflow-auto ${
+                  previewBg === "dark"
+                    ? "bg-[#0B0F19]"
+                    : previewBg === "light"
+                    ? "bg-[#F8F9FA]"
+                    : "bg-[size:16px_16px] bg-[repeating-conic-gradient(#80808020_0_25%,transparent_0_50%)] bg-[#00000010] dark:bg-[#ffffff05]"
+                }`}
+              >
+                {output ? (
+                  <div
+                    className="max-w-full max-h-full p-6 [&>svg]:max-h-36 [&>svg]:w-auto"
+                    dangerouslySetInnerHTML={{ __html: output }}
+                  />
+                ) : (
+                  <span className="text-xs uppercase font-bold tracking-widest text-zinc-500">
+                    Empty Canvas
+                  </span>
+                )}
+              </div>
             </div>
 
-            <div
-              className={`flex-1 border rounded-xl overflow-auto ${
-                previewBg === "dark"
-                  ? "bg-black"
-                  : previewBg === "light"
-                  ? "bg-white"
-                  : "bg-[repeating-conic-gradient(#ccc_0_25%,transparent_0_50%)]"
-              }`}
-              dangerouslySetInnerHTML={{ __html: output }}
-            />
+            {/* Output code card */}
+            <div className={`rounded-3xl border ${t.card} p-6 sm:p-8 space-y-4`}>
+              <h3 className={`font-bold text-base tracking-tight ${t.heading}`}>
+                {reactExport ? "React Component Code" : "Optimized SVG Code"}
+              </h3>
 
-            {/* OUTPUT */}
-            <label className="text-xs font-bold uppercase">
-              {reactExport ? "React Component Output" : "Clean Output"}
-            </label>
+              <textarea
+                value={displayOutput}
+                readOnly
+                placeholder="Output code will appear here..."
+                rows={12}
+                className={`w-full p-4 rounded-2xl border transition-all duration-200 text-xs font-mono leading-relaxed select-all ${t.input}`}
+              />
 
-            <textarea
-              value={displayOutput}
-              readOnly
-              className="h-32 p-3 border rounded-xl text-sm font-mono"
-            />
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <button
+                  onClick={handleCopy}
+                  disabled={!displayOutput}
+                  className={`w-full py-3.5 px-4 rounded-2xl font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 ${
+                    displayOutput
+                      ? t.buttonPrimary
+                      : "opacity-40 cursor-not-allowed border-zinc-200 text-zinc-400 bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800"
+                  }`}
+                >
+                  <FaCopy /> Copy
+                </button>
 
-            {/* ACTIONS */}
-            <div className="grid grid-cols-2 gap-2">
-              <button onClick={handleCopy} className="border py-2 rounded-xl cursor-pointer">
-                Copy
-              </button>
-
-              <button onClick={handleDownload} className="border py-2 rounded-xl cursor-pointer">
-                {reactExport
-                  ? tsxMode
-                    ? "Download .tsx"
-                    : "Download .jsx"
-                  : "Download"}
-              </button>
+                <button
+                  onClick={handleDownload}
+                  disabled={!displayOutput}
+                  className={`w-full py-3.5 px-4 rounded-2xl font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border ${
+                    displayOutput
+                      ? t.buttonSecondary
+                      : "opacity-40 cursor-not-allowed border-zinc-200 text-zinc-400 bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800"
+                  }`}
+                >
+                  <FaDownload /> Download
+                </button>
+              </div>
             </div>
           </div>
         </div>
