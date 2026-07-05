@@ -79,6 +79,7 @@ import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
+import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPaletteExtractor";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -537,6 +538,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/image-optimizer"
                 element={<ImageOptimizer />}
+              />
+              <Route
+                path="/devutilities/color-extractor"
+                element={<ColorPaletteExtractor />}
               />
               <Route
                 path="/devutilities/robots-generator"

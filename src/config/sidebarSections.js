@@ -319,6 +319,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/color",
       },
       {
+        label: "Image Color Palette Extractor",
+        description:
+          "Extract dominant color palettes and HEX codes from any uploaded image client-side.",
+        path: "/devutilities/color-extractor",
+      },
+      {
         label: "QR Code Generator",
         description: "Generate QR codes",
         path: "/devutilities/qrcode",
