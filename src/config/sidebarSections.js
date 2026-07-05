@@ -422,6 +422,12 @@ const SIDEBAR_SECTIONS = [
           "Test API endpoints and inspect HTTP status, response time and output",
         path: "/devutilities/api-status-checker",
       },
+      {
+        label: "Meta Tags Generator",
+        description:
+          "Generate SEO, Open Graph, and Twitter Card meta tags with live previews",
+        path: "/devutilities/meta-tags",
+      },
     ],
   },
 ];
