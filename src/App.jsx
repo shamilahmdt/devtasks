@@ -87,6 +87,7 @@ import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerat
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
+import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
 
 
 import Footer from "./components/Footer";
@@ -563,6 +564,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/gitignore-generator"
                 element={<GitignoreGenerator />}
+              />
+              <Route
+                path="/devutilities/meta-tags"
+                element={<MetaTagsGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
