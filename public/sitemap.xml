@@ -7,12 +7,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://dev-tasks-beta.vercel.app/devutilities/json-types-converter</loc>
-    <lastmod>2026-07-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://dev-tasks-beta.vercel.app/dashboard</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -176,6 +170,12 @@
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/json-types-converter</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/timestamp</loc>
@@ -412,8 +412,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-generator</loc>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-txt-generator</loc>
     <lastmod>2026-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/docker-generator</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/gitignore-generator</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/ascii-banner</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/api-status-checker</loc>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

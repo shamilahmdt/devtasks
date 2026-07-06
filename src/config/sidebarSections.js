@@ -26,7 +26,7 @@ const SIDEBAR_SECTIONS = [
       },
     ],
   },
-  
+
   {
     title: "Task Management",
     description: "Roadmaps, logs, and backups",
@@ -298,6 +298,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/css-gradient",
       },
       {
+        label: "CSS Border-Image Generator",
+        description:
+          "Design custom sliced image borders and generate copy-ready CSS properties visually.",
+        path: "/devutilities/border-image",
+      },
+      {
         label: "Glassmorphism Playground",
         description: "Design glassmorphism effects with shadows and blur",
         path: "/devutilities/glassmorphism",
@@ -340,8 +346,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/cron",
       },
       {
-        label: "SVG Optimizer",
-        description: "Optimize, clean, and preview SVG code instantly",
+        label: "SVG Optimizer & React JSX Generator",
+        description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
         path: "/devutilities/svg-optimizer",
       },
       {
@@ -401,18 +407,38 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "URL Slug Generator & Text Sanitizer",
-        description: "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
+        description:
+          "Convert raw text into clean, URL-safe slugs with customizable separators, casing, and accent stripping.",
         path: "/devutilities/slug-generator",
       },
       {
+        label: "Robots.txt Generator",
+        description: "Generate robots.txt files for your website.",
+        path: "/devutilities/robots-txt-generator",
+      },
+      {
+        label: "ASCII Art Generator",
+        description:
+          "Convert text strings into custom ASCII art banners for code comments and terminals.",
+        path: "/devutilities/ascii-banner",
+      },
+      {
         label: "Image Optimizer",
-        description: "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
+        description:
+          "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
         path: "/devutilities/image-optimizer",
       },
       {
-        label: "robots.txt Generator",
-        description: "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file.",
-        path: "/devutilities/robots-generator",
+        label: "API Status Checker",
+        description:
+          "Test API endpoints and inspect HTTP status, response time and output",
+        path: "/devutilities/api-status-checker",
+      },
+      {
+        label: "Meta Tags Generator",
+        description:
+          "Generate SEO, Open Graph, and Twitter Card meta tags with live previews",
+        path: "/devutilities/meta-tags",
       },
     ],
   },

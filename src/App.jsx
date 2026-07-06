@@ -33,6 +33,7 @@ import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
 import Base64Image from "./pages/DevUtilities/devutilities/Base64Image";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
+import BorderImageGenerator from "./pages/DevUtilities/devutilities/BorderImageGenerator";
 import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
 import ClipPathMaker from "./pages/DevUtilities/devutilities/ClipPathMaker";
 import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
@@ -80,8 +81,15 @@ import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPaletteExtractor";
+
+import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
+
+
+import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
+import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
+
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -155,7 +163,6 @@ function AppInner({ toggleHUD, hudVisible }) {
       }
     }
 
-   
     document.title = title;
 
     let descMeta = document.querySelector('meta[name="description"]');
@@ -174,7 +181,6 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
     keysMeta.setAttribute("content", keywords);
 
-    
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", title);
 
@@ -199,7 +205,6 @@ function AppInner({ toggleHUD, hudVisible }) {
     }
   }, [location.pathname]);
 
-  
   const isRestoringRef = useRef(false);
 
   useEffect(() => {
@@ -240,14 +245,12 @@ function AppInner({ toggleHUD, hudVisible }) {
       scrollContainer.scrollTop = 0;
     }
 
-   
     const safetyTimeout = setTimeout(() => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
       }
     }, 800);
 
-   
     const handleUserInteraction = () => {
       if (isRestoringRef.current) {
         isRestoringRef.current = false;
@@ -275,7 +278,7 @@ function AppInner({ toggleHUD, hudVisible }) {
       if (isRestoringRef.current) {
         return;
       }
-      
+
       const currentScrollTop = scrollContainer.scrollTop;
 
       if (saveTimeout) clearTimeout(saveTimeout);
@@ -352,6 +355,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/snippetvault/data-center"
                 element={<DataCenterSnippet />}
               />
+              <Route
+                path="/devutilities/robots-txt-generator"
+                element={<RobotsTxtGenerator />}
+              />
 
               {/* Resource Hub */}
               <Route path="/resourcehub" element={<ResourceHub />} />
@@ -423,9 +430,9 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<Base64Image />}
               />
               <Route
-  path="/devutilities/json-types-converter"
-  element={<JsonTypesConverter />}
-/>
+                path="/devutilities/json-types-converter"
+                element={<JsonTypesConverter />}
+              />
               <Route
                 path="/devutilities/timestamp"
                 element={<TimestampConverter />}
@@ -498,6 +505,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssGradientGenerator />}
               />
               <Route
+                path="/devutilities/border-image"
+                element={<BorderImageGenerator />}
+              />
+              <Route
                 path="/devutilities/glassmorphism"
                 element={<CssGlassmorphismPlayground />}
               />
@@ -548,7 +559,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/robots-generator"
                 element={<RobotsTxtGenerator />}
+                path="/devutilities/api-status-checker"
+                element={<NetworkRequestTester />}
               />
+              <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route
                 path="/devutilities/docker-generator"
@@ -557,6 +571,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/gitignore-generator"
                 element={<GitignoreGenerator />}
+              />
+              <Route
+                path="/devutilities/meta-tags"
+                element={<MetaTagsGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

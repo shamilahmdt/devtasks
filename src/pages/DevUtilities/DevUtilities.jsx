@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { FaCode, FaCodeBranch } from "react-icons/fa";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
 const DevUtilities = () => {
@@ -52,8 +51,9 @@ const DevUtilities = () => {
 
   const cards = [
     {
-      title: "SVG Optimizer",
-      description: "Optimize, clean and preview SVG code instantly",
+      title: "SVG Optimizer & React JSX Generator",
+      description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
+      keywords: "jsx react component tsx",
       path: "/devutilities/svg-optimizer",
       icon: (
         <svg
@@ -137,8 +137,22 @@ const DevUtilities = () => {
     {
       title: "JSON → Types Converter",
       description: "Convert JSON into TypeScript interfaces and Go structs.",
-      icon: "🧩",
       path: "/devutilities/json-types-converter",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+          />
+        </svg>
+      ),
     },
     {
       title: "XML Validator & Formatter",
@@ -624,6 +638,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "Robots.txt Generator",
+      description:
+        "Generate robots.txt files with live preview, sitemap, crawl delay and copy support.",
+      path: "/devutilities/robots-txt-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12h6m-6 4h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "SQL Formatter & Minifier",
       description:
         "Beautify messy SQL with proper keyword casing and indentation, or minify to a single line. Fully offline.",
@@ -733,7 +768,21 @@ const DevUtilities = () => {
       description:
         "Parse browser user-agent strings and inspect client environment information.",
       path: "/devutilities/user-agent",
-      icon: <FaCode />,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      ),
     },
     {
       title: "Chmod Calculator",
@@ -937,6 +986,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Border-Image Generator",
+      description:
+        "Design custom sliced image borders and generate copy-ready CSS properties visually.",
+      path: "/devutilities/border-image",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 8V6a2 2 0 012-2h2m8 0h2a2 2 0 012 2v2m0 8v2a2 2 0 01-2 2h-2m-8 0H6a2 2 0 01-2-2v-2m5-5h6m-6 3h6"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Password Generator",
       description:
         "Generate secure passwords and analyze entropy, strength, and crack times.",
@@ -1086,7 +1156,50 @@ const DevUtilities = () => {
       description:
         "Scenario-based Git command builder to help find and customize commands for common tasks.",
       path: "/devutilities/git-builder",
-      icon: <FaCodeBranch />,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18V6"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 12c0-3.3 2.7-6 6-6h3"
+          />
+          <circle cx="6" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+          <circle cx="6" cy="18" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+          <circle cx="16" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      title: "API Status Checker",
+      description: "Test API endpoints and inspect HTTP status, response time and output.",
+      path: "/devutilities/api-status-checker",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      ),
     },
     {
       title: ".gitignore Generator",
@@ -1109,11 +1222,11 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+
     {
-      title: "robots.txt Generator",
-      description:
-        "Generate and configure crawl directives, sitemaps, and bot permissions in a robots.txt file offline.",
-      path: "/devutilities/robots-generator",
+      title: "ASCII Art Generator",
+      description: "Convert text strings into custom ASCII art banners for code comments and terminals.",
+      path: "/devutilities/ascii-banner",
       icon: (
         <svg
           className="w-6 h-6"
@@ -1125,7 +1238,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            d="M4 6h16M4 12h16M4 18h7"
           />
         </svg>
       ),
@@ -1160,12 +1273,14 @@ const DevUtilities = () => {
     const cardTitle = card.title.toLowerCase();
     const cardDesc = card.description.toLowerCase();
     const cardPath = card.path.toLowerCase();
+    const cardKeywords = (card.keywords || "").toLowerCase();
 
     // 1. Direct substring match on title, description, or path
     if (
       cardTitle.includes(query) ||
       cardDesc.includes(query) ||
-      cardPath.includes(query)
+      cardPath.includes(query) ||
+      cardKeywords.includes(query)
     ) {
       return true;
     }
@@ -1189,7 +1304,7 @@ const DevUtilities = () => {
       .filter((word) => !stopWords.has(word) && word.length > 0);
 
     if (queryWords.length > 0) {
-      const cardContent = `${cardTitle} ${cardDesc} ${cardPath}`;
+      const cardContent = `${cardTitle} ${cardDesc} ${cardPath} ${cardKeywords}`;
       return queryWords.every((word) => cardContent.includes(word));
     }
 
@@ -1499,7 +1614,7 @@ const DevUtilities = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-                  {filteredUniqueCards.map((card) => {
+                  {otherCards.map((card) => {
                     const isFavorite = favoriteSet.has(card.path);
 
                     return (

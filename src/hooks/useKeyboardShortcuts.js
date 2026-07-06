@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const TAG_BLACKLIST = new Set(["INPUT", "TEXTAREA", "SELECT"]);
 
@@ -15,6 +16,7 @@ const SHORTCUTS = {
 
 export default function useKeyboardShortcuts(onToggleHUD, hudVisible) {
   const navigate = useNavigate();
+  const { toggleTheme } = useTheme();
 
   useEffect(() => {
     function handler(e) {
@@ -39,8 +41,14 @@ export default function useKeyboardShortcuts(onToggleHUD, hudVisible) {
         return;
       }
 
-      // Alt + navigation
+      // Alt + navigation or action
       if (e.altKey && !e.ctrlKey && !e.metaKey) {
+        if (e.code === "KeyL") {
+          e.preventDefault();
+          toggleTheme();
+          return;
+        }
+
         const path = SHORTCUTS[e.code];
 
         if (path) {
@@ -55,5 +63,5 @@ export default function useKeyboardShortcuts(onToggleHUD, hudVisible) {
     return () => {
       window.removeEventListener("keydown", handler);
     };
-  }, [onToggleHUD, hudVisible, navigate]);
+  }, [onToggleHUD, hudVisible, navigate, toggleTheme]);
 }
