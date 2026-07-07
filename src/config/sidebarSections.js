@@ -33,16 +33,6 @@ const SIDEBAR_SECTIONS = [
     match: (pathname) => pathname.startsWith("/taskmanage"),
     items: [
       {
-  label: "Base64 Encoder / Decoder",
-  description: "Encode and decode Base64 strings",
-  path: "/devutilities/base64",
-},
-{
-  label: "Morse Code Converter",
-  description: "Convert text and Morse code",
-  path: "/devutilities/morse-code",
-},
-      {
         label: "Task Workspace",
         description: "Task section hub",
         path: "/taskmanage",
@@ -221,6 +211,11 @@ const SIDEBAR_SECTIONS = [
         label: "Base64 Image",
         description: "Encode/decode images with Base64",
         path: "/devutilities/base64-image",
+      },
+      {
+        label: "Morse Code Converter",
+        description: "Convert text and Morse code",
+        path: "/devutilities/morse-code",
       },
       {
         label: "JSON → Types Converter",

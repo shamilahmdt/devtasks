@@ -21,7 +21,6 @@ import DeleteHistory from "./pages/TaskManagement/taskmanage/DeleteHistory";
 import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
 import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
 import RobotsTxtGenerator from "./pages/DevUtilities/devutilities/RobotsTxtGenerator";
-import Base64Converter from "./pages/DevUtilities/devutilities/Base64Converter";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -304,11 +303,9 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${
-        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-      } transition-colors duration-300 ${
-        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-      }`}
+      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+        }`}
     >
       <SplashScreen />
 
@@ -344,13 +341,9 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route path="/taskmanage/data-center" element={<DataCenter />} />
               <Route
-  path="/devutilities/base64"
-  element={<Base64Converter />}
-/>
-<Route
-  path="/devutilities/morse-code"
-  element={<MorseCodeConverter />}
-/>
+                path="/devutilities/morse-code"
+                element={<MorseCodeConverter />}
+              />
 
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />
@@ -569,6 +562,8 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/robots-generator"
                 element={<RobotsTxtGenerator />}
+              />
+              <Route
                 path="/devutilities/api-status-checker"
                 element={<NetworkRequestTester />}
               />

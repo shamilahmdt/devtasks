@@ -51,25 +51,25 @@ const DevUtilities = () => {
 
   const cards = [
     {
-  title: "Base64 Encoder / Decoder",
-  description: "Encode and decode Base64 strings completely offline.",
-  path: "/devutilities/base64",
-  icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"
-      />
-    </svg>
-  ),
-},
+      title: "Base64 / URL Encoder & Decoder",
+      description: "Encode and decode Base64 strings and URL components completely offline.",
+      path: "/devutilities/base64",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"
+          />
+        </svg>
+      ),
+    },
     {
       title: "SVG Optimizer & React JSX Generator",
       description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
@@ -92,25 +92,25 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "Morse Code Converter",
-  description: "Convert text to Morse code and decode Morse code back to text.",
-  path: "/devutilities/morse-code",
-  icon: (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M4 12h2m2 0h1m2 0h4m2 0h1m2 0h2"
-      />
-    </svg>
-  ),
-},
+      title: "Morse Code Converter",
+      description: "Convert text to Morse code and decode Morse code back to text.",
+      path: "/devutilities/morse-code",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 12h2m2 0h1m2 0h4m2 0h1m2 0h2"
+          />
+        </svg>
+      ),
+    },
     {
       title: "CSS Unit & Fluid Typography",
       description:
@@ -236,7 +236,7 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-   
+
     {
       title: "URL Parser & Query Builder",
       description:
@@ -258,8 +258,8 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    
-  
+
+
     {
       title: "Keyboard Keycode Inspector",
       description:
@@ -529,27 +529,6 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M4 16l4-4 4 4 6-6M4 20h16M6 4h12a2 2 0 012 2v12H4V6a2 2 0 012-2z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Base64 / URL",
-      description:
-        "Encode and decode binary string fragments, escape special URL query variables, and test strings.",
-      path: "/devutilities/base64",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
           />
         </svg>
       ),
@@ -1286,6 +1265,26 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Meta Tags Generator",
+      description: "Generate SEO, Open Graph, and Twitter Card meta tags with live previews.",
+      path: "/devutilities/meta-tags",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 7h10M7 12h10m-8 5h8M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
@@ -1399,11 +1398,10 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
                 ? "text-neutral-400 hover:text-white"
                 : "text-neutral-500 hover:text-black"
-            }`}
+              }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -1439,21 +1437,19 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
-                    dark
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
                       ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
                       : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
-                  }`}
+                    }`}
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${
-                      dark
+                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${dark
                         ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
                         : "text-black hover:text-black hover:bg-neutral-150"
-                    }`}
+                      }`}
                     aria-label="Clear search query"
                   >
                     <svg
@@ -1542,11 +1538,10 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-                className={`overflow-hidden transition-all duration-500 ease-out ${
-                  hasFavorites
+                className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
                     ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
                     : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
-                }`}
+                  }`}
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div>
@@ -1590,13 +1585,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
                                 ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
                                 : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"
@@ -1683,13 +1677,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                               : dark
                                 ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
                                 : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"
