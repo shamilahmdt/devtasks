@@ -21,6 +21,7 @@ import DeleteHistory from "./pages/TaskManagement/taskmanage/DeleteHistory";
 import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
 import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
 import RobotsTxtGenerator from "./pages/DevUtilities/devutilities/RobotsTxtGenerator";
+import Base64Converter from "./pages/DevUtilities/devutilities/Base64Converter";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -81,6 +82,7 @@ import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPaletteExtractor";
+import MorseCodeConverter from "./pages/DevUtilities/devutilities/MorseCodeConverter";
 
 import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
 
@@ -341,6 +343,14 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<DeleteHistory />}
               />
               <Route path="/taskmanage/data-center" element={<DataCenter />} />
+              <Route
+  path="/devutilities/base64"
+  element={<Base64Converter />}
+/>
+<Route
+  path="/devutilities/morse-code"
+  element={<MorseCodeConverter />}
+/>
 
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />

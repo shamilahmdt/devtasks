@@ -51,6 +51,26 @@ const DevUtilities = () => {
 
   const cards = [
     {
+  title: "Base64 Encoder / Decoder",
+  description: "Encode and decode Base64 strings completely offline.",
+  path: "/devutilities/base64",
+  icon: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"
+      />
+    </svg>
+  ),
+},
+    {
       title: "SVG Optimizer & React JSX Generator",
       description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
       keywords: "jsx react component tsx",
@@ -71,6 +91,26 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+  title: "Morse Code Converter",
+  description: "Convert text to Morse code and decode Morse code back to text.",
+  path: "/devutilities/morse-code",
+  icon: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 12h2m2 0h1m2 0h4m2 0h1m2 0h2"
+      />
+    </svg>
+  ),
+},
     {
       title: "CSS Unit & Fluid Typography",
       description:
@@ -196,6 +236,7 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+   
     {
       title: "URL Parser & Query Builder",
       description:
@@ -217,6 +258,8 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    
+  
     {
       title: "Keyboard Keycode Inspector",
       description:
