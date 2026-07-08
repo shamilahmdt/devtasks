@@ -446,6 +446,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/meta-tags",
       },
       {
+        label: "Favicon Generator",
+        description:
+          "Generate multi-size favicons and web manifest from a single image.",
+        path: "/devutilities/favicon-generator",
+      },
+      {
         label: "SVG Wave & Shape Divider Generator",
         description: "Design organic SVG section dividers and curves visually.",
         path: "/devutilities/shape-divider",

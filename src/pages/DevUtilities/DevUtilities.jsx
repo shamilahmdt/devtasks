@@ -1305,6 +1305,28 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Favicon Generator",
+      description:
+        "Generate multi-size favicons, apple-touch-icon, and site.webmanifest from a single image. Download as ZIP.",
+      path: "/devutilities/favicon-generator",
+      keywords: "favicon icon manifest pwa webmanifest apple-touch-icon",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm3 8l3 3 5-5"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(

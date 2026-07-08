@@ -91,6 +91,7 @@ import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChe
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
 import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
+import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 
 
 import Footer from "./components/Footer";
@@ -581,6 +582,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/meta-tags"
                 element={<MetaTagsGenerator />}
+              />
+              <Route
+                path="/devutilities/favicon-generator"
+                element={<FaviconGenerator />}
               />
               <Route
                 path="/devutilities/shape-divider"
