@@ -1285,6 +1285,26 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "SVG Wave & Shape Divider Generator",
+      description: "Design organic SVG section dividers and curves visually.",
+      path: "/devutilities/shape-divider",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 6c2 2 4 2 6 0s4-2 6 0 4 2 6 0M3 12c2 2 4 2 6 0s4-2 6 0 4 2 6 0M3 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(

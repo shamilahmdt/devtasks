@@ -445,6 +445,11 @@ const SIDEBAR_SECTIONS = [
           "Generate SEO, Open Graph, and Twitter Card meta tags with live previews",
         path: "/devutilities/meta-tags",
       },
+      {
+        label: "SVG Wave & Shape Divider Generator",
+        description: "Design organic SVG section dividers and curves visually.",
+        path: "/devutilities/shape-divider",
+      },
     ],
   },
 ];

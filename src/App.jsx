@@ -65,6 +65,7 @@ import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseCon
 import PasswordGenerator from "./pages/DevUtilities/devutilities/PasswordGenerator";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
+import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDividerGenerator";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConverter";
 import StringInspector from "./pages/DevUtilities/devutilities/StringInspector";
@@ -580,6 +581,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/meta-tags"
                 element={<MetaTagsGenerator />}
+              />
+              <Route
+                path="/devutilities/shape-divider"
+                element={<ShapeDividerGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
