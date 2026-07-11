@@ -79,6 +79,7 @@ import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder
 import UserAgentParser from "./pages/DevUtilities/devutilities/UserAgentParser";
 import UuidGenerator from "./pages/DevUtilities/devutilities/UuidGenerator";
 import WordCounter from "./pages/DevUtilities/devutilities/WordCounter";
+import TextListCleaner from "./pages/DevUtilities/devutilities/TextListCleaner";
 import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuilder";
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPaletteExtractor";
@@ -544,6 +545,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/word-counter"
                 element={<WordCounter />}
+              />
+              <Route
+                path="/devutilities/text-list-cleaner"
+                element={<TextListCleaner />}
               />
               <Route
                 path="/devutilities/sql-converter"

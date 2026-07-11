@@ -1173,6 +1173,32 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    
+    {
+      title: "Text List Cleaner",
+      description:
+        "Sort lines, remove duplicates, trim whitespace, and remove empty lines completely offline.",
+      keywords:
+        "text list sort lines duplicates deduplicate clean trim whitespace",
+      path: "/devutilities/text-list-cleaner",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"
+          />
+        </svg>
+      ),
+    },
+    
     {
       title: "Git Command Builder",
       description:

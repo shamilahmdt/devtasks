@@ -392,6 +392,13 @@ const SIDEBAR_SECTIONS = [
         description: "Character & word count tool",
         path: "/devutilities/word-counter",
       },
+     
+      {
+        label: "Text List Cleaner",
+        description: "Sort, clean, and remove duplicate text lines",
+        path: "/devutilities/text-list-cleaner",
+      },
+
       {
         label: "SQL Schema Converter",
         description:
