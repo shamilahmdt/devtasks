@@ -218,6 +218,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/morse-code",
       },
       {
+        label: "YAML ↔ TOML Converter",
+        description: "Convert between YAML and TOML formats",
+        path: "/devutilities/yaml-toml",
+      },
+      {
         label: "JSON → Types Converter",
         description: "Convert JSON into TypeScript interfaces and Go structs.",
         path: "/devutilities/json-types-converter",
