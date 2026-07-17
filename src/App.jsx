@@ -84,6 +84,7 @@ import GitCommandBuilder from "./pages/DevUtilities/devutilities/GitCommandBuild
 import ImageOptimizer from "./pages/DevUtilities/devutilities/ImageOptimizer";
 import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPaletteExtractor";
 import MorseCodeConverter from "./pages/DevUtilities/devutilities/MorseCodeConverter";
+import YamlTomlConverter from "./pages/DevUtilities/devutilities/YamlTomlConverter";
 
 import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
 
@@ -347,6 +348,7 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/morse-code"
                 element={<MorseCodeConverter />}
               />
+              <Route path="/devutilities/yaml-toml" element={<YamlTomlConverter />} />
 
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />
