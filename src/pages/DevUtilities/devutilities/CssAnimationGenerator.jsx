@@ -13,6 +13,7 @@ import {
   FaChevronLeft,
   FaUndo,
 } from "react-icons/fa";
+import CubicBezierEditor from "./CubicBezierEditor";
 
 export default function CssAnimationGenerator() {
   const { dark } = useTheme();
@@ -26,6 +27,8 @@ export default function CssAnimationGenerator() {
   const [direction, setDirection] = useState("normal");
   const [fillMode, setFillMode] = useState("both");
   const [playState, setPlayState] = useState("running");
+  
+  const [bezier, setBezier] = useState([0.25, 0.1, 0.25, 1.0]);
 
   const [shape, setShape] = useState("rounded");
   const [colorPreset, setColorPreset] = useState("blue");
@@ -33,6 +36,8 @@ export default function CssAnimationGenerator() {
 
   const [codeMode, setCodeMode] = useState("css"); // 'css' or 'tailwind'
   const [animationKey, setAnimationKey] = useState(0);
+
+  const actualTiming = timing === "custom" ? `cubic-bezier(${bezier.join(", ")})` : timing;
 
   // Keyframes configuration
   const keyframesData = {
@@ -60,7 +65,7 @@ export default function CssAnimationGenerator() {
 
   const getAnimationOnlyCss = () => {
     return `.animate-${preset} {
-  animation: ${preset} ${duration}s ${timing} ${delay}s ${iteration};
+  animation: ${preset} ${duration}s ${actualTiming} ${delay}s ${iteration};
   animation-direction: ${direction};
   animation-fill-mode: ${fillMode};
 }
@@ -121,7 +126,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        '${preset}': '${preset} ${duration}s ${timing} ${delay}s ${iteration} ${direction} ${fillMode}',
+        '${preset}': '${preset} ${duration}s ${actualTiming} ${delay}s ${iteration} ${direction} ${fillMode}',
       },
       keyframes: {
         '${preset}': {
@@ -173,6 +178,7 @@ ${keyframesData[preset]
     setDuration(2);
     setDelay(0);
     setTiming("ease");
+    setBezier([0.25, 0.1, 0.25, 1.0]);
     setIteration("infinite");
     setDirection("normal");
     setFillMode("both");
@@ -379,8 +385,16 @@ ${keyframesData[preset]
                     <option value="ease-in">Ease In</option>
                     <option value="ease-out">Ease Out</option>
                     <option value="ease-in-out">Ease In Out</option>
+                    <option value="custom">Custom (Cubic-Bezier)</option>
                   </select>
                 </div>
+
+                {timing === "custom" && (
+                  <div className="sm:col-span-2 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm flex flex-col gap-4">
+                    <span className={t.label}>Custom Cubic-Bezier Editor</span>
+                    <CubicBezierEditor bezier={bezier} onChange={setBezier} dark={dark} />
+                  </div>
+                )}
 
                 {/* Iteration Count */}
                 <div className="flex flex-col gap-2">
@@ -547,7 +561,7 @@ ${keyframesData[preset]
                   style={{
                     animationName: preset,
                     animationDuration: `${duration}s`,
-                    animationTimingFunction: timing,
+                    animationTimingFunction: actualTiming,
                     animationDelay: `${delay}s`,
                     animationIterationCount: iteration,
                     animationDirection: direction,
