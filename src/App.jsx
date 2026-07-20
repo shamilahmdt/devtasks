@@ -9,6 +9,7 @@ import {
 import { Toaster } from "sonner";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import SnippetVault from "./pages/SnippetVault/SnippetVault";
 import AddSnippet from "./pages/SnippetVault/snippetvault/AddSnippet";
 import DataCenterSnippet from "./pages/SnippetVault/snippetvault/DataCenter";
@@ -334,6 +335,7 @@ function AppInner({ toggleHUD, hudVisible }) {
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
               <Route path="/dashboard" element={<Dashboard />} />
 
               {/* Task Management */}
