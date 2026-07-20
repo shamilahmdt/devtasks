@@ -331,15 +331,9 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/flexbox-grid-generator",
       },
       {
-        label: "Color Converter",
-        description: "Convert colors and check contrast",
+        label: "Color Converter & Analyzer",
+        description: "Convert color formats, evaluate WCAG contrast, and generate design palettes.",
         path: "/devutilities/color",
-      },
-      {
-        label: "Advanced Color Analyzer",
-        description:
-          "Generate color harmonies, variations, and convert across 10+ color spaces offline.",
-        path: "/devutilities/advanced-color",
       },
       {
         label: "Image Color Palette Extractor",

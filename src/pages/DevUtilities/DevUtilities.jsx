@@ -465,9 +465,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Color Converter & Contrast Checker",
+      title: "Color Converter & Analyzer",
       description:
-        "Convert CSS colors (HEX, RGB, HSL, CMYK), generate palettes, and verify WCAG contrast offline.",
+        "Convert CSS colors (HEX, RGB, HSL, CMYK, XYZ, Lab), evaluate WCAG accessibility contrast, and generate harmonic palettes and design system exports.",
+      keywords: "harmony palette tint shade tone cielab xyz colorref contrast ratio wcag",
       path: "/devutilities/color",
       icon: (
         <svg
@@ -481,28 +482,6 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-3M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Advanced Color Analyzer",
-      description:
-        "Generate color harmonies, variations, and convert across 10+ color spaces offline.",
-      keywords: "harmony palette tint shade tone cielab xyz colorref",
-      path: "/devutilities/advanced-color",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.5M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
           />
         </svg>
       ),
