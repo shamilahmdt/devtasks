@@ -461,6 +461,28 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "Advanced Color Analyzer",
+      description:
+        "Generate color harmonies, variations, and convert across 10+ color spaces offline.",
+      keywords: "harmony palette tint shade tone cielab xyz colorref",
+      path: "/devutilities/advanced-color",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.5M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Image Color Palette Extractor",
       description:
         "Extract dominant color palettes and HEX, RGB, or HSL codes from any uploaded image. Export as CSS variables, Tailwind config, Sass, or JSON. Fully offline.",

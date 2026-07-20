@@ -335,6 +335,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/color",
       },
       {
+        label: "Advanced Color Analyzer",
+        description:
+          "Generate color harmonies, variations, and convert across 10+ color spaces offline.",
+        path: "/devutilities/advanced-color",
+      },
+      {
         label: "Image Color Palette Extractor",
         description:
           "Extract dominant color palettes and HEX codes from any uploaded image client-side.",
