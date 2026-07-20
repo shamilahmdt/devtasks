@@ -426,6 +426,13 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/git-builder",
       },
       {
+        label: "Hex Viewer & Binary Inspector",
+        description:
+          "Inspect file binary headers, offsets, hex patterns, and ASCII streams client-side offline.",
+        path: "/devutilities/hex-inspector",
+      },
+
+      {
         label: ".gitignore Generator",
         description:
           "Generate custom, compiled .gitignore configurations for languages, IDEs, and OS environments.",
