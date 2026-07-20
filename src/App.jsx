@@ -96,6 +96,8 @@ import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
 import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
+import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
+
 
 
 import Footer from "./components/Footer";
@@ -585,6 +587,7 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
+              <Route path="/devutilities/hex-inspector" element={<HexInspector />} />
               <Route
                 path="/devutilities/docker-generator"
                 element={<DockerGenerator />}

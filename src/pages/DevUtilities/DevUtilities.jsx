@@ -51,10 +51,32 @@ const DevUtilities = () => {
 
   const cards = [
     {
+      title: "Hex Viewer & Binary Inspector",
+      description:
+        "Inspect file binary headers, offsets, hex patterns, and ASCII streams client-side offline.",
+      path: "/devutilities/hex-inspector",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zM9 9h6M9 13h6"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Base64 / URL Encoder & Decoder",
       description:
         "Encode and decode Base64 strings and URL components completely offline.",
       path: "/devutilities/base64",
+
       icon: (
         <svg
           className="w-6 h-6"
