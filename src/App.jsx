@@ -39,7 +39,6 @@ import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
 import ClipPathMaker from "./pages/DevUtilities/devutilities/ClipPathMaker";
 import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
 import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
-import AdvancedColorAnalyzer from "./pages/DevUtilities/devutilities/AdvancedColorAnalyzer";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
@@ -458,7 +457,7 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route path="/devutilities/color" element={<ColorConverter />} />
               <Route
                 path="/devutilities/advanced-color"
-                element={<AdvancedColorAnalyzer />}
+                element={<Navigate to="/devutilities/color" replace />}
               />
               <Route path="/devutilities/code" element={<CodeSandbox />} />
               <Route

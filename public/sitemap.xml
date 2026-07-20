@@ -407,7 +407,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-txt-generator</loc>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-generator</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -491,9 +491,15 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dev-tasks-beta.vercel.app/devutilities/advanced-color</loc>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/hex-inspector</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/about</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
