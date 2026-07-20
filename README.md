@@ -14,6 +14,14 @@ Experience DevTasks live at: **[https://dev-tasks-beta.vercel.app/](https://dev-
 
 ---
 
+## 🎮 Check Out My Other Project
+
+**QuickPlay Zone** — [Live Demo](https://quickplay-zone.vercel.app/) · [Repository](https://github.com/shamilahmdt/quickplay-zone)
+
+[![QuickPlay Zone](https://img.shields.io/badge/Check_Out-QuickPlay_Zone-black?style=flat-square&logo=vercel)](https://quickplay-zone.vercel.app/)
+
+---
+
 ## ✨ Features
 
 * 🎛️ **Developer Command Center (Dashboard)**: A unified engineering cockpit displaying dynamic status badges, active task counts, total snippets, saved links, and quick-access utility shortcuts.
