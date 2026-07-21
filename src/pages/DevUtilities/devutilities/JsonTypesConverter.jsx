@@ -22,6 +22,9 @@ export default function JsonTypesConverter() {
   const [language, setLanguage] = useState("typescript");
   const [exportFields, setExportFields] = useState(true);
   const [tsMode, setTsMode] = useState("interface");
+  const [zodImport, setZodImport] = useState(true);
+  const [zodInferType, setZodInferType] = useState(true);
+  const [zodOptional, setZodOptional] = useState(false);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
 
@@ -140,6 +143,8 @@ export default function JsonTypesConverter() {
 
       if (language === "typescript") {
         setOutput(generateTypeScript(parsed, cleanRootName));
+      } else if (language === "zod") {
+        setOutput("// Zod generation will be implemented very soon");
       } else {
         setOutput(generateGoStruct(parsed, cleanRootName));
       }
@@ -147,7 +152,7 @@ export default function JsonTypesConverter() {
       setError("Invalid JSON format");
       setOutput("");
     }
-  }, [jsonInput, language, rootName, tsMode, exportFields]);
+  }, [jsonInput, language, rootName, tsMode, exportFields, zodImport, zodInferType, zodOptional]);
 
   const handleSample = () => {
     setJsonInput(
@@ -192,7 +197,7 @@ export default function JsonTypesConverter() {
 const handleDownload = () => {
   if (!output) return;
 
-  const extension = language === "typescript" ? "ts" : "go";
+  const extension = language === "typescript" || language === "zod" ? "ts" : "go";
 
   const cleanRootName = rootName.trim()
     ? rootName.replace(/[^a-zA-Z0-9_]/g, "")
@@ -338,12 +343,13 @@ const handleDownload = () => {
             >
               <option value="typescript">TypeScript</option>
               <option value="go">Go Structs</option>
+              <option value="zod">Zod Schema</option>
             </select>
           </div>
 
           {/* Config options */}
           <div className="flex flex-col gap-1.5">
-            {language === "typescript" ? (
+            {language === "typescript" && (
               <>
                 <label
                   className={`text-[10px] font-black uppercase tracking-widest ${
@@ -365,7 +371,8 @@ const handleDownload = () => {
                   <option value="type">type alias</option>
                 </select>
               </>
-            ) : (
+            )}
+            {language === "go" && (
               <>
                 <label
                   className={`text-[10px] font-black uppercase tracking-widest ${
@@ -392,6 +399,61 @@ const handleDownload = () => {
                   Export Fields (Upper Camel Case)
                 </label>
               </>
+            )}
+            {language === "zod" && (
+              <div className="flex flex-col gap-2">
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodImport}
+                    onChange={(e) => setZodImport(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Prepend Zod Import
+                </label>
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodInferType}
+                    onChange={(e) => setZodInferType(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Generate Type Inference
+                </label>
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodOptional}
+                    onChange={(e) => setZodOptional(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Make All Fields Optional
+                </label>
+              </div>
             )}
           </div>
         </div>
@@ -484,7 +546,7 @@ const handleDownload = () => {
                     dark ? "text-zinc-400" : "text-neutral-500"
                   }`}
                 >
-                  Generated {language === "typescript" ? "TypeScript" : "Go Structs"}
+                  Generated {language === "typescript" ? "TypeScript" : language === "zod" ? "Zod Schema" : "Go Structs"}
                 </label>
                 <div className="flex gap-2">
                   <div className="flex gap-2">
