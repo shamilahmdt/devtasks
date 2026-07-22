@@ -1047,6 +1047,30 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Cubic-Bezier Generator",
+      description:
+        "Design custom transition easing curves visually and preview animations in real time.",
+      keywords: "cubic bezier easing curve timing function transition animation",
+      path: "/devutilities/cubic-bezier",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 20C4 20 5 4 20 4"
+          />
+          <circle cx="4" cy="20" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="20" cy="4" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Gradient Generator",
       description: "Create beautiful CSS gradients with live preview",
       path: "/devutilities/css-gradient",

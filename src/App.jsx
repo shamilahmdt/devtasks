@@ -45,6 +45,7 @@ import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGla
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
+import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierGenerator";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
 import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridGenerator";
@@ -397,6 +398,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/css-animation"
                 element={<CssAnimationGenerator />}
+              />
+              <Route
+                path="/devutilities/cubic-bezier"
+                element={<CubicBezierGenerator />}
               />
               <Route path="/devutilities/regex" element={<RegexTester />} />
               <Route

@@ -304,6 +304,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/css-animation",
       },
       {
+        label: "CSS Cubic-Bezier Generator",
+        description:
+          "Design custom transition easing curves visually and preview animations in real time.",
+        path: "/devutilities/cubic-bezier",
+      },
+      {
         label: "CSS Gradient Generator",
         description: "Create beautiful CSS gradients with live preview",
         path: "/devutilities/css-gradient",
