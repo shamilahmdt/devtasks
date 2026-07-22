@@ -484,6 +484,12 @@ const SIDEBAR_SECTIONS = [
         description: "Design organic SVG section dividers and curves visually.",
         path: "/devutilities/shape-divider",
       },
+      {
+        label: "CSS Box Shadow & Glow Generator",
+        description:
+          "Design multi-layer box shadows and glows with live preview and copy-ready CSS.",
+        path: "/devutilities/box-shadow",
+      },
     ],
   },
 ];

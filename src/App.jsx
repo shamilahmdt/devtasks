@@ -42,6 +42,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
@@ -611,6 +612,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/shape-divider"
                 element={<ShapeDividerGenerator />}
+              />
+              <Route
+                path="/devutilities/box-shadow"
+                element={<BoxShadowGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

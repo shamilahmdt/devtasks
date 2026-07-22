@@ -1436,6 +1436,28 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "CSS Box Shadow & Glow Generator",
+      description:
+        "Design multi-layer box shadows and glows with live preview and copy-ready CSS output.",
+      path: "/devutilities/box-shadow",
+      keywords: "shadow glow css box-shadow inset layer tailwind",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h12v12H4zM8 8h12v12H8z"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
