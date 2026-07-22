@@ -22,6 +22,9 @@ export default function JsonTypesConverter() {
   const [language, setLanguage] = useState("typescript");
   const [exportFields, setExportFields] = useState(true);
   const [tsMode, setTsMode] = useState("interface");
+  const [zodImport, setZodImport] = useState(true);
+  const [zodInferType, setZodInferType] = useState(true);
+  const [zodOptional, setZodOptional] = useState(false);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
 
@@ -123,6 +126,73 @@ export default function JsonTypesConverter() {
     return structs.trim();
   }
 
+  function generateZodSchema(obj, name) {
+    function toZodType(value) {
+      if (value === null) return "z.any().nullable()";
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "z.array(z.any())";
+        return `z.array(${toZodType(value[0])})`;
+      }
+      if (typeof value === "object") return "z.object";
+      if (typeof value === "string") return "z.string()";
+      if (typeof value === "boolean") return "z.boolean()";
+      if (typeof value === "number") {
+        return Number.isInteger(value) ? "z.number().int()" : "z.number()";
+      }
+      return "z.any()";
+    }
+
+    let schemas = "";
+
+    function parse(current, schemaName) {
+      let body = "";
+
+      Object.entries(current).forEach(([key, value]) => {
+        let schema;
+        if (Array.isArray(value)) {
+          if (value.length > 0 && typeof value[0] === "object") {
+            const child = key.charAt(0).toUpperCase() + key.slice(1);
+            parse(value[0], child);
+            schema = `z.array(${child}Schema)`;
+          } else {
+            schema = toZodType(value);
+          }
+        } else if (typeof value === "object" && value !== null) {
+          const child = key.charAt(0).toUpperCase() + key.slice(1);
+          parse(value, child);
+          schema = `${child}Schema`;
+        } else {
+          schema = toZodType(value);
+        }
+
+        if (zodOptional) {
+          schema += ".optional()";
+        }
+
+        body += `  ${key}: ${schema},\n`;
+      });
+
+      schemas += `const ${schemaName}Schema = z.object({\n${body}});\n\n`;
+    }
+
+    parse(obj, name);
+
+    const parts = [];
+
+    if (zodImport) {
+      parts.push('import { z } from "zod";\n');
+    }
+
+    parts.push(schemas.trim());
+
+    if (zodInferType) {
+      const camelName = name.charAt(0).toLowerCase() + name.slice(1);
+      parts.push(`\nexport type ${name} = z.infer<typeof ${camelName}Schema>;`);
+    }
+
+    return parts.join("\n");
+  }
+
   useEffect(() => {
     if (!jsonInput.trim()) {
       setError("");
@@ -140,6 +210,8 @@ export default function JsonTypesConverter() {
 
       if (language === "typescript") {
         setOutput(generateTypeScript(parsed, cleanRootName));
+      } else if (language === "zod") {
+        setOutput(generateZodSchema(parsed, cleanRootName));
       } else {
         setOutput(generateGoStruct(parsed, cleanRootName));
       }
@@ -147,7 +219,7 @@ export default function JsonTypesConverter() {
       setError("Invalid JSON format");
       setOutput("");
     }
-  }, [jsonInput, language, rootName, tsMode, exportFields]);
+  }, [jsonInput, language, rootName, tsMode, exportFields, zodImport, zodInferType, zodOptional]);
 
   const handleSample = () => {
     setJsonInput(
@@ -192,7 +264,7 @@ export default function JsonTypesConverter() {
 const handleDownload = () => {
   if (!output) return;
 
-  const extension = language === "typescript" ? "ts" : "go";
+  const extension = language === "typescript" || language === "zod" ? "ts" : "go";
 
   const cleanRootName = rootName.trim()
     ? rootName.replace(/[^a-zA-Z0-9_]/g, "")
@@ -221,10 +293,10 @@ const handleDownload = () => {
         dark ? "bg-zinc-950" : "bg-[#F7F7F7]"
       }`}
     >
-      <title>JSON → Types Converter — DevTasks</title>
+      <title>JSON to Types & Zod Converter — DevTasks</title>
       <meta
         name="description"
-        content="Instantly convert JSON objects into TypeScript interfaces/types or Go structs with customizable configurations."
+        content="Instantly convert JSON objects into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations."
       />
 
       {/* Background blobs */}
@@ -282,10 +354,10 @@ const handleDownload = () => {
                 dark ? "text-white" : "text-black"
               }`}
             >
-              JSON → Types Converter
+              JSON → Types & Zod Converter
             </h1>
             <p className={`text-xs font-semibold mt-0.5 ${dark ? "text-zinc-500" : "text-neutral-400"}`}>
-              Offline generator for TypeScript interfaces, type aliases, and Go structs
+              Offline generator for TypeScript interfaces, type aliases, Go structs, and Zod schemas
             </p>
           </div>
         </div>
@@ -338,12 +410,13 @@ const handleDownload = () => {
             >
               <option value="typescript">TypeScript</option>
               <option value="go">Go Structs</option>
+              <option value="zod">Zod Schema</option>
             </select>
           </div>
 
           {/* Config options */}
           <div className="flex flex-col gap-1.5">
-            {language === "typescript" ? (
+            {language === "typescript" && (
               <>
                 <label
                   className={`text-[10px] font-black uppercase tracking-widest ${
@@ -365,7 +438,8 @@ const handleDownload = () => {
                   <option value="type">type alias</option>
                 </select>
               </>
-            ) : (
+            )}
+            {language === "go" && (
               <>
                 <label
                   className={`text-[10px] font-black uppercase tracking-widest ${
@@ -392,6 +466,61 @@ const handleDownload = () => {
                   Export Fields (Upper Camel Case)
                 </label>
               </>
+            )}
+            {language === "zod" && (
+              <div className="flex flex-col gap-2">
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodImport}
+                    onChange={(e) => setZodImport(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Prepend Zod Import
+                </label>
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodInferType}
+                    onChange={(e) => setZodInferType(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Generate Type Inference
+                </label>
+                <label
+                  className={`flex items-center gap-2.5 text-xs font-bold uppercase cursor-pointer select-none transition-colors ${
+                    dark ? "text-zinc-300 hover:text-white" : "text-neutral-700 hover:text-black"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={zodOptional}
+                    onChange={(e) => setZodOptional(e.target.checked)}
+                    className={`rounded transition-all duration-205 focus:ring-0 w-4 h-4 ${
+                      dark
+                        ? "bg-zinc-950 border-zinc-800 text-white checked:bg-white checked:border-white"
+                        : "bg-white border-neutral-250 text-black checked:bg-black checked:border-black"
+                    }`}
+                  />
+                  Make All Fields Optional
+                </label>
+              </div>
             )}
           </div>
         </div>
@@ -484,7 +613,7 @@ const handleDownload = () => {
                     dark ? "text-zinc-400" : "text-neutral-500"
                   }`}
                 >
-                  Generated {language === "typescript" ? "TypeScript" : "Go Structs"}
+                  Generated {language === "typescript" ? "TypeScript" : language === "zod" ? "Zod Schema" : "Go Structs"}
                 </label>
                 <div className="flex gap-2">
                   <div className="flex gap-2">

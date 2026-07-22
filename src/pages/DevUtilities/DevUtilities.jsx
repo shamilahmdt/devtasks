@@ -233,8 +233,8 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JSON → Types Converter",
-      description: "Convert JSON into TypeScript interfaces and Go structs.",
+      title: "JSON to Types & Zod Converter",
+      description: "Convert raw JSON into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations.",
       path: "/devutilities/json-types-converter",
       icon: (
         <svg

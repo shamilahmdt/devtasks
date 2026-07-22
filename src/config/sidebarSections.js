@@ -224,8 +224,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/yaml-toml",
       },
       {
-        label: "JSON → Types Converter",
-        description: "Convert JSON into TypeScript interfaces and Go structs.",
+        label: "JSON to Types & Zod Converter",
+        description: "Convert JSON structures into TypeScript interfaces, Go structs, or Zod schemas offline.",
         path: "/devutilities/json-types-converter",
       },
       {
