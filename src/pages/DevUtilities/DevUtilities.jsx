@@ -1092,6 +1092,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Custom Blob & Fancy Border Radius",
+      description:
+        "Design organic blob shapes using visual handles and advanced 8-point border-radius.",
+      path: "/devutilities/fancy-border-radius",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3c3.5 0 7 1.8 7 6.5S17 20 12 20s-7-3.5-7-10.5S8.5 3 12 3z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Password Generator",
       description:
         "Generate secure passwords and analyze entropy, strength, and crack times.",

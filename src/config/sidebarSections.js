@@ -296,6 +296,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/border-image",
       },
       {
+        label: "CSS Custom Blob & Fancy Border Radius",
+        description:
+          "Design organic blob shapes using visual handles and advanced 8-point border-radius.",
+        path: "/devutilities/fancy-border-radius",
+      },
+      {
         label: "Glassmorphism Playground",
         description: "Design glassmorphism effects with shadows and blur",
         path: "/devutilities/glassmorphism",

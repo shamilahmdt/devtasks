@@ -34,6 +34,7 @@ import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
 import BorderImageGenerator from "./pages/DevUtilities/devutilities/BorderImageGenerator";
+import FancyBorderRadiusGenerator from "./pages/DevUtilities/devutilities/FancyBorderRadiusGenerator";
 import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
 import ClipPathMaker from "./pages/DevUtilities/devutilities/ClipPathMaker";
 import CodeSandbox from "./pages/DevUtilities/devutilities/CodeSandbox";
@@ -528,6 +529,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/border-image"
                 element={<BorderImageGenerator />}
+              />
+              <Route
+                path="/devutilities/fancy-border-radius"
+                element={<FancyBorderRadiusGenerator />}
               />
               <Route
                 path="/devutilities/glassmorphism"
