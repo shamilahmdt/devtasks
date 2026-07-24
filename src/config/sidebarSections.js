@@ -153,6 +153,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/xml-validator",
       },
       {
+        label: "JSON to Schema Generator",
+        description: "Infer JSON Schema (Draft-07) from any JSON data object.",
+        path: "/devutilities/json-to-schema",
+      },
+      {
         label: "JSON Schema Validator",
         description: "Validate JSON data against a schema",
         path: "/devutilities/json-schema-validator",
@@ -469,3 +474,5 @@ const SIDEBAR_SECTIONS = [
 ];
 
 export default SIDEBAR_SECTIONS;
+
+
