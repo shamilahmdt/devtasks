@@ -158,6 +158,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-schema-validator",
       },
       {
+        label: "JSON to Schema",
+        description: "Generate JSON Schema from raw JSON data",
+        path: "/devutilities/json-to-schema",
+      },
+      {
         label: "Mock JSON Generator",
         description: "Generate mock JSON data",
         path: "/devutilities/mock-json-generator",
