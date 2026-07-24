@@ -680,6 +680,26 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "JSON to Schema Generator",
+      description: "Infer JSON Schema (Draft-07) from any JSON data object with customizable type inference.",
+      path: "/devutilities/json-to-schema",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l3 3-3 3m5-6h4M8 15h8M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "JSON Schema Validator",
       description: "Validate JSON data against a schema.",
       path: "/devutilities/json-schema-validator",
@@ -1956,3 +1976,5 @@ const DevUtilities = () => {
 };
 
 export default DevUtilities;
+
+

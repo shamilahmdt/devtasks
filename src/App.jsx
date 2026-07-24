@@ -85,6 +85,7 @@ import MorseCodeConverter from "./pages/DevUtilities/devutilities/MorseCodeConve
 import YamlTomlConverter from "./pages/DevUtilities/devutilities/YamlTomlConverter";
 
 import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
+import JsonToSchemaGenerator from "./pages/DevUtilities/devutilities/JsonToSchemaGenerator";
 
 
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
@@ -622,6 +623,9 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/favicon-generator"
                 element={<FaviconGenerator />}
+              <Route
+                path="/devutilities/json-to-schema"
+                element={<JsonToSchemaGenerator />} />
               />
               <Route
                 path="/devutilities/shape-divider"
@@ -642,3 +646,5 @@ function AppInner({ toggleHUD, hudVisible }) {
 }
 
 export default App;
+
+
