@@ -116,6 +116,28 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "SVG Spritesheet Merger",
+      description:
+        "Merge multiple standalone SVGs into a single optimized <symbol>-based spritesheet.",
+      keywords: "svg sprite spritesheet symbol icon merge bundle",
+      path: "/devutilities/svg-spritesheet-merger",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "SVG to Data URI Converter",
       description:
         "Convert raw SVG markup into optimized CSS background-image statements and data URIs.",

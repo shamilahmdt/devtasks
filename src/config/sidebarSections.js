@@ -349,6 +349,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/svg-optimizer",
       },
       {
+        label: "SVG Spritesheet Merger",
+        description:
+          "Merge multiple SVGs into a single optimized <symbol>-based spritesheet.",
+        path: "/devutilities/svg-spritesheet-merger",
+      },
+      {
         label: "Password Generator",
         description:
           "Generate secure passwords and analyze entropy, strength, and crack times.",

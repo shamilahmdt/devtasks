@@ -70,6 +70,7 @@ import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConverter";
 import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
+import SvgSpritesheetMerger from "./pages/DevUtilities/devutilities/SvgSpritesheetMerger";
 import SlugGenerator from "./pages/DevUtilities/devutilities/SlugGenerator";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
@@ -549,6 +550,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/svg-to-data-uri"
                 element={<Navigate to="/devutilities/svg-optimizer" replace />}
+              />
+              <Route
+                path="/devutilities/svg-spritesheet-merger"
+                element={<SvgSpritesheetMerger />}
               />
               <Route
                 path="/devutilities/password-generator"
