@@ -55,6 +55,7 @@ import HtmlMultiConverter from "./pages/DevUtilities/devutilities/HtmlMultiConve
 import JsonYamlCsvXmlConverter from "./pages/DevUtilities/devutilities/JsonYamlCsvXmlConverter";
 import JsonPathEvaluator from "./pages/DevUtilities/devutilities/JsonPathEvaluator";
 import JsonSchemaValidator from "./pages/DevUtilities/devutilities/JsonSchemaValidator";
+import JsonToSchemaGenerator from "./pages/DevUtilities/devutilities/JsonToSchemaGenerator";
 import JwtDecoder from "./pages/DevUtilities/devutilities/JwtDecoder";
 import XmlValidator from "./pages/DevUtilities/devutilities/XmlValidator";
 import KeycodeInspector from "./pages/DevUtilities/devutilities/KeycodeInspector";
@@ -405,6 +406,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/json"
                 element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+              />
+              <Route
+                path="/devutilities/json-to-schema"
+                element={<JsonToSchemaGenerator />}
               />
               <Route
                 path="/devutilities/xml-validator"
