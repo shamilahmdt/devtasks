@@ -98,6 +98,45 @@ const localToUtcIso = (dateTimeLocal, timeZone) => {
   return new Date(guess);
 };
 
+const getLocalHour = (date, timeZone) => {
+  try {
+    const hour = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      hourCycle: "h23",
+      hour: "2-digit",
+    }).formatToParts(date).find((p) => p.type === "hour").value;
+    return Number(hour) % 24;
+  } catch {
+    return null;
+  }
+};
+
+// Collapses a set of individually-true hour indices (0-23) into contiguous
+// "start-end" ranges so overlap results read as e.g. "14:00-17:00" instead
+// of a list of 24 booleans.
+const collapseHourRanges = (hours) => {
+  const sorted = [...hours].sort((a, b) => a - b);
+  const ranges = [];
+  let rangeStart = null;
+  let prev = null;
+
+  sorted.forEach((hour) => {
+    if (rangeStart === null) {
+      rangeStart = hour;
+    } else if (hour !== prev + 1) {
+      ranges.push([rangeStart, prev]);
+      rangeStart = hour;
+    }
+    prev = hour;
+  });
+  if (rangeStart !== null) ranges.push([rangeStart, prev]);
+
+  return ranges.map(
+    ([start, end]) =>
+      `${String(start).padStart(2, "0")}:00–${String((end + 1) % 24).padStart(2, "0")}:00`
+  );
+};
+
 const TimezoneConverter = () => {
   const { dark } = useTheme();
   const [now, setNow] = useState(() => new Date());
@@ -113,6 +152,8 @@ const TimezoneConverter = () => {
     "Asia/Tokyo",
   ]);
   const [zonePicker, setZonePicker] = useState("");
+  const [workStart, setWorkStart] = useState(9);
+  const [workEnd, setWorkEnd] = useState(18);
 
   const allZones = useMemo(() => getSupportedTimezones(), []);
 
@@ -124,6 +165,37 @@ const TimezoneConverter = () => {
   const referenceDate = dateTimeInput
     ? localToUtcIso(dateTimeInput, sourceZone)
     : now;
+
+  // Build a 24-hour grid (UTC hours of the reference date) and, for each
+  // pinned zone, whether that hour falls inside the configured working
+  // window in the zone's own local time. Hours where every pinned zone is
+  // "in office hours" are the meeting overlap slots.
+  const overlapGrid = useMemo(() => {
+    const dayStartUtc = Date.UTC(
+      referenceDate.getUTCFullYear(),
+      referenceDate.getUTCMonth(),
+      referenceDate.getUTCDate()
+    );
+
+    const hours = Array.from({ length: 24 }, (_, h) => {
+      const hourDate = new Date(dayStartUtc + h * 3600000);
+      const zoneHours = pinnedZones.map((zone) => {
+        const localHour = getLocalHour(hourDate, zone);
+        const inRange =
+          localHour !== null && localHour >= workStart && localHour < workEnd;
+        return { zone, localHour, inRange };
+      });
+      const allInRange =
+        zoneHours.length > 0 && zoneHours.every((z) => z.inRange);
+      return { utcHour: h, zoneHours, allInRange };
+    });
+
+    const overlapRanges = collapseHourRanges(
+      hours.filter((h) => h.allInRange).map((h) => h.utcHour)
+    );
+
+    return { hours, overlapRanges };
+  }, [referenceDate, pinnedZones, workStart, workEnd]);
 
   const handleUseNow = () => {
     const parts = new Intl.DateTimeFormat("en-CA", {
@@ -352,6 +424,124 @@ const TimezoneConverter = () => {
                 </p>
               )}
             </div>
+          </div>
+
+          {/* Meeting overlap finder */}
+          <div className={`rounded-3xl border ${t.card} p-6`}>
+            <p
+              className={`text-xs uppercase tracking-widest font-medium mb-5 ${t.subtext}`}
+            >
+              Meeting Overlap Finder
+            </p>
+
+            <div className="flex items-center gap-3 mb-5 flex-wrap">
+              <label className={`text-sm ${t.subtext}`}>Working hours</label>
+              <select
+                value={workStart}
+                onChange={(e) => setWorkStart(Number(e.target.value))}
+                className={`px-3 py-2 rounded-xl border text-sm ${t.select}`}
+              >
+                {Array.from({ length: 24 }, (_, h) => (
+                  <option key={h} value={h}>
+                    {String(h).padStart(2, "0")}:00
+                  </option>
+                ))}
+              </select>
+              <span className={`text-sm ${t.subtext}`}>to</span>
+              <select
+                value={workEnd}
+                onChange={(e) => setWorkEnd(Number(e.target.value))}
+                className={`px-3 py-2 rounded-xl border text-sm ${t.select}`}
+              >
+                {Array.from({ length: 24 }, (_, h) => (
+                  <option key={h} value={h + 1}>
+                    {String((h + 1) % 24).padStart(2, "0")}:00
+                  </option>
+                ))}
+              </select>
+              <span className={`text-sm ${t.subtext}`}>in each zone's local time</span>
+            </div>
+
+            {pinnedZones.length === 0 ? (
+              <p className={`text-sm ${t.subtext}`}>
+                Pin at least one timezone above to find overlapping hours.
+              </p>
+            ) : (
+              <>
+                <div className="overflow-x-auto">
+                  <div className="min-w-[720px] space-y-1.5">
+                    {pinnedZones.map((zone) => (
+                      <div key={zone} className="flex items-center gap-2">
+                        <p
+                          className={`w-36 shrink-0 text-xs truncate ${t.subtext}`}
+                          title={zone}
+                        >
+                          {zone}
+                        </p>
+                        <div className="flex gap-0.5 flex-1">
+                          {overlapGrid.hours.map((hourEntry) => {
+                            const zoneHour = hourEntry.zoneHours.find(
+                              (z) => z.zone === zone
+                            );
+                            return (
+                              <div
+                                key={hourEntry.utcHour}
+                                title={`${zone}: ${String(zoneHour.localHour).padStart(2, "0")}:00`}
+                                className={`flex-1 h-6 rounded-sm flex items-center justify-center text-[9px] font-mono ${
+                                  zoneHour.inRange
+                                    ? dark
+                                      ? "bg-emerald-500/70 text-emerald-50"
+                                      : "bg-emerald-500 text-white"
+                                    : dark
+                                      ? "bg-zinc-800 text-zinc-600"
+                                      : "bg-zinc-100 text-zinc-400"
+                                }`}
+                              >
+                                {zoneHour.localHour}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex items-center gap-2 pt-1">
+                      <p className={`w-36 shrink-0 text-xs font-medium ${t.heading}`}>
+                        All zones (UTC)
+                      </p>
+                      <div className="flex gap-0.5 flex-1">
+                        {overlapGrid.hours.map((hourEntry) => (
+                          <div
+                            key={hourEntry.utcHour}
+                            title={`${String(hourEntry.utcHour).padStart(2, "0")}:00 UTC`}
+                            className={`flex-1 h-6 rounded-sm flex items-center justify-center text-[9px] font-mono border-2 ${
+                              hourEntry.allInRange
+                                ? "border-emerald-500 bg-emerald-500/20"
+                                : "border-transparent"
+                            } ${t.subtext}`}
+                          >
+                            {String(hourEntry.utcHour).padStart(2, "0")}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`mt-5 px-4 py-3 rounded-xl border text-sm ${t.result}`}>
+                  {overlapGrid.overlapRanges.length > 0 ? (
+                    <>
+                      <span className={`font-medium ${t.heading}`}>
+                        Overlap (UTC):{" "}
+                      </span>
+                      {overlapGrid.overlapRanges.join(", ")}
+                    </>
+                  ) : (
+                    "No hour of the day falls within working hours for every pinned zone."
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
