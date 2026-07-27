@@ -58,6 +58,58 @@ const formatInZone = (date, timeZone) => {
   }
 };
 
+// Returns the UTC offset of `timeZone` at `date`, in minutes (positive =
+// ahead of UTC), by comparing the zone's wall-clock reading against the
+// instant's actual UTC time.
+const getOffsetMinutes = (date, timeZone) => {
+  const dtf = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hourCycle: "h23",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  const parts = dtf.formatToParts(date);
+  const map = {};
+  parts.forEach((p) => {
+    map[p.type] = p.value;
+  });
+  const asUtc = Date.UTC(
+    Number(map.year),
+    Number(map.month) - 1,
+    Number(map.day),
+    Number(map.hour === "24" ? 0 : map.hour),
+    Number(map.minute),
+    Number(map.second)
+  );
+  return (asUtc - date.getTime()) / 60000;
+};
+
+// A zone is "in DST" at `date` when its current offset is greater than its
+// standard (non-DST) offset. The standard offset is derived by sampling
+// offsets in January and July: DST always shifts clocks forward relative to
+// standard time, so the smaller of the two samples is the standard offset,
+// regardless of hemisphere. Zones without DST have identical samples.
+const isObservingDst = (date, timeZone) => {
+  const year = date.getUTCFullYear();
+  const janOffset = getOffsetMinutes(
+    new Date(Date.UTC(year, 0, 15, 12)),
+    timeZone
+  );
+  const julOffset = getOffsetMinutes(
+    new Date(Date.UTC(year, 6, 15, 12)),
+    timeZone
+  );
+
+  if (janOffset === julOffset) return false;
+
+  const standardOffset = Math.min(janOffset, julOffset);
+  return getOffsetMinutes(date, timeZone) > standardOffset;
+};
+
 const localToUtcIso = (dateTimeLocal, timeZone) => {
   // Interpret the given "wall clock" date/time as if it were observed in `timeZone`,
   // then resolve to the equivalent UTC instant using an offset-correction loop.
@@ -68,29 +120,8 @@ const localToUtcIso = (dateTimeLocal, timeZone) => {
   let guess = Date.UTC(year, month - 1, day, hour, minute);
 
   for (let i = 0; i < 2; i += 1) {
-    const dtf = new Intl.DateTimeFormat("en-US", {
-      timeZone,
-      hourCycle: "h23",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-    const parts = dtf.formatToParts(new Date(guess));
-    const map = {};
-    parts.forEach((p) => {
-      map[p.type] = p.value;
-    });
-    const asUtc = Date.UTC(
-      Number(map.year),
-      Number(map.month) - 1,
-      Number(map.day),
-      Number(map.hour === "24" ? 0 : map.hour),
-      Number(map.minute),
-      Number(map.second)
-    );
+    const offsetMinutes = getOffsetMinutes(new Date(guess), timeZone);
+    const asUtc = guess + offsetMinutes * 60000;
     const diff = Date.UTC(year, month - 1, day, hour, minute) - asUtc;
     guess += diff;
   }
@@ -418,13 +449,28 @@ const TimezoneConverter = () => {
             <div className="space-y-3">
               {pinnedZones.map((zone) => {
                 const { formatted, offset } = formatInZone(referenceDate, zone);
+                const dst = isObservingDst(referenceDate, zone);
                 return (
                   <div
                     key={zone}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm ${t.result}`}
                   >
                     <div>
-                      <p className={`font-medium ${t.heading}`}>{zone}</p>
+                      <div className="flex items-center gap-2">
+                        <p className={`font-medium ${t.heading}`}>{zone}</p>
+                        {dst && (
+                          <span
+                            title="This zone is currently observing daylight saving time"
+                            className={`px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide ${
+                              dark
+                                ? "bg-amber-500/20 text-amber-300"
+                                : "bg-amber-100 text-amber-700"
+                            }`}
+                          >
+                            DST
+                          </span>
+                        )}
+                      </div>
                       <p className={`font-mono text-xs mt-0.5 ${t.subtext}`}>
                         {offset}
                       </p>
