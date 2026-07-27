@@ -137,6 +137,41 @@ const collapseHourRanges = (hours) => {
   );
 };
 
+const PINNED_ZONES_STORAGE_KEY = "timezone_converter_pinned_zones";
+const DEFAULT_PINNED_ZONES = [
+  "UTC",
+  "America/New_York",
+  "Europe/London",
+  "Asia/Kolkata",
+  "Asia/Tokyo",
+];
+
+// Initialize pinned zones from storage only in the browser.
+const loadPinnedZones = () => {
+  if (typeof window === "undefined") {
+    return DEFAULT_PINNED_ZONES;
+  }
+
+  try {
+    const saved = localStorage.getItem(PINNED_ZONES_STORAGE_KEY);
+
+    if (!saved) {
+      return DEFAULT_PINNED_ZONES;
+    }
+
+    const parsed = JSON.parse(saved);
+
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      return DEFAULT_PINNED_ZONES;
+    }
+
+    return parsed.filter((zone) => typeof zone === "string");
+  } catch (error) {
+    console.error("Unable to load pinned timezones", error);
+    return DEFAULT_PINNED_ZONES;
+  }
+};
+
 const TimezoneConverter = () => {
   const { dark } = useTheme();
   const [now, setNow] = useState(() => new Date());
@@ -144,13 +179,7 @@ const TimezoneConverter = () => {
     Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"
   );
   const [dateTimeInput, setDateTimeInput] = useState("");
-  const [pinnedZones, setPinnedZones] = useState([
-    "UTC",
-    "America/New_York",
-    "Europe/London",
-    "Asia/Kolkata",
-    "Asia/Tokyo",
-  ]);
+  const [pinnedZones, setPinnedZones] = useState(loadPinnedZones);
   const [zonePicker, setZonePicker] = useState("");
   const [workStart, setWorkStart] = useState(9);
   const [workEnd, setWorkEnd] = useState(18);
@@ -161,6 +190,14 @@ const TimezoneConverter = () => {
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  // Mirror pinned zones back to localStorage whenever the list changes.
+  useEffect(() => {
+    localStorage.setItem(
+      PINNED_ZONES_STORAGE_KEY,
+      JSON.stringify(pinnedZones)
+    );
+  }, [pinnedZones]);
 
   const referenceDate = dateTimeInput
     ? localToUtcIso(dateTimeInput, sourceZone)
