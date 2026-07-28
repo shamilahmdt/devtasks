@@ -75,6 +75,7 @@ import SvgSpritesheetMerger from "./pages/DevUtilities/devutilities/SvgSpriteshe
 import SlugGenerator from "./pages/DevUtilities/devutilities/SlugGenerator";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
+import TimezoneConverter from "./pages/DevUtilities/devutilities/TimezoneConverter";
 import TokenGenerator from "./pages/DevUtilities/devutilities/TokenGenerator";
 import UrlParserBuilder from "./pages/DevUtilities/devutilities/UrlParserBuilder";
 import UserAgentParser from "./pages/DevUtilities/devutilities/UserAgentParser";
@@ -457,6 +458,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/timestamp"
                 element={<TimestampConverter />}
+              />
+              <Route
+                path="/devutilities/timezone-converter"
+                element={<TimezoneConverter />}
               />
               <Route path="/devutilities/uuid" element={<UuidGenerator />} />
               <Route path="/devutilities/jwt" element={<JwtDecoder />} />

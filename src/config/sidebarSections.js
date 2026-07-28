@@ -251,6 +251,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/timestamp",
       },
       {
+        label: "Timezone Converter",
+        description: "Convert date/time across timezones with a live world clock.",
+        path: "/devutilities/timezone-converter",
+      },
+      {
         label: "UUID Generator",
         description: "Generate UUIDs",
         path: "/devutilities/uuid",
