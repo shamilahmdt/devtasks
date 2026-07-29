@@ -167,6 +167,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/timezone-converter</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/uuid</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -258,6 +264,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/json-to-schema</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/xml-validator</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -295,6 +307,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/cubic-bezier</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/css-gradient</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -315,6 +333,12 @@
   <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/svg-optimizer</loc>
     <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/svg-spritesheet-merger</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -374,8 +398,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-generator</loc>
-    <lastmod>2026-07-03</lastmod>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/robots-txt-generator</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -412,6 +436,12 @@
   <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/border-image</loc>
     <lastmod>2026-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/fancy-border-radius</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -455,6 +485,12 @@
   <url>
     <loc>https://dev-tasks-beta.vercel.app/devutilities/hex-inspector</loc>
     <lastmod>2026-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dev-tasks-beta.vercel.app/devutilities/box-shadow</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

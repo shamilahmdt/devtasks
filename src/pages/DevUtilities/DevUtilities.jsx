@@ -138,28 +138,6 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "SVG to Data URI Converter",
-      description:
-        "Convert raw SVG markup into optimized CSS background-image statements and data URIs.",
-      keywords: "svg uri css base64 image encode",
-      path: "/devutilities/svg-optimizer",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 9l-3 3 3 3m8-6l3 3-3 3m-3-9l-2 12"
-          />
-        </svg>
-      ),
-    },
-    {
       title: "Morse Code Converter",
       description:
         "Convert text to Morse code and decode Morse code back to text.",
@@ -295,27 +273,6 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "JSON YAML CSV XML Converter",
-      description:
-        "Convert between JSON, YAML, CSV and XML formats in real time with syntax validation.",
-      path: "/devutilities/json-yaml-csv-xml",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 7h10M7 12h6m-6 5h10M4 4v16m16-16v16"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "URL Parser & Query Builder",
@@ -398,27 +355,6 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "JWT Encoder",
-      description:
-        "Encode and inspect JSON Web Token header and payload data directly in the browser, completely offline.",
-      path: "/devutilities/jwt",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
           />
         </svg>
       ),
@@ -723,10 +659,9 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Markdown Table Generator",
-      description:
-        "Build markdown tables visually or convert CSV and TSV data instantly.",
-      path: "/devutilities/markdown",
+      title: "JSON to Schema",
+      description: "Generate JSON Schema from raw JSON data.",
+      path: "/devutilities/json-to-schema",
       icon: (
         <svg
           className="w-6 h-6"
@@ -738,7 +673,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
           />
         </svg>
       ),
@@ -953,27 +888,6 @@ const DevUtilities = () => {
       ),
     },
 
-    {
-      title: "String Inspector",
-      description:
-        "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
-      path: "/devutilities/text-case",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "Number Base Converter & Bitwise Visualizer",
@@ -1282,51 +1196,7 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "Word Counter",
-      description: "Count characters and words in your text instantly.",
-      path: "/devutilities/text-case",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 13h2l1 9h12l1-9h2M9 6h6M9 10h6M5 18h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
 
-    {
-      title: "Text List Cleaner",
-      description:
-        "Sort lines, remove duplicates, trim whitespace, and remove empty lines completely offline.",
-      keywords:
-        "text list sort lines duplicates deduplicate clean trim whitespace",
-      path: "/devutilities/text-case",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "Git Command Builder",
