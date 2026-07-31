@@ -1398,6 +1398,28 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Cryptographic Keypair Generator",
+      description:
+        "Generate secure cryptographic key pairs for various algorithms.",
+      path: "/devutilities/keypair-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          // it shoud be a key icon
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M14 10a3 3 0 10-3-3 3 3 0 003 3zm0 0l7 7m-2-2h-2v-2h-2v-2h-2"
+          />
+        </svg>
+      ),
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
