@@ -164,8 +164,18 @@ const DevUtilities = () => {
         "Convert configuration structures between YAML and TOML syntax patterns completely offline.",
       path: "/devutilities/yaml-toml",
       icon: (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
         </svg>
       ),
     },
@@ -234,7 +244,8 @@ const DevUtilities = () => {
     },
     {
       title: "JSON to Types & Zod Converter",
-      description: "Convert raw JSON into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations.",
+      description:
+        "Convert raw JSON into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations.",
       path: "/devutilities/json-types-converter",
       icon: (
         <svg
@@ -448,7 +459,8 @@ const DevUtilities = () => {
       title: "Color Converter & Analyzer",
       description:
         "Convert CSS colors (HEX, RGB, HSL, CMYK, XYZ, Lab), evaluate WCAG accessibility contrast, and generate harmonic palettes and design system exports.",
-      keywords: "harmony palette tint shade tone cielab xyz colorref contrast ratio wcag",
+      keywords:
+        "harmony palette tint shade tone cielab xyz colorref contrast ratio wcag",
       path: "/devutilities/color",
       icon: (
         <svg
@@ -888,7 +900,6 @@ const DevUtilities = () => {
       ),
     },
 
-
     {
       title: "Number Base Converter & Bitwise Visualizer",
       description:
@@ -989,7 +1000,8 @@ const DevUtilities = () => {
       title: "CSS Cubic-Bezier Generator",
       description:
         "Design custom transition easing curves visually and preview animations in real time.",
-      keywords: "cubic bezier easing curve timing function transition animation",
+      keywords:
+        "cubic bezier easing curve timing function transition animation",
       path: "/devutilities/cubic-bezier",
       icon: (
         <svg
@@ -1196,7 +1208,6 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-
 
     {
       title: "Git Command Builder",
@@ -1409,13 +1420,13 @@ const DevUtilities = () => {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          strokeWidth={2}
         >
-          // it shoud be a key icon
+          <circle cx="8" cy="12" r="3" />
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
-            d="M14 10a3 3 0 10-3-3 3 3 0 003 3zm0 0l7 7m-2-2h-2v-2h-2v-2h-2"
+            d="M11 12h10m-3 0v-2m-3 2v2"
           />
         </svg>
       ),
