@@ -119,10 +119,8 @@ function parseCurl(curlCommand) {
         throw new Error("cURL command cannot be empty.");
     }
 
-    // Join multiline cURL commands into a single line
     curlCommand = curlCommand.replace(/\\\s*\n/g, " ");
 
-    // Split while preserving quoted strings
     const tokens = curlCommand.match(/"[^"]*"|'[^']*'|\S+/g);
 
     if (!tokens || tokens.length === 0) {
@@ -194,7 +192,6 @@ function parseCurl(curlCommand) {
     if (!url) {
         throw new Error("Missing request URL.");
     }
-    // cURL treats a request with -d as POST if no method is specified
     if (body && method === "GET") {
         method = "POST";
     }
@@ -232,7 +229,6 @@ function findTopLevelProperty(options, property) {
 
     let index = match.index + match[0].length;
 
-    // Skip whitespace after the colon
     while (index < options.length && /\s/.test(options[index])) {
         index++;
     }
@@ -247,7 +243,6 @@ function findTopLevelProperty(options, property) {
     while (index < options.length) {
         const char = options[index];
 
-        // Handle quoted strings
         if (inQuote) {
             if (char === "\\" && index + 1 < options.length) {
                 index += 2;
@@ -328,7 +323,6 @@ function splitTopLevel(text, delimiter = ",") {
     for (let i = 0; i < text.length; i++) {
         const char = text[i];
 
-        // Handle quoted strings
         if (inQuote) {
             if (char === "\\" && i + 1 < text.length) {
                 i++;
@@ -469,7 +463,6 @@ function parseFetch(fetchCode) {
         throw new Error('Request must start with "fetch".');
     }
 
-    // Extract URL
     const urlMatch = fetchCode.match(
         /fetch\s*\(\s*(['"])(.*?)\1/
     );
@@ -478,12 +471,10 @@ function parseFetch(fetchCode) {
     }
     const url = urlMatch[2];
 
-    // Default values
     let method = "GET";
     let headers = {};
     let body = null;
 
-    // Find options object
     const commaIndex = fetchCode.indexOf(",", urlMatch.index);
     if (commaIndex !== -1) {
         const optionsStart = fetchCode.indexOf("{", commaIndex);
@@ -510,8 +501,6 @@ function parseFetch(fetchCode) {
         body = parseBody(
             findTopLevelProperty(options, "body")
         );
-
-        // Fetch defaults to POST when a body exists and no method is specified
         if (body && method === "GET") {
             method = "POST";
         }
@@ -534,7 +523,6 @@ function parseAxiosConfig(axiosCode) {
         throw new Error('Request must start with "axios(".');
     }
 
-    // Find config object
     const objectStart = axiosCode.indexOf("{");
     if (objectStart === -1) {
         throw new Error("Invalid Axios config object.");
@@ -550,7 +538,6 @@ function parseAxiosConfig(axiosCode) {
         throw new Error("Unclosed Axios config object.");
     }
 
-    // Default values
     let method = "GET";
     let url = "";
     let headers = {};
@@ -574,13 +561,9 @@ function parseAxiosConfig(axiosCode) {
         findTopLevelProperty(config, "headers")
     );
 
-    // Axios uses "data" instead of "body"
     body = parseBody(
         findTopLevelProperty(config, "data")
     );
-
-    // If data exists but method wasn't specified,
-    // mimic Axios behavior by assuming POST.
     if (body && method === "GET") {
         method = "POST";
     }
@@ -728,13 +711,15 @@ function generateFetch(request) {
 
     if (Object.keys(headers).length > 0) {
         const headerLines = Object.entries(headers)
-            .map(([key, value]) => `        "${key}": "${value}"`)
+            .map(([key, value]) => `"${key}": "${value}"`)
             .join(",\n");
 
         options.push(
-            `headers: {
-                ${headerLines}
-            }`
+            [
+                "headers: {",
+                indent(headerLines, 8),
+                "}"
+            ].join("\n")
         );
     }
 
@@ -745,9 +730,11 @@ function generateFetch(request) {
 
         if (isJson) {
             options.push(
-                `body: JSON.stringify(
-                ${indent(body, 8)}
-            )`
+                [
+                    "body: JSON.stringify(",
+                    indent(body, 8),
+                    ")"
+                ].join("\n")
             );
         } else {
             options.push(`body: ${JSON.stringify(body)}`);
@@ -759,7 +746,7 @@ function generateFetch(request) {
     }
 
     return `fetch("${url}", {
-        ${options.join(",\n\n    ")}
+        ${indent(options.join(",\n\n"), 4)}
     });`;
 }
 
@@ -767,7 +754,6 @@ function generateAxios(request) {
     const { method, url, headers, body } = request;
     const options = [];
 
-    // URL is always required
     options.push(`url: "${url}"`);
     if (method && method !== "GET") {
         options.push(`method: "${method}"`);
@@ -775,13 +761,15 @@ function generateAxios(request) {
 
     if (Object.keys(headers).length > 0) {
         const headerLines = Object.entries(headers)
-            .map(([key, value]) => `        "${key}": "${value}"`)
+            .map(([key, value]) => `"${key}": "${value}"`)
             .join(",\n");
 
         options.push(
-            `headers: {
-            ${headerLines}
-        }`
+            [
+                "headers: {",
+                indent(headerLines, 8),
+                "}"
+            ].join("\n")
         );
     }
 
@@ -790,7 +778,7 @@ function generateAxios(request) {
     }
 
     return `axios({
-        ${options.join(",\n\n    ")}
+        ${indent(options.join(",\n\n"), 4)}
     });`;
 }
 
@@ -1031,7 +1019,7 @@ const HttpRequestConvertor = () => {
                     </div>
                 </header>
                 <main className="flex flex-col gap-5 p-5 sm:p-8">
-                    <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[1fr_44px_1fr]">
+                    <div className="grid grid-cols-1 items-center gap-3 lg:grid-cols-[1fr_auto_1fr]">
                         {/* ── Source panel ── */}
                         <section className="flex flex-col gap-3">
                             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1072,7 +1060,7 @@ const HttpRequestConvertor = () => {
                             />
                         </section>
                         {/* ── Swap button ── */}
-                        <div className="flex items-center justify-center pt-0 lg:pt-10">
+                        <div className="flex flex-row lg:flex-col items-center justify-center gap-8 pt-0 lg:pt-10">
                             <button
                                 type="button"
                                 onClick={handleSwap}
@@ -1102,7 +1090,7 @@ const HttpRequestConvertor = () => {
                             <button
                                 type="button"
                                 onClick={handleConvert}
-                                className={`rounded-xl border px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-all duration-200 active:scale-95 ${t.primaryBtn}`}
+                                className={`rounded-xl border px-3 py-2  text-[12px] font-black uppercase tracking-widest transition-all duration-200 active:scale-95 ${t.primaryBtn}`}
                             >
                                 Convert
                             </button>
