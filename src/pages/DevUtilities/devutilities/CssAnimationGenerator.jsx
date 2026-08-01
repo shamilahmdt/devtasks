@@ -13,6 +13,160 @@ import {
   FaChevronLeft,
   FaUndo,
 } from "react-icons/fa";
+import { useRef, useEffect } from 'react';
+
+function CubicBezierEditor({ bezier, onChange, dark }) {
+  const canvasRef = useRef(null);
+  const [dragging, setDragging] = useState(null); // 'p1' or 'p2' or null
+
+  const getCanvasCoords = (e) => {
+    if (!canvasRef.current) return { x: 0, y: 0 };
+    const rect = canvasRef.current.getBoundingClientRect();
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
+    const clientY = e.clientY ?? (e.touches && e.touches[0].clientY) ?? 0;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  };
+
+  const handleDown = (e) => {
+    const pos = getCanvasCoords(e);
+    const p1x = bezier[0] * 200;
+    const p1y = 200 - (bezier[1] + 0.5) * 100;
+    const p2x = bezier[2] * 200;
+    const p2y = 200 - (bezier[3] + 0.5) * 100;
+    
+    const dist1 = Math.hypot(pos.x - p1x, pos.y - p1y);
+    const dist2 = Math.hypot(pos.x - p2x, pos.y - p2y);
+    
+    if (dist1 < 20 && dist1 <= dist2) {
+      setDragging('p1');
+    } else if (dist2 < 20) {
+      setDragging('p2');
+    }
+  };
+
+  const handleMove = (e) => {
+    if (!dragging) return;
+    const pos = getCanvasCoords(e);
+    let newX = pos.x / 200;
+    let newY = (200 - pos.y) / 100 - 0.5;
+    
+    newX = Math.max(0, Math.min(1, newX));
+    newY = Math.max(-0.5, Math.min(1.5, newY));
+
+    newX = Math.round(newX * 100) / 100;
+    newY = Math.round(newY * 100) / 100;
+
+    if (dragging === 'p1') {
+      onChange([newX, newY, bezier[2], bezier[3]]);
+    } else if (dragging === 'p2') {
+      onChange([bezier[0], bezier[1], newX, newY]);
+    }
+  };
+
+  const handleUp = () => {
+    setDragging(null);
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    ctx.clearRect(0, 0, 200, 200);
+
+    ctx.fillStyle = dark ? '#18181b' : '#fafafa';
+    ctx.fillRect(0, 0, 200, 200);
+
+    ctx.strokeStyle = dark ? '#3f3f46' : '#e4e4e7';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, 150); ctx.lineTo(200, 150); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, 50); ctx.lineTo(200, 50); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, 50); ctx.lineTo(0, 150); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(200, 50); ctx.lineTo(200, 150); ctx.stroke();
+
+    const toPx = (x, y) => ({
+      x: x * 200,
+      y: 200 - (y + 0.5) * 100
+    });
+
+    const p0 = toPx(0, 0);
+    const p1 = toPx(bezier[0], bezier[1]);
+    const p2 = toPx(bezier[2], bezier[3]);
+    const p3 = toPx(1, 1);
+
+    ctx.strokeStyle = dark ? '#52525b' : '#a1a1aa';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p3.x, p3.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#ec4899';
+    ctx.lineWidth = 2;
+    
+    ctx.beginPath(); ctx.arc(p1.x, p1.y, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(p2.x, p2.y, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    
+    ctx.fillStyle = dark ? '#d4d4d8' : '#3f3f46';
+    ctx.beginPath(); ctx.arc(p0.x, p0.y, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(p3.x, p3.y, 3, 0, Math.PI * 2); ctx.fill();
+
+  }, [bezier, dark]);
+
+  useEffect(() => {
+    if (dragging) {
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+      window.addEventListener('touchmove', handleMove, { passive: false });
+      window.addEventListener('touchend', handleUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+        window.removeEventListener('touchmove', handleMove);
+        window.removeEventListener('touchend', handleUp);
+      };
+    }
+  }, [dragging, bezier]);
+
+  return (
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div className="relative">
+        <canvas
+          ref={canvasRef}
+          width={200}
+          height={200}
+          onMouseDown={handleDown}
+          onTouchStart={(e) => { e.preventDefault(); handleDown(e); }}
+          className={`border rounded-xl cursor-crosshair touch-none shadow-sm ${dark ? 'border-zinc-700 bg-[#18181b]' : 'border-zinc-300 bg-[#fafafa]'}`}
+          style={{ width: 200, height: 200 }}
+        />
+      </div>
+      <div className="flex items-center justify-center gap-2 text-xs font-mono font-medium">
+        <span className={dark ? "text-zinc-400" : "text-zinc-500"}>cubic-bezier(</span>
+        <div className={`px-2 py-1 rounded ${dark ? 'bg-zinc-800 text-pink-400' : 'bg-zinc-100 text-pink-600'}`}>
+          {bezier[0].toFixed(2)}, {bezier[1].toFixed(2)}
+        </div>
+        <span className={dark ? "text-zinc-400" : "text-zinc-500"}>,</span>
+        <div className={`px-2 py-1 rounded ${dark ? 'bg-zinc-800 text-pink-400' : 'bg-zinc-100 text-pink-600'}`}>
+          {bezier[2].toFixed(2)}, {bezier[3].toFixed(2)}
+        </div>
+        <span className={dark ? "text-zinc-400" : "text-zinc-500"}>)</span>
+      </div>
+    </div>
+  );
+}
+
 
 export default function CssAnimationGenerator() {
   const { dark } = useTheme();
@@ -26,6 +180,8 @@ export default function CssAnimationGenerator() {
   const [direction, setDirection] = useState("normal");
   const [fillMode, setFillMode] = useState("both");
   const [playState, setPlayState] = useState("running");
+  
+  const [bezier, setBezier] = useState([0.25, 0.1, 0.25, 1.0]);
 
   const [shape, setShape] = useState("rounded");
   const [colorPreset, setColorPreset] = useState("blue");
@@ -33,6 +189,8 @@ export default function CssAnimationGenerator() {
 
   const [codeMode, setCodeMode] = useState("css"); // 'css' or 'tailwind'
   const [animationKey, setAnimationKey] = useState(0);
+
+  const actualTiming = timing === "custom" ? `cubic-bezier(${bezier.join(", ")})` : timing;
 
   // Keyframes configuration
   const keyframesData = {
@@ -60,7 +218,7 @@ export default function CssAnimationGenerator() {
 
   const getAnimationOnlyCss = () => {
     return `.animate-${preset} {
-  animation: ${preset} ${duration}s ${timing} ${delay}s ${iteration};
+  animation: ${preset} ${duration}s ${actualTiming} ${delay}s ${iteration};
   animation-direction: ${direction};
   animation-fill-mode: ${fillMode};
 }
@@ -121,7 +279,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        '${preset}': '${preset} ${duration}s ${timing} ${delay}s ${iteration} ${direction} ${fillMode}',
+        '${preset}': '${preset} ${duration}s ${actualTiming} ${delay}s ${iteration} ${direction} ${fillMode}',
       },
       keyframes: {
         '${preset}': {
@@ -173,6 +331,7 @@ ${keyframesData[preset]
     setDuration(2);
     setDelay(0);
     setTiming("ease");
+    setBezier([0.25, 0.1, 0.25, 1.0]);
     setIteration("infinite");
     setDirection("normal");
     setFillMode("both");
@@ -379,8 +538,16 @@ ${keyframesData[preset]
                     <option value="ease-in">Ease In</option>
                     <option value="ease-out">Ease Out</option>
                     <option value="ease-in-out">Ease In Out</option>
+                    <option value="custom">Custom (Cubic-Bezier)</option>
                   </select>
                 </div>
+
+                {timing === "custom" && (
+                  <div className="sm:col-span-2 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 shadow-sm flex flex-col gap-4">
+                    <span className={t.label}>Custom Cubic-Bezier Editor</span>
+                    <CubicBezierEditor bezier={bezier} onChange={setBezier} dark={dark} />
+                  </div>
+                )}
 
                 {/* Iteration Count */}
                 <div className="flex flex-col gap-2">
@@ -547,7 +714,7 @@ ${keyframesData[preset]
                   style={{
                     animationName: preset,
                     animationDuration: `${duration}s`,
-                    animationTimingFunction: timing,
+                    animationTimingFunction: actualTiming,
                     animationDelay: `${delay}s`,
                     animationIterationCount: iteration,
                     animationDirection: direction,

@@ -119,3 +119,14 @@ html, body, #root {
 .navbar-layout-content {
   scroll-behavior: smooth;
 }
+
+/* Style selected/highlighted text globally to ensure high contrast legibility */
+::selection {
+  background-color: #18181b !important; /* zinc-900 */
+  color: #ffffff !important;            /* white */
+}
+
+.dark ::selection {
+  background-color: #f4f4f5 !important; /* zinc-100 */
+  color: #09090b !important;            /* zinc-950 */
+}

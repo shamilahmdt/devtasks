@@ -1,5 +1,5 @@
 import { useTheme } from "../context/ThemeContext";
-import { FaGithub, FaUser } from "react-icons/fa";
+import { FaGithub, FaUser, FaGamepad } from "react-icons/fa";
 
 const Footer = () => {
   const { dark } = useTheme();
@@ -49,6 +49,18 @@ const Footer = () => {
             >
               <FaUser className="w-3.5 h-3.5" />
               <span>Portfolio</span>
+            </a>
+            <span className={dark ? "text-zinc-850" : "text-zinc-300"}>|</span>
+            <a
+              href="https://quickplay-zone.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${
+                dark ? "text-zinc-400 hover:text-white" : "text-neutral-500 hover:text-neutral-900"
+              }`}
+            >
+              <FaGamepad className="w-3.5 h-3.5" />
+              <span>QuickPlay Zone</span>
             </a>
           </div>
         </div>

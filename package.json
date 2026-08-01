@@ -28,7 +28,8 @@
     "sonner": "^2.0.7"
   },
   "devDependencies": {
-    "@emnapi/runtime": "^1.11.1",
+    "@emnapi/core": "^1.11.2",
+    "@emnapi/runtime": "^1.11.2",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.20",

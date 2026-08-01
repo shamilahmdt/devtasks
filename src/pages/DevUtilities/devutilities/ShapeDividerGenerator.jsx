@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 
 /**
@@ -243,14 +244,39 @@ export default function ShapeDividerGenerator() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6">
-      <div className="mb-6">
-        <h1 className={`text-2xl font-bold ${c.heading}`}>
-          SVG Wave &amp; Shape Divider Generator
-        </h1>
-        <p className={`mt-1 ${c.subtext}`}>
-          Design organic SVG section dividers and curves visually, then copy
-          or download the code — 100% offline.
-        </p>
+      <div className="mb-6 flex items-center gap-3">
+        <Link
+          to="/devutilities"
+          className={`p-2.5 rounded-xl border transition-all duration-200 active:scale-95 flex items-center justify-center shrink-0 ${
+            dark
+              ? "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700"
+              : "bg-white border-neutral-200 text-neutral-600 hover:text-black hover:border-neutral-350"
+          }`}
+          title="Back to Workspace"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </Link>
+        <div>
+          <h1 className={`text-2xl font-bold ${c.heading}`}>
+            SVG Wave &amp; Shape Divider Generator
+          </h1>
+          <p className={`mt-1 ${c.subtext}`}>
+            Design organic SVG section dividers and curves visually, then copy
+            or download the code — 100% offline.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">

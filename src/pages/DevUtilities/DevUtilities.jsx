@@ -51,9 +51,32 @@ const DevUtilities = () => {
 
   const cards = [
     {
-      title: "Base64 / URL Encoder & Decoder",
-      description: "Encode and decode Base64 strings and URL components completely offline.",
+      title: "Hex Viewer & Binary Inspector",
+      description:
+        "Inspect file binary headers, offsets, hex patterns, and ASCII streams client-side offline.",
+      path: "/devutilities/hex-inspector",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7zM9 9h6M9 13h6"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "Base64 & URL Converter Suite",
+      description:
+        "Encode and decode Base64 strings, URL components, and image files completely offline.",
       path: "/devutilities/base64",
+
       icon: (
         <svg
           className="w-6 h-6"
@@ -71,9 +94,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "SVG Optimizer & React JSX Generator",
-      description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
-      keywords: "jsx react component tsx",
+      title: "SVG Toolkit",
+      description:
+        "Optimize, clean, and convert SVG code into optimized React JSX/TSX components or Data URIs.",
+      keywords: "jsx react component tsx svg data uri",
       path: "/devutilities/svg-optimizer",
       icon: (
         <svg
@@ -92,8 +116,31 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "SVG Spritesheet Merger",
+      description:
+        "Merge multiple standalone SVGs into a single optimized <symbol>-based spritesheet.",
+      keywords: "svg sprite spritesheet symbol icon merge bundle",
+      path: "/devutilities/svg-spritesheet-merger",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Morse Code Converter",
-      description: "Convert text to Morse code and decode Morse code back to text.",
+      description:
+        "Convert text to Morse code and decode Morse code back to text.",
       path: "/devutilities/morse-code",
       icon: (
         <svg
@@ -108,6 +155,17 @@ const DevUtilities = () => {
             strokeWidth={2}
             d="M4 12h2m2 0h1m2 0h4m2 0h1m2 0h2"
           />
+        </svg>
+      ),
+    },
+    {
+      title: "YAML ↔ TOML Converter",
+      description:
+        "Convert configuration structures between YAML and TOML syntax patterns completely offline.",
+      path: "/devutilities/yaml-toml",
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
     },
@@ -154,10 +212,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JSON Formatter",
+      title: "JSON & Data Format Suite",
       description:
-        "Validate JSON string formats, structure code outputs, beautify spacing, or minify data.",
-      path: "/devutilities/json",
+        "Format, validate, beautify, minify, and convert JSON, YAML, CSV and XML data.",
+      path: "/devutilities/json-yaml-csv-xml",
       icon: (
         <svg
           className="w-6 h-6"
@@ -175,8 +233,8 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JSON → Types Converter",
-      description: "Convert JSON into TypeScript interfaces and Go structs.",
+      title: "JSON to Types & Zod Converter",
+      description: "Convert raw JSON into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations.",
       path: "/devutilities/json-types-converter",
       icon: (
         <svg
@@ -215,27 +273,6 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "JSON YAML CSV XML Converter",
-      description:
-        "Convert between JSON, YAML, CSV and XML formats in real time with syntax validation.",
-      path: "/devutilities/json-yaml-csv-xml",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 7h10M7 12h6m-6 5h10M4 4v16m16-16v16"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "URL Parser & Query Builder",
@@ -258,7 +295,6 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-
 
     {
       title: "Keyboard Keycode Inspector",
@@ -303,9 +339,9 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JWT Decoder",
+      title: "JWT Studio",
       description:
-        "Decode and inspect JSON Web Token header and payload data directly in the browser, completely offline.",
+        "Decode, inspect, edit, sign, and encode JSON Web Token header and payload data offline.",
       path: "/devutilities/jwt",
       icon: (
         <svg
@@ -324,30 +360,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "JWT Encoder",
+      title: "Diff Checker & JSON Diff",
       description:
-        "Encode and inspect JSON Web Token header and payload data directly in the browser, completely offline.",
-      path: "/devutilities/jwt-encode",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Diff Checker",
-      description:
-        "Compare two text blocks and highlight added, removed, and unchanged lines in split or inline view.",
+        "Compare two text blocks line-by-line, or perform a structural JSON comparison ignoring key order and formatting.",
+      keywords: "json diff structural compare",
       path: "/devutilities/diff",
       icon: (
         <svg
@@ -429,9 +445,10 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Color Converter & Contrast Checker",
+      title: "Color Converter & Analyzer",
       description:
-        "Convert CSS colors (HEX, RGB, HSL, CMYK), generate palettes, and verify WCAG contrast offline.",
+        "Convert CSS colors (HEX, RGB, HSL, CMYK, XYZ, Lab), evaluate WCAG accessibility contrast, and generate harmonic palettes and design system exports.",
+      keywords: "harmony palette tint shade tone cielab xyz colorref contrast ratio wcag",
       path: "/devutilities/color",
       icon: (
         <svg
@@ -492,9 +509,9 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Text Case Converter",
+      title: "Text Processing Suite",
       description:
-        "Convert text into camelCase, snake_case, kebab-case, PascalCase, title case, URL slug, and inspect text metrics.",
+        "Convert string cases, inspect layout metrics, analyze word densities, and clean/sort lists.",
       path: "/devutilities/text-case",
       icon: (
         <svg
@@ -533,27 +550,7 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "Base64 Image Encoder & Decoder",
-      description:
-        "Encode images to Base64 strings and decode Base64 back to images. Drag & drop support, fully offline.",
-      path: "/devutilities/base64-image",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
+
     {
       title: "Timestamp",
       description:
@@ -577,9 +574,32 @@ const DevUtilities = () => {
     },
 
     {
-      title: "Markdown Previewer",
+      title: "Timezone Converter",
       description:
-        "Write markdown and instantly preview rendered HTML output with support for headings, lists, links, code blocks, and more.",
+        "Convert date/time across timezones and track a live multi-timezone world clock, fully offline.",
+      path: "/devutilities/timezone-converter",
+      keywords: "timezone convert world clock utc offset dst",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
+
+    {
+      title: "Markdown Studio",
+      description:
+        "Write markdown and instantly preview rendered HTML output, or build markdown tables visually.",
       path: "/devutilities/markdown",
       icon: (
         <svg
@@ -639,10 +659,9 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Markdown Table Generator",
-      description:
-        "Build markdown tables visually or convert CSV and TSV data instantly.",
-      path: "/devutilities/markdown-table-generator",
+      title: "JSON to Schema",
+      description: "Generate JSON Schema from raw JSON data.",
+      path: "/devutilities/json-to-schema",
       icon: (
         <svg
           className="w-6 h-6"
@@ -654,7 +673,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16M8 4v16M16 4v16"
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
           />
         </svg>
       ),
@@ -869,27 +888,6 @@ const DevUtilities = () => {
       ),
     },
 
-    {
-      title: "String Inspector",
-      description:
-        "Analyze character, word, sentence, and paragraph counts, byte size, reading/speaking time, and word frequency density.",
-      path: "/devutilities/string-inspector",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 4h6m-6 16h6M5 8h2m10 0h2M5 16h2m10 0h2M7 4v16M17 4v16M7 12h10"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "Number Base Converter & Bitwise Visualizer",
@@ -988,6 +986,30 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Cubic-Bezier Generator",
+      description:
+        "Design custom transition easing curves visually and preview animations in real time.",
+      keywords: "cubic bezier easing curve timing function transition animation",
+      path: "/devutilities/cubic-bezier",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 20C4 20 5 4 20 4"
+          />
+          <circle cx="4" cy="20" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="20" cy="4" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Gradient Generator",
       description: "Create beautiful CSS gradients with live preview",
       path: "/devutilities/css-gradient",
@@ -1024,6 +1046,27 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M4 8V6a2 2 0 012-2h2m8 0h2a2 2 0 012 2v2m0 8v2a2 2 0 01-2 2h-2m-8 0H6a2 2 0 01-2-2v-2m5-5h6m-6 3h6"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "CSS Custom Blob & Fancy Border Radius",
+      description:
+        "Design organic blob shapes using visual handles and advanced 8-point border-radius.",
+      path: "/devutilities/fancy-border-radius",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3c3.5 0 7 1.8 7 6.5S17 20 12 20s-7-3.5-7-10.5S8.5 3 12 3z"
           />
         </svg>
       ),
@@ -1153,51 +1196,6 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "Word Counter",
-      description: "Count characters and words in your text instantly.",
-      path: "/devutilities/word-counter",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 13h2l1 9h12l1-9h2M9 6h6M9 10h6M5 18h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-      ),
-    },
-
-    {
-      title: "Text List Cleaner",
-      description:
-        "Sort lines, remove duplicates, trim whitespace, and remove empty lines completely offline.",
-      keywords:
-        "text list sort lines duplicates deduplicate clean trim whitespace",
-      path: "/devutilities/text-list-cleaner",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"
-          />
-        </svg>
-      ),
-    },
 
     {
       title: "Git Command Builder",
@@ -1223,15 +1221,37 @@ const DevUtilities = () => {
             strokeWidth={2}
             d="M6 12c0-3.3 2.7-6 6-6h3"
           />
-          <circle cx="6" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
-          <circle cx="6" cy="18" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
-          <circle cx="16" cy="6" r="2" stroke="currentColor" strokeWidth={2} fill="currentColor" />
+          <circle
+            cx="6"
+            cy="6"
+            r="2"
+            stroke="currentColor"
+            strokeWidth={2}
+            fill="currentColor"
+          />
+          <circle
+            cx="6"
+            cy="18"
+            r="2"
+            stroke="currentColor"
+            strokeWidth={2}
+            fill="currentColor"
+          />
+          <circle
+            cx="16"
+            cy="6"
+            r="2"
+            stroke="currentColor"
+            strokeWidth={2}
+            fill="currentColor"
+          />
         </svg>
       ),
     },
     {
       title: "API Status Checker",
-      description: "Test API endpoints and inspect HTTP status, response time and output.",
+      description:
+        "Test API endpoints and inspect HTTP status, response time and output.",
       path: "/devutilities/api-status-checker",
       icon: (
         <svg
@@ -1273,7 +1293,8 @@ const DevUtilities = () => {
 
     {
       title: "ASCII Art Generator",
-      description: "Convert text strings into custom ASCII art banners for code comments and terminals.",
+      description:
+        "Convert text strings into custom ASCII art banners for code comments and terminals.",
       path: "/devutilities/ascii-banner",
       icon: (
         <svg
@@ -1333,7 +1354,8 @@ const DevUtilities = () => {
 
     {
       title: "Meta Tags Generator",
-      description: "Generate SEO, Open Graph, and Twitter Card meta tags with live previews.",
+      description:
+        "Generate SEO, Open Graph, and Twitter Card meta tags with live previews.",
       path: "/devutilities/meta-tags",
       icon: (
         <svg
@@ -1389,6 +1411,28 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm3 8l3 3 5-5"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "CSS Box Shadow & Glow Generator",
+      description:
+        "Design multi-layer box shadows and glows with live preview and copy-ready CSS output.",
+      path: "/devutilities/box-shadow",
+      keywords: "shadow glow css box-shadow inset layer tailwind",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h12v12H4zM8 8h12v12H8z"
           />
         </svg>
       ),
@@ -1506,10 +1550,18 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
+<<<<<<< HEAD
             className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
               ? "text-neutral-400 hover:text-white"
               : "text-neutral-500 hover:text-black"
               }`}
+=======
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
+              dark
+                ? "text-neutral-400 hover:text-white"
+                : "text-neutral-500 hover:text-black"
+            }`}
+>>>>>>> upstream/main
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -1545,19 +1597,35 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+<<<<<<< HEAD
                   className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
                     ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
                     : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
                     }`}
+=======
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
+                    dark
+                      ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
+                      : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
+                  }`}
+>>>>>>> upstream/main
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
+<<<<<<< HEAD
                     className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${dark
                       ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
                       : "text-black hover:text-black hover:bg-neutral-150"
                       }`}
+=======
+                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${
+                      dark
+                        ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
+                        : "text-black hover:text-black hover:bg-neutral-150"
+                    }`}
+>>>>>>> upstream/main
                     aria-label="Clear search query"
                   >
                     <svg
@@ -1646,10 +1714,18 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
+<<<<<<< HEAD
                 className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
                   ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
                   : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
                   }`}
+=======
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  hasFavorites
+                    ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
+                    : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
+                }`}
+>>>>>>> upstream/main
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div>
@@ -1693,12 +1769,22 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
+<<<<<<< HEAD
                           className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
                             ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                             : dark
                               ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
                               : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                             }`}
+=======
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
+                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                              : dark
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                          }`}
+>>>>>>> upstream/main
                         >
                           <svg
                             className="h-5 w-5"
@@ -1785,12 +1871,22 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
+<<<<<<< HEAD
                           className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
                             ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
                             : dark
                               ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
                               : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                             }`}
+=======
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
+                            isFavorite
+                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                              : dark
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                          }`}
+>>>>>>> upstream/main
                         >
                           <svg
                             className="h-5 w-5"

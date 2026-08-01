@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import ThemeToggle from "./ThemeToggle";
 import StorageGauge from "./StorageGauge";
+import { FaInfoCircle } from "react-icons/fa";
 import useSidebar from "../hooks/useSidebar";
 import useMobileMode from "../hooks/useMobileMode";
 import useSidebarSection from "../hooks/useSidebarSection";
@@ -46,6 +47,18 @@ const Navbar = () => {
 
             {/* Mobile actions */}
             <div className="flex lg:hidden items-center gap-2">
+              <Link
+                to="/about"
+                className={`p-2.5 rounded-xl border transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center shrink-0 ${
+                  dark
+                    ? "border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/40"
+                    : "border-neutral-200 bg-neutral-50 text-neutral-500 hover:text-black hover:border-neutral-300 hover:bg-neutral-100"
+                }`}
+                title="About DevTasks"
+                aria-label="About DevTasks"
+              >
+                <FaInfoCircle className="w-4 h-4" />
+              </Link>
               <StorageGauge />
               <ThemeToggle />
               {hasSidebarSection && isMobileMode && (
@@ -92,6 +105,18 @@ const Navbar = () => {
 
           {/* Actions on desktop */}
           <div className="hidden lg:flex items-center gap-4">
+            <Link
+              to="/about"
+              className={`p-2.5 rounded-xl border transition-all duration-300 active:scale-95 cursor-pointer flex items-center justify-center shrink-0 ${
+                dark
+                  ? "border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/40"
+                  : "border-neutral-200 bg-neutral-50 text-neutral-500 hover:text-black hover:border-neutral-300 hover:bg-neutral-100"
+              }`}
+              title="About DevTasks"
+              aria-label="About DevTasks"
+            >
+              <FaInfoCircle className="w-4 h-4" />
+            </Link>
             <StorageGauge />
             <ThemeToggle />
           </div>

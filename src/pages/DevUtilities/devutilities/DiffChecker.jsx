@@ -6,7 +6,7 @@ import { useTheme } from "../../../context/ThemeContext";
 // ─── LCS-based diff algorithm ────────────────────────────────────────────────
 function computeDiff(original, modified) {
   const origLines = original === "" ? [] : original.split("\n");
-  const modLines  = modified  === "" ? [] : modified.split("\n");
+  const modLines = modified === "" ? [] : modified.split("\n");
   const m = origLines.length;
   const n = modLines.length;
 
@@ -39,37 +39,132 @@ function computeDiff(original, modified) {
   return result;
 }
 
+// ─── Structural JSON diff algorithm ──────────────────────────────────────────
+function safeParseJSON(text) {
+  try {
+    return { data: JSON.parse(text === "" ? "{}" : text), error: null };
+  } catch (e) {
+    return { data: null, error: e.message };
+  }
+}
+
+function isPlainObject(val) {
+  return typeof val === "object" && val !== null && !Array.isArray(val);
+}
+
+// Recursively diffs two parsed JSON values and returns a tree of
+// { type: "added" | "removed" | "modified" | "unchanged" | "nested", ... }
+function computeJSONDiff(a, b) {
+  // Arrays are diffed index-by-index (kept simple/predictable for review)
+  if (Array.isArray(a) || Array.isArray(b)) {
+    const arrA = Array.isArray(a) ? a : [];
+    const arrB = Array.isArray(b) ? b : [];
+    const maxLen = Math.max(arrA.length, arrB.length);
+    const children = {};
+    for (let idx = 0; idx < maxLen; idx++) {
+      const key = `[${idx}]`;
+      if (idx >= arrA.length) {
+        children[key] = { type: "added", value: arrB[idx] };
+      } else if (idx >= arrB.length) {
+        children[key] = { type: "removed", value: arrA[idx] };
+      } else if (isPlainObject(arrA[idx]) && isPlainObject(arrB[idx])) {
+        children[key] = {
+          type: "nested",
+          children: computeJSONDiff(arrA[idx], arrB[idx]),
+        };
+      } else if (JSON.stringify(arrA[idx]) !== JSON.stringify(arrB[idx])) {
+        children[key] = {
+          type: "modified",
+          oldValue: arrA[idx],
+          newValue: arrB[idx],
+        };
+      } else {
+        children[key] = { type: "unchanged", value: arrA[idx] };
+      }
+    }
+    return children;
+  }
+
+  const objA = isPlainObject(a) ? a : {};
+  const objB = isPlainObject(b) ? b : {};
+  const allKeys = new Set([...Object.keys(objA), ...Object.keys(objB)]);
+  const result = {};
+
+  for (const key of allKeys) {
+    const inA = Object.prototype.hasOwnProperty.call(objA, key);
+    const inB = Object.prototype.hasOwnProperty.call(objB, key);
+    const valA = objA[key];
+    const valB = objB[key];
+
+    if (!inA && inB) {
+      result[key] = { type: "added", value: valB };
+    } else if (inA && !inB) {
+      result[key] = { type: "removed", value: valA };
+    } else if (
+      (isPlainObject(valA) && isPlainObject(valB)) ||
+      (Array.isArray(valA) && Array.isArray(valB))
+    ) {
+      result[key] = { type: "nested", children: computeJSONDiff(valA, valB) };
+    } else if (JSON.stringify(valA) !== JSON.stringify(valB)) {
+      result[key] = { type: "modified", oldValue: valA, newValue: valB };
+    } else {
+      result[key] = { type: "unchanged", value: valA };
+    }
+  }
+  return result;
+}
+
+function jsonDiffStats(tree) {
+  let added = 0,
+    removed = 0,
+    modified = 0,
+    unchanged = 0;
+  const walk = (node) => {
+    Object.values(node).forEach((entry) => {
+      if (entry.type === "nested") walk(entry.children);
+      else if (entry.type === "added") added++;
+      else if (entry.type === "removed") removed++;
+      else if (entry.type === "modified") modified++;
+      else unchanged++;
+    });
+  };
+  walk(tree);
+  return { added, removed, modified, unchanged };
+}
+
 // ─── Build paired row data for split view ────────────────────────────────────
 function buildSplitRows(diff) {
-  const rows    = [];
-  let leftNum   = 1;
-  let rightNum  = 1;
-  let i         = 0;
+  const rows = [];
+  let leftNum = 1;
+  let rightNum = 1;
+  let i = 0;
 
   while (i < diff.length) {
     if (diff[i].type === "same") {
       rows.push({
-        left:  { type: "same", value: diff[i].value, lineNum: leftNum++  },
+        left: { type: "same", value: diff[i].value, lineNum: leftNum++ },
         right: { type: "same", value: diff[i].value, lineNum: rightNum++ },
       });
       i++;
     } else {
       const removed = [];
-      const added   = [];
+      const added = [];
       while (i < diff.length && diff[i].type !== "same") {
         if (diff[i].type === "removed") removed.push(diff[i].value);
-        else                             added.push(diff[i].value);
+        else added.push(diff[i].value);
         i++;
       }
       const maxLen = Math.max(removed.length, added.length);
       for (let k = 0; k < maxLen; k++) {
         rows.push({
-          left: k < removed.length
-            ? { type: "removed", value: removed[k], lineNum: leftNum++  }
-            : { type: "empty",   value: ""                              },
-          right: k < added.length
-            ? { type: "added", value: added[k],   lineNum: rightNum++ }
-            : { type: "empty", value: ""                              },
+          left:
+            k < removed.length
+              ? { type: "removed", value: removed[k], lineNum: leftNum++ }
+              : { type: "empty", value: "" },
+          right:
+            k < added.length
+              ? { type: "added", value: added[k], lineNum: rightNum++ }
+              : { type: "empty", value: "" },
         });
       }
     }
@@ -79,36 +174,140 @@ function buildSplitRows(diff) {
 
 // ─── Style helpers ────────────────────────────────────────────────────────────
 function rowCls(type, dark) {
-  if (type === "added")   return dark ? "bg-green-950/40" : "bg-green-50";
-  if (type === "removed") return dark ? "bg-red-950/40"   : "bg-red-50";
-  if (type === "empty")   return dark ? "bg-zinc-900/30"  : "bg-neutral-100/30";
+  if (type === "added") return dark ? "bg-green-950/40" : "bg-green-50";
+  if (type === "removed") return dark ? "bg-red-950/40" : "bg-red-50";
+  if (type === "empty") return dark ? "bg-zinc-900/30" : "bg-neutral-100/30";
   return "";
 }
 
 function inlineRowCls(type, dark) {
-  if (type === "added")   return dark ? "bg-green-950/40 border-l-2 border-green-500" : "bg-green-50 border-l-2 border-green-500";
-  if (type === "removed") return dark ? "bg-red-950/40 border-l-2 border-red-500"     : "bg-red-50 border-l-2 border-red-500";
+  if (type === "added")
+    return dark
+      ? "bg-green-950/40 border-l-2 border-green-500"
+      : "bg-green-50 border-l-2 border-green-500";
+  if (type === "removed")
+    return dark
+      ? "bg-red-950/40 border-l-2 border-red-500"
+      : "bg-red-50 border-l-2 border-red-500";
   return "";
 }
 
 function lineNumCls(type, dark) {
-  if (type === "added")   return dark ? "text-green-600 bg-green-950/60"  : "text-green-700 bg-green-100";
-  if (type === "removed") return dark ? "text-red-500   bg-red-950/60"    : "text-red-600   bg-red-100";
-  if (type === "empty")   return dark ? "text-zinc-800  bg-zinc-900/20"   : "text-neutral-200 bg-neutral-50";
-  return dark ? "text-zinc-600 bg-zinc-800/30" : "text-neutral-400 bg-neutral-50";
+  if (type === "added")
+    return dark
+      ? "text-green-600 bg-green-950/60"
+      : "text-green-700 bg-green-100";
+  if (type === "removed")
+    return dark ? "text-red-500   bg-red-950/60" : "text-red-600   bg-red-100";
+  if (type === "empty")
+    return dark
+      ? "text-zinc-800  bg-zinc-900/20"
+      : "text-neutral-200 bg-neutral-50";
+  return dark
+    ? "text-zinc-600 bg-zinc-800/30"
+    : "text-neutral-400 bg-neutral-50";
 }
 
 function textCls(type, dark) {
-  if (type === "added")   return dark ? "text-green-400"                       : "text-green-800";
-  if (type === "removed") return dark ? "text-red-400 line-through opacity-70" : "text-red-700 line-through opacity-70";
-  if (type === "empty")   return "text-transparent select-none";
+  if (type === "added") return dark ? "text-green-400" : "text-green-800";
+  if (type === "removed")
+    return dark
+      ? "text-red-400 line-through opacity-70"
+      : "text-red-700 line-through opacity-70";
+  if (type === "empty") return "text-transparent select-none";
   return dark ? "text-zinc-300" : "text-zinc-700";
+}
+
+// JSON tree diff row color helpers (reuse the same green/red/yellow language)
+function jsonTypeCls(type, dark) {
+  if (type === "added") return dark ? "text-green-400" : "text-green-700";
+  if (type === "removed") return dark ? "text-red-400" : "text-red-700";
+  if (type === "modified") return dark ? "text-yellow-400" : "text-yellow-700";
+  return dark ? "text-zinc-400" : "text-zinc-600";
+}
+
+function jsonPrefix(type) {
+  if (type === "added") return "+";
+  if (type === "removed") return "−";
+  if (type === "modified") return "~";
+  return " ";
+}
+
+// ─── Recursive JSON diff tree renderer ───────────────────────────────────────
+function JSONDiffNode({ nodeKey, entry, dark, depth }) {
+  const [open, setOpen] = useState(true);
+  const indent = { paddingLeft: `${depth * 16}px` };
+
+  if (entry.type === "nested") {
+    const childKeys = Object.keys(entry.children);
+    return (
+      <div>
+        <div
+          style={indent}
+          className={`flex items-center gap-1.5 py-0.5 cursor-pointer font-mono text-xs ${
+            dark
+              ? "text-zinc-300 hover:text-white"
+              : "text-zinc-700 hover:text-black"
+          }`}
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span
+            className={`w-3 select-none ${dark ? "text-zinc-600" : "text-neutral-400"}`}
+          >
+            {open ? "▾" : "▸"}
+          </span>
+          <span className="font-semibold">{nodeKey}</span>
+          <span className={dark ? "text-zinc-600" : "text-neutral-400"}>
+            {Array.isArray(entry.children) ? "[" : "{"}
+          </span>
+        </div>
+        {open &&
+          childKeys.map((k) => (
+            <JSONDiffNode
+              key={k}
+              nodeKey={k}
+              entry={entry.children[k]}
+              dark={dark}
+              depth={depth + 1}
+            />
+          ))}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={indent}
+      className={`flex items-start gap-1.5 py-0.5 font-mono text-xs ${jsonTypeCls(entry.type, dark)}`}
+    >
+      <span className="w-3 shrink-0 select-none font-bold">
+        {jsonPrefix(entry.type)}
+      </span>
+      <span className="font-semibold shrink-0">{nodeKey}:</span>
+      {entry.type === "modified" ? (
+        <span className="break-all">
+          <span className="line-through opacity-60">
+            {JSON.stringify(entry.oldValue)}
+          </span>
+          {" → "}
+          <span>{JSON.stringify(entry.newValue)}</span>
+        </span>
+      ) : (
+        <span className="break-all">{JSON.stringify(entry.value)}</span>
+      )}
+    </div>
+  );
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const VIEWS = [
-  { key: "split",  label: "Split"  },
+  { key: "split", label: "Split" },
   { key: "inline", label: "Inline" },
+];
+
+const DIFF_MODES = [
+  { key: "text", label: "Text Diff" },
+  { key: "json", label: "Structural JSON Diff" },
 ];
 
 const SAMPLE_ORIGINAL = `function greet(name) {
@@ -121,6 +320,18 @@ const SAMPLE_MODIFIED = `function greet(name, greeting = "Hello") {
   return greeting + " " + name;
 }`;
 
+const SAMPLE_JSON_ORIGINAL = `{
+  "name": "devtasks",
+  "version": "1.0.0",
+  "keepAlive": true
+}`;
+
+const SAMPLE_JSON_MODIFIED = `{
+  "version": "1.1.0",
+  "name": "devtasks",
+  "newFeature": "json-diff"
+}`;
+
 // ─── Main component ───────────────────────────────────────────────────────────
 const DiffChecker = () => {
   const { dark } = useTheme();
@@ -128,26 +339,40 @@ const DiffChecker = () => {
   const [original, setOriginal] = useState("");
   const [modified, setModified] = useState("");
   const [viewMode, setViewMode] = useState("split");
-  const [diff,     setDiff]     = useState(null);
+  const [diffMode, setDiffMode] = useState("text");
+  const [diff, setDiff] = useState(null);
+  const [jsonDiff, setJsonDiff] = useState(null);
+  const [jsonError, setJsonError] = useState(null);
 
   const stats = useMemo(() => {
     if (!diff) return { added: 0, removed: 0, same: 0 };
     return {
-      added:   diff.filter((d) => d.type === "added").length,
+      added: diff.filter((d) => d.type === "added").length,
       removed: diff.filter((d) => d.type === "removed").length,
-      same:    diff.filter((d) => d.type === "same").length,
+      same: diff.filter((d) => d.type === "same").length,
     };
   }, [diff]);
+
+  const jsonStats = useMemo(() => {
+    if (!jsonDiff) return { added: 0, removed: 0, modified: 0, unchanged: 0 };
+    return jsonDiffStats(jsonDiff);
+  }, [jsonDiff]);
 
   const splitRows = useMemo(() => (diff ? buildSplitRows(diff) : []), [diff]);
 
   const inlineLines = useMemo(() => {
     if (!diff) return [];
     let origNum = 0;
-    let modNum  = 0;
+    let modNum = 0;
     return diff.map((line) => {
-      if (line.type === "removed") { origNum++; return { ...line, lineNum: origNum, prefix: "−" }; }
-      if (line.type === "added")   { modNum++;  return { ...line, lineNum: modNum,  prefix: "+" }; }
+      if (line.type === "removed") {
+        origNum++;
+        return { ...line, lineNum: origNum, prefix: "−" };
+      }
+      if (line.type === "added") {
+        modNum++;
+        return { ...line, lineNum: modNum, prefix: "+" };
+      }
       origNum++;
       modNum++;
       return { ...line, lineNum: origNum, prefix: " " };
@@ -159,6 +384,31 @@ const DiffChecker = () => {
       toast.error("Please enter text in at least one field.");
       return;
     }
+
+    if (diffMode === "json") {
+      const { data: a, error: errA } = safeParseJSON(original);
+      const { data: b, error: errB } = safeParseJSON(modified);
+      if (errA || errB) {
+        setJsonError(errA ? `Original: ${errA}` : `Modified: ${errB}`);
+        setJsonDiff(null);
+        toast.error(
+          "Invalid JSON — please fix the syntax error and try again.",
+        );
+        return;
+      }
+      setJsonError(null);
+      const result = computeJSONDiff(a, b);
+      setJsonDiff(result);
+      const s = jsonDiffStats(result);
+      const hasChanges = s.added || s.removed || s.modified;
+      toast.success(
+        hasChanges
+          ? "Diff computed successfully."
+          : "JSON objects are structurally identical.",
+      );
+      return;
+    }
+
     const result = computeDiff(original, modified);
     setDiff(result);
     const hasChanges = result.some((d) => d.type !== "same");
@@ -173,12 +423,44 @@ const DiffChecker = () => {
     setOriginal("");
     setModified("");
     setDiff(null);
+    setJsonDiff(null);
+    setJsonError(null);
   };
 
   const handleSample = () => {
-    setOriginal(SAMPLE_ORIGINAL);
-    setModified(SAMPLE_MODIFIED);
+    if (diffMode === "json") {
+      setOriginal(SAMPLE_JSON_ORIGINAL);
+      setModified(SAMPLE_JSON_MODIFIED);
+    } else {
+      setOriginal(SAMPLE_ORIGINAL);
+      setModified(SAMPLE_MODIFIED);
+    }
     setDiff(null);
+    setJsonDiff(null);
+    setJsonError(null);
+  };
+
+  const handleFormat = () => {
+    const { data, error } = safeParseJSON(original);
+    if (error) return toast.error(`Original: ${error}`);
+    setOriginal(JSON.stringify(data, null, 2));
+    const modResult = safeParseJSON(modified);
+    if (!modResult.error) setModified(JSON.stringify(modResult.data, null, 2));
+  };
+
+  const handleMinify = () => {
+    const { data, error } = safeParseJSON(original);
+    if (error) return toast.error(`Original: ${error}`);
+    setOriginal(JSON.stringify(data));
+    const modResult = safeParseJSON(modified);
+    if (!modResult.error) setModified(JSON.stringify(modResult.data));
+  };
+
+  const handleDiffModeChange = (mode) => {
+    setDiffMode(mode);
+    setDiff(null);
+    setJsonDiff(null);
+    setJsonError(null);
   };
 
   return (
@@ -190,7 +472,7 @@ const DiffChecker = () => {
       <title>Diff Checker | DevTasks</title>
       <meta
         name="description"
-        content="Compare two text blocks client-side and highlight differences instantly."
+        content="Compare two text blocks, or perform a structural JSON comparison, client-side and highlight differences instantly."
       />
 
       <div
@@ -234,33 +516,63 @@ const DiffChecker = () => {
               </h1>
             </div>
 
-            {/* View mode toggle */}
-            <div
-              className={`flex items-center gap-2 p-1 border rounded-2xl self-start sm:self-auto ${
-                dark
-                  ? "border-zinc-700 bg-zinc-800"
-                  : "border-neutral-200 bg-neutral-50"
-              }`}
-            >
-              {VIEWS.map((opt) => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setViewMode(opt.key)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
-                    viewMode === opt.key
-                      ? dark
-                        ? "bg-white text-black"
-                        : "bg-black text-white"
-                      : dark
-                        ? "text-neutral-400 hover:text-white"
-                        : "text-neutral-400 hover:text-black"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+            {/* View mode toggle (only meaningful for text diff) */}
+            {diffMode === "text" && (
+              <div
+                className={`flex items-center gap-2 p-1 border rounded-2xl self-start sm:self-auto ${
+                  dark
+                    ? "border-zinc-700 bg-zinc-800"
+                    : "border-neutral-200 bg-neutral-50"
+                }`}
+              >
+                {VIEWS.map((opt) => (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setViewMode(opt.key)}
+                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+                      viewMode === opt.key
+                        ? dark
+                          ? "bg-white text-black"
+                          : "bg-black text-white"
+                        : dark
+                          ? "text-neutral-400 hover:text-white"
+                          : "text-neutral-400 hover:text-black"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Diff mode selector: Text Diff vs Structural JSON Diff */}
+          <div
+            className={`flex items-center gap-2 p-1 border rounded-2xl self-start ${
+              dark
+                ? "border-zinc-700 bg-zinc-800"
+                : "border-neutral-200 bg-neutral-50"
+            }`}
+          >
+            {DIFF_MODES.map((opt) => (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() => handleDiffModeChange(opt.key)}
+                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+                  diffMode === opt.key
+                    ? dark
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : dark
+                      ? "text-neutral-400 hover:text-white"
+                      : "text-neutral-400 hover:text-black"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -274,25 +586,57 @@ const DiffChecker = () => {
                   dark ? "text-zinc-400" : "text-zinc-500"
                 }`}
               >
-                Original Text
+                {diffMode === "json" ? "Original JSON" : "Original Text"}
               </label>
-              <button
-                type="button"
-                onClick={handleSample}
-                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
-                  dark
-                    ? "bg-white text-black border-white hover:bg-zinc-200"
-                    : "bg-black text-white border-black hover:bg-zinc-800"
-                }`}
-              >
-                Sample
-              </button>
+              <div className="flex items-center gap-2">
+                {diffMode === "json" && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleFormat}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
+                        dark
+                          ? "bg-zinc-800 text-zinc-300 border-zinc-700 hover:text-white hover:border-zinc-500"
+                          : "bg-white text-zinc-600 border-neutral-200 hover:text-black hover:border-neutral-400"
+                      }`}
+                    >
+                      Format
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleMinify}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
+                        dark
+                          ? "bg-zinc-800 text-zinc-300 border-zinc-700 hover:text-white hover:border-zinc-500"
+                          : "bg-white text-zinc-600 border-neutral-200 hover:text-black hover:border-neutral-400"
+                      }`}
+                    >
+                      Minify
+                    </button>
+                  </>
+                )}
+                <button
+                  type="button"
+                  onClick={handleSample}
+                  className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all duration-300 ${
+                    dark
+                      ? "bg-white text-black border-white hover:bg-zinc-200"
+                      : "bg-black text-white border-black hover:bg-zinc-800"
+                  }`}
+                >
+                  Sample
+                </button>
+              </div>
             </div>
             <textarea
               value={original}
               onChange={(e) => setOriginal(e.target.value)}
               spellCheck={false}
-              placeholder="Paste original text here..."
+              placeholder={
+                diffMode === "json"
+                  ? "Paste original JSON here..."
+                  : "Paste original text here..."
+              }
               className={`w-full h-48 p-4 rounded-xl border resize-none focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-colors font-mono text-sm ${
                 dark
                   ? "bg-zinc-950 border-zinc-800 text-zinc-200 placeholder-zinc-600"
@@ -309,14 +653,18 @@ const DiffChecker = () => {
                   dark ? "text-zinc-400" : "text-zinc-500"
                 }`}
               >
-                Modified Text
+                {diffMode === "json" ? "Modified JSON" : "Modified Text"}
               </label>
             </div>
             <textarea
               value={modified}
               onChange={(e) => setModified(e.target.value)}
               spellCheck={false}
-              placeholder="Paste modified text here..."
+              placeholder={
+                diffMode === "json"
+                  ? "Paste modified JSON here..."
+                  : "Paste modified text here..."
+              }
               className={`w-full h-48 p-4 rounded-xl border resize-none focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-colors font-mono text-sm ${
                 dark
                   ? "bg-zinc-950 border-zinc-800 text-zinc-200 placeholder-zinc-600"
@@ -352,8 +700,97 @@ const DiffChecker = () => {
           </button>
         </div>
 
-        {/* ── Diff output ──────────────────────────────────────────────────── */}
-        {diff && (
+        {/* ── JSON parse error ────────────────────────────────────────────── */}
+        {diffMode === "json" && jsonError && (
+          <div
+            className={`mb-6 px-4 py-3 rounded-xl border text-xs font-mono ${
+              dark
+                ? "border-red-900 bg-red-950/40 text-red-400"
+                : "border-red-200 bg-red-50 text-red-700"
+            }`}
+          >
+            {jsonError}
+          </div>
+        )}
+
+        {/* ── Structural JSON diff output ─────────────────────────────────── */}
+        {diffMode === "json" && jsonDiff && !jsonError && (
+          <>
+            <div
+              className={`flex flex-wrap items-center gap-3 mb-4 px-4 py-3 rounded-xl border ${
+                dark
+                  ? "border-zinc-800 bg-zinc-950/50"
+                  : "border-neutral-200 bg-neutral-50"
+              }`}
+            >
+              <span
+                className={`text-xs font-black uppercase tracking-widest ${
+                  dark ? "text-zinc-500" : "text-zinc-400"
+                }`}
+              >
+                Results:
+              </span>
+              <span
+                className={`text-xs font-bold px-2.5 py-1 rounded-lg ${dark ? "bg-green-950/50 text-green-400" : "bg-green-50 text-green-700"}`}
+              >
+                +{jsonStats.added} Added
+              </span>
+              <span
+                className={`text-xs font-bold px-2.5 py-1 rounded-lg ${dark ? "bg-red-950/50 text-red-400" : "bg-red-50 text-red-700"}`}
+              >
+                −{jsonStats.removed} Removed
+              </span>
+              <span
+                className={`text-xs font-bold px-2.5 py-1 rounded-lg ${dark ? "bg-yellow-950/50 text-yellow-400" : "bg-yellow-50 text-yellow-700"}`}
+              >
+                ~{jsonStats.modified} Modified
+              </span>
+              <span
+                className={`text-xs font-bold px-2.5 py-1 rounded-lg ${dark ? "bg-zinc-800 text-zinc-400" : "bg-neutral-100 text-zinc-500"}`}
+              >
+                {jsonStats.unchanged} Unchanged
+              </span>
+            </div>
+
+            <div
+              className={`rounded-xl border overflow-hidden ${
+                dark ? "border-zinc-800" : "border-neutral-200"
+              }`}
+            >
+              <div
+                className={`px-4 py-2 text-xs font-black uppercase tracking-widest border-b ${
+                  dark
+                    ? "bg-zinc-800 text-zinc-400 border-zinc-700"
+                    : "bg-neutral-100 text-zinc-500 border-neutral-200"
+                }`}
+              >
+                Structural Diff
+              </div>
+              <div className="max-h-96 overflow-y-auto p-3">
+                {Object.keys(jsonDiff).length === 0 ? (
+                  <p
+                    className={`text-xs font-mono ${dark ? "text-zinc-500" : "text-zinc-400"}`}
+                  >
+                    Both objects are empty.
+                  </p>
+                ) : (
+                  Object.keys(jsonDiff).map((k) => (
+                    <JSONDiffNode
+                      key={k}
+                      nodeKey={k}
+                      entry={jsonDiff[k]}
+                      dark={dark}
+                      depth={0}
+                    />
+                  ))
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ── Text diff output ─────────────────────────────────────────────── */}
+        {diffMode === "text" && diff && (
           <>
             {/* Stats bar */}
             <div
@@ -381,9 +818,7 @@ const DiffChecker = () => {
               </span>
               <span
                 className={`text-xs font-bold px-2.5 py-1 rounded-lg ${
-                  dark
-                    ? "bg-red-950/50 text-red-400"
-                    : "bg-red-50 text-red-700"
+                  dark ? "bg-red-950/50 text-red-400" : "bg-red-50 text-red-700"
                 }`}
               >
                 −{stats.removed} Removed

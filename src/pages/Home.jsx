@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun, FaInfoCircle } from "react-icons/fa";
 import { toast } from "sonner";
 import SIDEBAR_SECTIONS from "../config/sidebarSections";
 
@@ -120,6 +120,18 @@ const Home = () => {
                       <span>GitHub</span>
                     </button>
                   </a>
+                  <Link
+                    to="/about"
+                    className={`p-4 rounded-2xl border transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center shrink-0 ${
+                      dark
+                        ? "bg-zinc-900 border-zinc-800 text-zinc-100 hover:text-white hover:bg-zinc-900/80 hover:border-zinc-700 shadow-md"
+                        : "bg-white border-neutral-200 text-neutral-800 hover:text-black hover:bg-neutral-50 hover:border-neutral-300 shadow-sm"
+                    }`}
+                    aria-label="About DevTasks"
+                    title="About DevTasks"
+                  >
+                    <FaInfoCircle className="w-5 h-5" />
+                  </Link>
                   <button
                     onClick={toggleTheme}
                     className={`p-4 rounded-2xl border transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center shrink-0 ${

@@ -36,11 +36,7 @@ const sampleResources = [
   },
 ];
 
-const DEFAULT_CATEGORIES = [
-  "SITE",
-  "GITHUB",
-  "DOCUMENTATION",
-];
+const DEFAULT_CATEGORIES = ["SITE", "GITHUB", "DOCUMENTATION"];
 
 const getCategoryIcon = (category) => {
   switch (category) {
@@ -62,11 +58,7 @@ const getCategoryIcon = (category) => {
       );
     case "GITHUB":
       return (
-        <svg
-          className="h-5 w-5"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -224,11 +216,20 @@ function ListResources() {
   const [categories] = useState(() => {
     const saved = localStorage.getItem("resource_categories");
     let parsed = saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
-    parsed = parsed.filter(cat => {
+    parsed = parsed.filter((cat) => {
       const u = cat.toUpperCase();
-      return u !== "MDN" && u !== "JAVASCRIPT" && u !== "LOCALHOST" && u !== "STAGING" && u !== "FIGMA" && u !== "GENERAL";
+      return (
+        u !== "MDN" &&
+        u !== "JAVASCRIPT" &&
+        u !== "LOCALHOST" &&
+        u !== "STAGING" &&
+        u !== "FIGMA" &&
+        u !== "GENERAL"
+      );
     });
-    parsed = parsed.filter(cat => cat !== "SITE" && cat !== "GITHUB" && cat !== "DOCUMENTATION");
+    parsed = parsed.filter(
+      (cat) => cat !== "SITE" && cat !== "GITHUB" && cat !== "DOCUMENTATION",
+    );
     parsed = ["SITE", "GITHUB", "DOCUMENTATION", ...parsed];
     localStorage.setItem("resource_categories", JSON.stringify(parsed));
     return parsed;
@@ -249,23 +250,24 @@ function ListResources() {
     loadedResources = loadedResources.filter(
       (r) =>
         r.category?.toUpperCase() !== "MDN" &&
-        r.category?.toUpperCase() !== "JAVASCRIPT"
+        r.category?.toUpperCase() !== "JAVASCRIPT",
     );
 
     // Ensure the 4 default resources are at the beginning and clean up old defaults
-    const cleaned = loadedResources.filter(r => 
-      r.url !== "https://dev-tasks-beta.vercel.app" && 
-      r.id !== "sample-1" &&
-      r.url !== "https://github.com/shamilahmdt/devtasks" &&
-      r.id !== "sample-2" &&
-      r.url !== "https://react.dev" &&
-      r.id !== "sample-3" &&
-      r.url !== "https://tailwindcss.com" &&
-      r.id !== "sample-4" &&
-      r.url !== "http://localhost:3000" &&
-      r.id !== "sample-5" &&
-      r.url !== "https://figma.com/file/example" &&
-      r.id !== "sample-6"
+    const cleaned = loadedResources.filter(
+      (r) =>
+        r.url !== "https://dev-tasks-beta.vercel.app" &&
+        r.id !== "sample-1" &&
+        r.url !== "https://github.com/shamilahmdt/devtasks" &&
+        r.id !== "sample-2" &&
+        r.url !== "https://react.dev" &&
+        r.id !== "sample-3" &&
+        r.url !== "https://tailwindcss.com" &&
+        r.id !== "sample-4" &&
+        r.url !== "http://localhost:3000" &&
+        r.id !== "sample-5" &&
+        r.url !== "https://figma.com/file/example" &&
+        r.id !== "sample-6",
     );
 
     const merged = [...sampleResources, ...cleaned];
@@ -349,7 +351,10 @@ function ListResources() {
       className={`${t.wrapper} min-h-[calc(100vh-76px)] md:h-[calc(100vh-76px)] px-4 sm:px-6 py-6 transition-colors duration-300 overflow-y-auto overflow-x-hidden md:overflow-hidden relative flex flex-col justify-center font-sans`}
     >
       <title>Curated Developer Resources & Guides | DevTasks</title>
-      <meta name="description" content="Browse and manage local server listings, Figma designs, documentation hubs, and staging environments. Keep your workspace references in one place." />
+      <meta
+        name="description"
+        content="Browse and manage local server listings, Figma designs, documentation hubs, and staging environments. Keep your workspace references in one place."
+      />
 
       {/* AMBIENT GLOWS */}
       <div
@@ -484,7 +489,7 @@ function ListResources() {
                     </p>
                   </div>
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <a
                       href={resource.url || "#"}
                       target="_blank"
@@ -505,7 +510,7 @@ function ListResources() {
                       onClick={() =>
                         handleDelete(resource.id || index, resource.title)
                       }
-                      className="rounded-2xl border border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-3 text-sm font-bold transition-all"
+                      className="flex-1 rounded-2xl border border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-3 text-sm font-bold transition-all"
                     >
                       Delete
                     </button>

@@ -143,13 +143,8 @@ const SIDEBAR_SECTIONS = [
         description: "Inspect keyboard events in real time.",
       },
       {
-        label: "JSON Formatter",
-        description: "Format and validate JSON",
-        path: "/devutilities/json",
-      },
-      {
-        label: "JSON YAML CSV XML Converter",
-        description: "Convert JSON, YAML, CSV and XML formats",
+        label: "JSON & Data Format Suite",
+        description: "Format, beautify, minify, and convert JSON, YAML, CSV and XML data",
         path: "/devutilities/json-yaml-csv-xml",
       },
       {
@@ -163,6 +158,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-schema-validator",
       },
       {
+        label: "JSON to Schema",
+        description: "Generate JSON Schema from raw JSON data",
+        path: "/devutilities/json-to-schema",
+      },
+      {
         label: "Mock JSON Generator",
         description: "Generate mock JSON data",
         path: "/devutilities/mock-json-generator",
@@ -173,14 +173,9 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/sql",
       },
       {
-        label: "Markdown Previewer",
-        description: "Preview markdown syntax",
+        label: "Markdown Studio",
+        description: "Preview markdown syntax and build tables visually",
         path: "/devutilities/markdown",
-      },
-      {
-        label: "Markdown Table Generator",
-        description: "Build markdown tables visually",
-        path: "/devutilities/markdown-table-generator",
       },
       {
         label: "Regex Tester",
@@ -188,29 +183,20 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/regex",
       },
       {
-        label: "Text Case Converter",
-        description: "Convert text into different cases",
+        label: "Text Processing Suite",
+        description: "Convert string cases, inspect text layout, analyze word densities, and sort/clean lists",
         path: "/devutilities/text-case",
       },
       {
-        label: "String Inspector",
-        description: "Analyze character, word, sentence, and paragraph counts",
-        path: "/devutilities/string-inspector",
-      },
-      {
         label: "Diff Checker",
-        description: "Compare text differences",
+        description:
+          "Compare text differences or perform structural JSON diffing",
         path: "/devutilities/diff",
       },
       {
-        label: "Base64 / URL",
-        description: "Encode and decode",
+        label: "Base64 & URL Converter Suite",
+        description: "Encode/decode text base64, URL components, and image files offline",
         path: "/devutilities/base64",
-      },
-      {
-        label: "Base64 Image",
-        description: "Encode/decode images with Base64",
-        path: "/devutilities/base64-image",
       },
       {
         label: "Morse Code Converter",
@@ -218,8 +204,13 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/morse-code",
       },
       {
-        label: "JSON → Types Converter",
-        description: "Convert JSON into TypeScript interfaces and Go structs.",
+        label: "YAML ↔ TOML Converter",
+        description: "Convert between YAML and TOML formats",
+        path: "/devutilities/yaml-toml",
+      },
+      {
+        label: "JSON to Types & Zod Converter",
+        description: "Convert JSON structures into TypeScript interfaces, Go structs, or Zod schemas offline.",
         path: "/devutilities/json-types-converter",
       },
       {
@@ -260,6 +251,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/timestamp",
       },
       {
+        label: "Timezone Converter",
+        description: "Convert date/time across timezones with a live world clock.",
+        path: "/devutilities/timezone-converter",
+      },
+      {
         label: "UUID Generator",
         description: "Generate UUIDs",
         path: "/devutilities/uuid",
@@ -276,13 +272,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/bcrypt",
       },
       {
-        label: "JWT Encoder",
-        description: "Create and sign JWT tokens",
-        path: "/devutilities/jwt-encode",
-      },
-      {
-        label: "JWT Decoder",
-        description: "Inspect tokens",
+        label: "JWT Studio",
+        description: "Decode, sign, and encode JWT tokens offline",
         path: "/devutilities/jwt",
       },
       {
@@ -298,6 +289,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/css-animation",
       },
       {
+        label: "CSS Cubic-Bezier Generator",
+        description:
+          "Design custom transition easing curves visually and preview animations in real time.",
+        path: "/devutilities/cubic-bezier",
+      },
+      {
         label: "CSS Gradient Generator",
         description: "Create beautiful CSS gradients with live preview",
         path: "/devutilities/css-gradient",
@@ -307,6 +304,12 @@ const SIDEBAR_SECTIONS = [
         description:
           "Design custom sliced image borders and generate copy-ready CSS properties visually.",
         path: "/devutilities/border-image",
+      },
+      {
+        label: "CSS Custom Blob & Fancy Border Radius",
+        description:
+          "Design organic blob shapes using visual handles and advanced 8-point border-radius.",
+        path: "/devutilities/fancy-border-radius",
       },
       {
         label: "Glassmorphism Playground",
@@ -325,8 +328,8 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/flexbox-grid-generator",
       },
       {
-        label: "Color Converter",
-        description: "Convert colors and check contrast",
+        label: "Color Converter & Analyzer",
+        description: "Convert color formats, evaluate WCAG contrast, and generate design palettes.",
         path: "/devutilities/color",
       },
       {
@@ -351,9 +354,15 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/cron",
       },
       {
-        label: "SVG Optimizer & React JSX Generator",
-        description: "Optimize, clean, and convert SVG code into optimized React JSX/TSX components instantly.",
+        label: "SVG Toolkit",
+        description: "Optimize SVGs, generate React JSX components, and compile Data URIs",
         path: "/devutilities/svg-optimizer",
+      },
+      {
+        label: "SVG Spritesheet Merger",
+        description:
+          "Merge multiple SVGs into a single optimized <symbol>-based spritesheet.",
+        path: "/devutilities/svg-spritesheet-merger",
       },
       {
         label: "Password Generator",
@@ -384,21 +393,10 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Docker Configuration Generator",
-        description: "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
+        description:
+          "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
         path: "/devutilities/docker-generator",
       },
-      {
-        label: "Word Counter",
-        description: "Character & word count tool",
-        path: "/devutilities/word-counter",
-      },
-     
-      {
-        label: "Text List Cleaner",
-        description: "Sort, clean, and remove duplicate text lines",
-        path: "/devutilities/text-list-cleaner",
-      },
-
       {
         label: "SQL Schema Converter",
         description:
@@ -411,6 +409,13 @@ const SIDEBAR_SECTIONS = [
           "Scenario-based Git command builder to help find and customize commands for common tasks.",
         path: "/devutilities/git-builder",
       },
+      {
+        label: "Hex Viewer & Binary Inspector",
+        description:
+          "Inspect file binary headers, offsets, hex patterns, and ASCII streams client-side offline.",
+        path: "/devutilities/hex-inspector",
+      },
+
       {
         label: ".gitignore Generator",
         description:
@@ -468,6 +473,12 @@ const SIDEBAR_SECTIONS = [
         label: "SVG Wave & Shape Divider Generator",
         description: "Design organic SVG section dividers and curves visually.",
         path: "/devutilities/shape-divider",
+      },
+      {
+        label: "CSS Box Shadow & Glow Generator",
+        description:
+          "Design multi-layer box shadows and glows with live preview and copy-ready CSS.",
+        path: "/devutilities/box-shadow",
       },
     ],
   },
