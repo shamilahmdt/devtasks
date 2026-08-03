@@ -95,7 +95,7 @@ import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGener
 import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
-
+import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
 
 
 import Footer from "./components/Footer";
@@ -640,6 +640,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/box-shadow"
                 element={<BoxShadowGenerator />}
+              />
+              <Route
+                path="/devutilities/keypair-generator"
+                element={<KeyPairGenerator />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
