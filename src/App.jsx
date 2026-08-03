@@ -87,7 +87,7 @@ import MorseCodeConverter from "./pages/DevUtilities/devutilities/MorseCodeConve
 import YamlTomlConverter from "./pages/DevUtilities/devutilities/YamlTomlConverter";
 
 import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
-
+import HttpRequestConvertor from "./pages/DevUtilities/devutilities/HttpRequestConvertor";
 
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
@@ -615,6 +615,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<NetworkRequestTester />}
               />
               <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
+              <Route
+                path="/devutilities/http-request-convertor"
+                element={<HttpRequestConvertor />}
+              />
               <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
               <Route path="/devutilities/hex-inspector" element={<HexInspector />} />
               <Route

@@ -440,6 +440,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/ascii-banner",
       },
       {
+        label: "HTTP Request Convertor",
+        description:
+          "Convert between cURL, Fetch API, and Axios request formats offline with accurate request parsing.",
+        path: "/devutilities/http-request-convertor",
+      },
+      {
         label: "Image Optimizer",
         description:
           "Compress, resize, and convert images to WebP/JPEG/PNG client-side.",
