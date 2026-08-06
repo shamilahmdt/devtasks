@@ -899,6 +899,31 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "CSS Filter & Backdrop Playground",
+      description:
+        "Experiment with image filters and backdrop effects, custom images, presets, and copy-ready CSS.",
+      path: "/devutilities/css-filter",
+      keywords: "filter backdrop-filter blur brightness contrast grayscale image effects",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 5h16M7 12h10M10 19h4"
+          />
+          <circle cx="7" cy="5" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="17" cy="12" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="10" cy="19" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
 
     {
       title: "Number Base Converter & Bitwise Visualizer",
