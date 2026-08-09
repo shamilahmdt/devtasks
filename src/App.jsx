@@ -45,6 +45,7 @@ import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGla
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
+import CssGridAreaGenerator from "./pages/DevUtilities/devutilities/CssGridAreaGenerator";
 import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierGenerator";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
@@ -536,6 +537,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/css-gradient"
                 element={<CssGradientGenerator />}
+              />
+              <Route
+                path="/devutilities/css-grid-areas"
+                element={<CssGridAreaGenerator />}
               />
               <Route
                 path="/devutilities/border-image"
