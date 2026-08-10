@@ -920,6 +920,31 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "CSS Filter & Backdrop Playground",
+      description:
+        "Experiment with image filters and backdrop effects, custom images, presets, and copy-ready CSS.",
+      path: "/devutilities/css-filter",
+      keywords: "filter backdrop-filter blur brightness contrast grayscale image effects",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 5h16M7 12h10M10 19h4"
+          />
+          <circle cx="7" cy="5" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="17" cy="12" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="10" cy="19" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
 
     {
       title: "Number Base Converter & Bitwise Visualizer",
@@ -1043,7 +1068,11 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "CSS Gradient Generator",
+      title: "CSS Background Pattern Generator",
+      path: "/devutilities/css-pattern",
+    },
+    {
+      title: "CSS Background Pattern Generator",
       description: "Create beautiful CSS gradients with live preview",
       path: "/devutilities/css-gradient",
       icon: (
@@ -1061,6 +1090,11 @@ const DevUtilities = () => {
           />
         </svg>
       ),
+    },
+    {
+      title: "CSS Background Pattern Generator",
+      description: "Generate CSS background patterns using gradients.",
+      href: "/devutilities/css-pattern",
     },
     {
       title: "CSS Border-Image Generator",
@@ -1605,7 +1639,6 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-
             className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
               dark
                 ? "text-neutral-400 hover:text-white"
@@ -1646,7 +1679,6 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-
                   className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
                     dark
                       ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
@@ -1657,7 +1689,6 @@ const DevUtilities = () => {
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-
                     className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${
                       dark
                         ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
@@ -1751,7 +1782,6 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-
                 className={`overflow-hidden transition-all duration-500 ease-out ${
                   hasFavorites
                     ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
@@ -1800,7 +1830,6 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-
                           className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
                             isFavorite
                               ? "border-amber-400/40 bg-amber-400/15 text-amber-400"

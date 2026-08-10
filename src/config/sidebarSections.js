@@ -317,6 +317,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/glassmorphism",
       },
       {
+        label: "CSS Filter & Backdrop Playground",
+        description:
+          "Preview image filters and backdrop-filter effects, then copy ready-to-use CSS.",
+        path: "/devutilities/css-filter",
+      },
+      {
         label: "CSS Unit Converter",
         description:
           "Convert CSS units and generate fluid typography clamp function",
