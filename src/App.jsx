@@ -42,6 +42,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
@@ -548,6 +549,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/glassmorphism"
                 element={<CssGlassmorphismPlayground />}
+              />
+              <Route
+                path="/devutilities/css-filter"
+                element={<CssFilterPlayground />}
               />
               <Route
                 path="/devutilities/lorem-ipsum"
