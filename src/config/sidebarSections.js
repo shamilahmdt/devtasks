@@ -334,6 +334,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/flexbox-grid-generator",
       },
       {
+        label: "CSS Grid Area Generator",
+        description:
+          "Visually paint named grid areas and generate grid-template-areas CSS and matching HTML.",
+        path: "/devutilities/css-grid-areas",
+      },
+      {
         label: "Color Converter & Analyzer",
         description: "Convert color formats, evaluate WCAG contrast, and generate design palettes.",
         path: "/devutilities/color",

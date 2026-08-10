@@ -796,6 +796,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Grid Area Generator",
+      description:
+        "Visually paint named grid areas and generate grid-template-areas CSS and matching HTML.",
+      path: "/devutilities/css-grid-areas",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h16v16H4V4zm0 6h16M4 14h16M10 4v16"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "IP Subnet Calculator",
       description:
         "Calculate IPv4 subnet masks, host ranges, wildcard masks, and visualize CIDR bit maps — completely offline.",

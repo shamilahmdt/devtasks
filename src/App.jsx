@@ -48,6 +48,7 @@ import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGener
 import CssPatternGenerator from "./pages/DevUtilities/devutilities/CssPatternGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
+import CssGridAreaGenerator from "./pages/DevUtilities/devutilities/CssGridAreaGenerator";
 import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierGenerator";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
@@ -547,6 +548,8 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssGradientGenerator />}
               />
               <Route
+                path="/devutilities/css-grid-areas"
+                element={<CssGridAreaGenerator />}
                 path="/devutilities/css-pattern"
                 element={<CssPatternGenerator />}
               />
