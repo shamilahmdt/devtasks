@@ -44,6 +44,8 @@ import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimatio
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
 import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
+
+import CssPatternGenerator from "./pages/DevUtilities/devutilities/CssPatternGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
 import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierGenerator";
@@ -97,7 +99,6 @@ import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerat
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
-
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -310,9 +311,11 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-        }`}
+      className={`w-full ${
+        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+      } transition-colors duration-300 ${
+        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+      }`}
     >
       <SplashScreen />
 
@@ -352,7 +355,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/morse-code"
                 element={<MorseCodeConverter />}
               />
-              <Route path="/devutilities/yaml-toml" element={<YamlTomlConverter />} />
+              <Route
+                path="/devutilities/yaml-toml"
+                element={<YamlTomlConverter />}
+              />
 
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />
@@ -407,7 +413,9 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/json"
-                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+                element={
+                  <Navigate to="/devutilities/json-yaml-csv-xml" replace />
+                }
               />
               <Route
                 path="/devutilities/json-to-schema"
@@ -539,6 +547,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssGradientGenerator />}
               />
               <Route
+                path="/devutilities/css-pattern"
+                element={<CssPatternGenerator />}
+              />
+              <Route
                 path="/devutilities/border-image"
                 element={<BorderImageGenerator />}
               />
@@ -619,13 +631,22 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/api-status-checker"
                 element={<NetworkRequestTester />}
               />
-              <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
+              <Route
+                path="/devutilities/ascii-banner"
+                element={<AsciiArtGenerator />}
+              />
               <Route
                 path="/devutilities/http-request-convertor"
                 element={<HttpRequestConvertor />}
               />
-              <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
-              <Route path="/devutilities/hex-inspector" element={<HexInspector />} />
+              <Route
+                path="/devutilities/git-builder"
+                element={<GitCommandBuilder />}
+              />
+              <Route
+                path="/devutilities/hex-inspector"
+                element={<HexInspector />}
+              />
               <Route
                 path="/devutilities/docker-generator"
                 element={<DockerGenerator />}
