@@ -100,6 +100,7 @@ import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerat
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
+import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -681,6 +682,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/keypair-generator"
                 element={<KeyPairGenerator />}
+              />
+              <Route
+                path="/devutilities/security-headers"
+                element={<SecurityHeaders />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

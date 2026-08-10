@@ -492,6 +492,12 @@ const SIDEBAR_SECTIONS = [
           "Design multi-layer box shadows and glows with live preview and copy-ready CSS.",
         path: "/devutilities/box-shadow",
       },
+      {
+        label: "Security Headers Builder",
+        description:
+          "Build and configure HTTP security headers for stronger web application security.",
+        path: "/devutilities/security-headers",
+      },
     ],
   },
 ];
