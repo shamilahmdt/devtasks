@@ -1068,11 +1068,7 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "CSS Background Pattern Generator",
-      path: "/devutilities/css-pattern",
-    },
-    {
-      title: "CSS Background Pattern Generator",
+      title: "CSS Gradient Generator",
       description: "Create beautiful CSS gradients with live preview",
       path: "/devutilities/css-gradient",
       icon: (
@@ -1094,7 +1090,22 @@ const DevUtilities = () => {
     {
       title: "CSS Background Pattern Generator",
       description: "Generate CSS background patterns using gradients.",
-      href: "/devutilities/css-pattern",
+      path: "/devutilities/css-pattern",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+          />
+        </svg>
+      ),
     },
     {
       title: "CSS Border-Image Generator",
@@ -1553,9 +1564,9 @@ const DevUtilities = () => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return true;
 
-    const cardTitle = card.title.toLowerCase();
-    const cardDesc = card.description.toLowerCase();
-    const cardPath = card.path.toLowerCase();
+    const cardTitle = (card.title || "").toLowerCase();
+    const cardDesc = (card.description || "").toLowerCase();
+    const cardPath = (card.path || "").toLowerCase();
     const cardKeywords = (card.keywords || "").toLowerCase();
 
     // 1. Direct substring match on title, description, or path

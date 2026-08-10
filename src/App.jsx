@@ -550,6 +550,8 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/css-grid-areas"
                 element={<CssGridAreaGenerator />}
+              />
+              <Route
                 path="/devutilities/css-pattern"
                 element={<CssPatternGenerator />}
               />
@@ -627,7 +629,9 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/robots-generator"
-                element={<RobotsTxtGenerator />}
+                element={
+                  <Navigate to="/devutilities/robots-txt-generator" replace />
+                }
               />
 
               <Route
