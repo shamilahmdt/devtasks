@@ -94,6 +94,7 @@ import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerat
 import HttpRequestConvertor from "./pages/DevUtilities/devutilities/HttpRequestConvertor";
 
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
+import BundlerGenerator from "./pages/DevUtilities/devutilities/BundlerGenerator";
 import DockerGenerator from "./pages/DevUtilities/devutilities/DockerGenerator";
 import GitignoreGenerator from "./pages/DevUtilities/devutilities/GitignoreGenerator";
 import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerator";
@@ -654,6 +655,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/hex-inspector"
                 element={<HexInspector />}
+              />
+              <Route
+                path="/devutilities/bundler-generator"
+                element={<BundlerGenerator />}
               />
               <Route
                 path="/devutilities/docker-generator"
