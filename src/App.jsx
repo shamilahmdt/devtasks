@@ -96,6 +96,7 @@ import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerat
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
+import HttpStatusExplorer from "./pages/DevUtilities/devutilities/HttpStatusExplorer";
 
 
 import Footer from "./components/Footer";
@@ -648,6 +649,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/keypair-generator"
                 element={<KeyPairGenerator />}
+              />
+              <Route
+                path="/devutilities/http-status-explorer"
+                element={<HttpStatusExplorer />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

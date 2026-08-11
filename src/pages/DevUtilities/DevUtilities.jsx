@@ -1471,7 +1471,30 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "HTTP Status Code Explorer",
+      description:
+        "Search and explore HTTP status codes, meanings, categories, and standard descriptions completely offline.",
+      path: "/devutilities/http-status-explorer",
+      keywords: "http status code 200 404 500 error api response rfc offline",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
   ];
+
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
     (s) => s.title === "Dev Utilities",

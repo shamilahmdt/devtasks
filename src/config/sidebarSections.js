@@ -480,6 +480,11 @@ const SIDEBAR_SECTIONS = [
           "Design multi-layer box shadows and glows with live preview and copy-ready CSS.",
         path: "/devutilities/box-shadow",
       },
+      {
+        label: "HTTP Status Code Explorer",
+        description: "Browse and search HTTP status codes offline.",
+        path: "/devutilities/http-status-explorer",
+      },
     ],
   },
 ];
