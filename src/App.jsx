@@ -60,6 +60,7 @@ import JsonYamlCsvXmlConverter from "./pages/DevUtilities/devutilities/JsonYamlC
 import JsonPathEvaluator from "./pages/DevUtilities/devutilities/JsonPathEvaluator";
 import JsonSchemaValidator from "./pages/DevUtilities/devutilities/JsonSchemaValidator";
 import JsonToSchemaGenerator from "./pages/DevUtilities/devutilities/JsonToSchemaGenerator";
+import JsonLdGenerator from "./pages/DevUtilities/devutilities/JsonLdGenerator";
 import JwtDecoder from "./pages/DevUtilities/devutilities/JwtDecoder";
 import XmlValidator from "./pages/DevUtilities/devutilities/XmlValidator";
 import KeycodeInspector from "./pages/DevUtilities/devutilities/KeycodeInspector";
@@ -422,6 +423,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/json-to-schema"
                 element={<JsonToSchemaGenerator />}
+              />
+              <Route
+                path="/devutilities/json-ld-generator"
+                element={<JsonLdGenerator />}
               />
               <Route
                 path="/devutilities/xml-validator"

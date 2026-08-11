@@ -476,6 +476,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/meta-tags",
       },
       {
+        label: "JSON-LD Schema Generator",
+        description:
+          "Build structured schema.org JSON-LD markup for SEO rich results, entirely offline.",
+        path: "/devutilities/json-ld-generator",
+      },
+      {
         label: "Favicon Generator",
         description:
           "Generate multi-size favicons and web manifest from a single image.",
