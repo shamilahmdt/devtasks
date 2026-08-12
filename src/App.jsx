@@ -103,6 +103,7 @@ import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
 import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
+import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/PerformanceBudgetCalculator";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -692,6 +693,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/keypair-generator"
                 element={<KeyPairGenerator />}
+              />
+              <Route
+                path="/devutilities/performance-budget"
+                element={<PerformanceBudgetCalculator />}
               />
               <Route
                 path="/devutilities/security-headers"

@@ -1580,10 +1580,31 @@ const DevUtilities = () => {
       ),
     },
     {
-      title: "Security Headers Builder",
+      title: "Web Vitals & Performance Budget Calculator",
       description:
-        "Build and configure HTTP security headers for stronger web application security.",
-      path: "/devutilities/security-headers",
+        "Calculate budget based on your website's metrics.",
+      path: "/devutilities/performance-budget",
+       icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      ),
+    },
+      {
+      title: "Docker Configuration Generator",
+      description:
+        "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
+      path: "/devutilities/docker-generator",
       icon: (
         <svg
           className="w-6 h-6"
@@ -1595,13 +1616,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4"
+            d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM4 9h16M8 13h.01M12 13h.01M16 13h.01"
           />
         </svg>
       ),

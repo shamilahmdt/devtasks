@@ -510,6 +510,12 @@ const SIDEBAR_SECTIONS = [
           "Build and configure HTTP security headers for stronger web application security.",
         path: "/devutilities/security-headers",
       },
+       {
+        label: "Web Vitals & Performance Budget Calculator",
+        description:
+          "Calculate budget based on your website's metrics.",
+        path: "/devutilities/performance-budget",
+      }
     ],
   },
 ];
