@@ -1473,6 +1473,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "JSON-LD Schema Generator",
+      description:
+        "Build structured schema.org JSON-LD markup for SEO rich results, entirely offline.",
+      path: "/devutilities/json-ld-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 5a2 2 0 012-2h4a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V5zM14 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM4 17a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM8 11v2m0 2v-2m0 0h6a2 2 0 012 2v2a2 2 0 01-2 2h-2"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "SVG Wave & Shape Divider Generator",
       description: "Design organic SVG section dividers and curves visually.",
       path: "/devutilities/shape-divider",
