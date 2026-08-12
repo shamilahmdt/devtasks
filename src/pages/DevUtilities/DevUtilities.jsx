@@ -796,6 +796,27 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "CSS Grid Area Generator",
+      description:
+        "Visually paint named grid areas and generate grid-template-areas CSS and matching HTML.",
+      path: "/devutilities/css-grid-areas",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 4h16v16H4V4zm0 6h16M4 14h16M10 4v16"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "IP Subnet Calculator",
       description:
         "Calculate IPv4 subnet masks, host ranges, wildcard masks, and visualize CIDR bit maps — completely offline.",
@@ -896,6 +917,31 @@ const DevUtilities = () => {
             strokeWidth={2}
             d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           />
+        </svg>
+      ),
+    },
+    {
+      title: "CSS Filter & Backdrop Playground",
+      description:
+        "Experiment with image filters and backdrop effects, custom images, presets, and copy-ready CSS.",
+      path: "/devutilities/css-filter",
+      keywords: "filter backdrop-filter blur brightness contrast grayscale image effects",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 5h16M7 12h10M10 19h4"
+          />
+          <circle cx="7" cy="5" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="17" cy="12" r="1.5" fill="currentColor" stroke="none" />
+          <circle cx="10" cy="19" r="1.5" fill="currentColor" stroke="none" />
         </svg>
       ),
     },
@@ -1037,6 +1083,26 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "CSS Background Pattern Generator",
+      description: "Generate CSS background patterns using gradients.",
+      path: "/devutilities/css-pattern",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
           />
         </svg>
       ),
@@ -1477,6 +1543,12 @@ const DevUtilities = () => {
         "Search and explore HTTP status codes, meanings, categories, and standard descriptions completely offline.",
       path: "/devutilities/http-status-explorer",
       keywords: "http status code 200 404 500 error api response rfc offline",
+    },
+    {
+      title: "Security Headers Builder",
+      description:
+        "Build and configure HTTP security headers for stronger web application security.",
+      path: "/devutilities/security-headers",
       icon: (
         <svg
           className="w-6 h-6"
@@ -1489,6 +1561,18 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3l8 4v5.5c0 5.5-3.5 8.5-8 9.5-4.5-1-8-4-8-9.5V7l8-4z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4"
           />
         </svg>
       ),
@@ -1521,9 +1605,9 @@ const DevUtilities = () => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return true;
 
-    const cardTitle = card.title.toLowerCase();
-    const cardDesc = card.description.toLowerCase();
-    const cardPath = card.path.toLowerCase();
+    const cardTitle = (card.title || "").toLowerCase();
+    const cardDesc = (card.description || "").toLowerCase();
+    const cardPath = (card.path || "").toLowerCase();
     const cardKeywords = (card.keywords || "").toLowerCase();
 
     // 1. Direct substring match on title, description, or path
@@ -1607,12 +1691,10 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+              ? "text-neutral-400 hover:text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -1648,23 +1730,19 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-
-                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
-                    dark
-                      ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
-                      : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
-                  }`}
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
+                    ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
+                    : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
+                    }`}
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-
-                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${
-                      dark
-                        ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
-                        : "text-black hover:text-black hover:bg-neutral-150"
-                    }`}
+                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${dark
+                      ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
+                      : "text-black hover:text-black hover:bg-neutral-150"
+                      }`}
                     aria-label="Clear search query"
                   >
                     <svg
@@ -1753,12 +1831,10 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-
-                className={`overflow-hidden transition-all duration-500 ease-out ${
-                  hasFavorites
-                    ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
-                    : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
-                }`}
+                className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
+                  ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
+                  : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
+                  }`}
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div>
@@ -1802,14 +1878,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
-                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                              : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                            : dark
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"
@@ -1896,13 +1970,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
-                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                              : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                            : dark
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"

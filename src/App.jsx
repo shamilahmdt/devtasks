@@ -42,9 +42,13 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
+
+import CssPatternGenerator from "./pages/DevUtilities/devutilities/CssPatternGenerator";
 import CssGradientGenerator from "./pages/DevUtilities/devutilities/CssGradientGenerator";
 import CssUnitConverter from "./pages/DevUtilities/devutilities/CssUnitConverter";
+import CssGridAreaGenerator from "./pages/DevUtilities/devutilities/CssGridAreaGenerator";
 import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierGenerator";
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
@@ -98,6 +102,7 @@ import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
 import HttpStatusExplorer from "./pages/DevUtilities/devutilities/HttpStatusExplorer";
 
+import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -352,7 +357,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/morse-code"
                 element={<MorseCodeConverter />}
               />
-              <Route path="/devutilities/yaml-toml" element={<YamlTomlConverter />} />
+              <Route
+                path="/devutilities/yaml-toml"
+                element={<YamlTomlConverter />}
+              />
 
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />
@@ -407,7 +415,9 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/json"
-                element={<Navigate to="/devutilities/json-yaml-csv-xml" replace />}
+                element={
+                  <Navigate to="/devutilities/json-yaml-csv-xml" replace />
+                }
               />
               <Route
                 path="/devutilities/json-to-schema"
@@ -539,6 +549,14 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssGradientGenerator />}
               />
               <Route
+                path="/devutilities/css-grid-areas"
+                element={<CssGridAreaGenerator />}
+              />
+              <Route
+                path="/devutilities/css-pattern"
+                element={<CssPatternGenerator />}
+              />
+              <Route
                 path="/devutilities/border-image"
                 element={<BorderImageGenerator />}
               />
@@ -549,6 +567,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/glassmorphism"
                 element={<CssGlassmorphismPlayground />}
+              />
+              <Route
+                path="/devutilities/css-filter"
+                element={<CssFilterPlayground />}
               />
               <Route
                 path="/devutilities/lorem-ipsum"
@@ -608,20 +630,31 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/robots-generator"
-                element={<RobotsTxtGenerator />}
+                element={
+                  <Navigate to="/devutilities/robots-txt-generator" replace />
+                }
               />
 
               <Route
                 path="/devutilities/api-status-checker"
                 element={<NetworkRequestTester />}
               />
-              <Route path="/devutilities/ascii-banner" element={<AsciiArtGenerator />} />
+              <Route
+                path="/devutilities/ascii-banner"
+                element={<AsciiArtGenerator />}
+              />
               <Route
                 path="/devutilities/http-request-convertor"
                 element={<HttpRequestConvertor />}
               />
-              <Route path="/devutilities/git-builder" element={<GitCommandBuilder />} />
-              <Route path="/devutilities/hex-inspector" element={<HexInspector />} />
+              <Route
+                path="/devutilities/git-builder"
+                element={<GitCommandBuilder />}
+              />
+              <Route
+                path="/devutilities/hex-inspector"
+                element={<HexInspector />}
+              />
               <Route
                 path="/devutilities/docker-generator"
                 element={<DockerGenerator />}
@@ -653,6 +686,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/http-status-explorer"
                 element={<HttpStatusExplorer />}
+              />
+              <Route
+                path="/devutilities/security-headers"
+                element={<SecurityHeaders />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

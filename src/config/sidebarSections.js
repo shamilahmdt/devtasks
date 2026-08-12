@@ -317,6 +317,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/glassmorphism",
       },
       {
+        label: "CSS Filter & Backdrop Playground",
+        description:
+          "Preview image filters and backdrop-filter effects, then copy ready-to-use CSS.",
+        path: "/devutilities/css-filter",
+      },
+      {
         label: "CSS Unit Converter",
         description:
           "Convert CSS units and generate fluid typography clamp function",
@@ -326,6 +332,12 @@ const SIDEBAR_SECTIONS = [
         label: "Flexbox & Grid Generator",
         description: "Generate CSS flexbox and grid completely offline",
         path: "/devutilities/flexbox-grid-generator",
+      },
+      {
+        label: "CSS Grid Area Generator",
+        description:
+          "Visually paint named grid areas and generate grid-template-areas CSS and matching HTML.",
+        path: "/devutilities/css-grid-areas",
       },
       {
         label: "Color Converter & Analyzer",
@@ -484,6 +496,11 @@ const SIDEBAR_SECTIONS = [
         label: "HTTP Status Code Explorer",
         description: "Browse and search HTTP status codes offline.",
         path: "/devutilities/http-status-explorer",
+      },
+      {
+        label: "Security Headers Builder",
+        description: "Build and configure HTTP security headers for stronger web application security.",
+        path: "/devutilities/security-headers",
       },
     ],
   },
