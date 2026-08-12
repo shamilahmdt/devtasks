@@ -1274,6 +1274,27 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Bundler Configuration Generator",
+      description:
+        "Generate Vite or Webpack config files from visual options. Fully offline.",
+      path: "/devutilities/bundler-generator",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 7h16M4 12h16M4 17h10M8 7V5a1 1 0 011-1h6a1 1 0 011 1v2M8 17v2a1 1 0 001 1h6a1 1 0 001-1v-2"
+          />
+        </svg>
+      ),
+    },
 
     {
       title: "Git Command Builder",

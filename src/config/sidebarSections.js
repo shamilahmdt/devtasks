@@ -410,6 +410,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/docker-generator",
       },
       {
+        label: "Bundler Configuration Generator",
+        description:
+          "Generate Vite or Webpack config files from visual options. Fully offline.",
+        path: "/devutilities/bundler-generator",
+      },
+      {
         label: "SQL Schema Converter",
         description:
           "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
