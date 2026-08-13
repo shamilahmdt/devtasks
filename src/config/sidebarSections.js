@@ -505,9 +505,13 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/box-shadow",
       },
       {
+        label: "HTTP Status Code Explorer",
+        description: "Browse and search HTTP status codes offline.",
+        path: "/devutilities/http-status-explorer",
+      },
+      {
         label: "Security Headers Builder",
-        description:
-          "Build and configure HTTP security headers for stronger web application security.",
+        description: "Build and configure HTTP security headers for stronger web application security.",
         path: "/devutilities/security-headers",
       },
     ],

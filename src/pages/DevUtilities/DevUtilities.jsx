@@ -1580,6 +1580,13 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "HTTP Status Code Explorer",
+      description:
+        "Search and explore HTTP status codes, meanings, categories, and standard descriptions completely offline.",
+      path: "/devutilities/http-status-explorer",
+      keywords: "http status code 200 404 500 error api response rfc offline",
+    },
+    {
       title: "Security Headers Builder",
       description:
         "Build and configure HTTP security headers for stronger web application security.",
@@ -1590,12 +1597,18 @@ const DevUtilities = () => {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          strokeWidth={2}
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
             strokeWidth={2}
-            d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"
+            d="M12 3l8 4v5.5c0 5.5-3.5 8.5-8 9.5-4.5-1-8-4-8-9.5V7l8-4z"
           />
           <path
             strokeLinecap="round"
@@ -1607,6 +1620,7 @@ const DevUtilities = () => {
       ),
     },
   ];
+
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
     (s) => s.title === "Dev Utilities",
@@ -1719,11 +1733,10 @@ const DevUtilities = () => {
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${
-              dark
-                ? "text-neutral-400 hover:text-white"
-                : "text-neutral-500 hover:text-black"
-            }`}
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+              ? "text-neutral-400 hover:text-white"
+              : "text-neutral-500 hover:text-black"
+              }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
@@ -1759,21 +1772,19 @@ const DevUtilities = () => {
                   placeholder="Search utilities..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${
-                    dark
-                      ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
-                      : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
-                  }`}
+                  className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
+                    ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
+                    : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
+                    }`}
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${
-                      dark
-                        ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
-                        : "text-black hover:text-black hover:bg-neutral-150"
-                    }`}
+                    className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${dark
+                      ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
+                      : "text-black hover:text-black hover:bg-neutral-150"
+                      }`}
                     aria-label="Clear search query"
                   >
                     <svg
@@ -1862,11 +1873,10 @@ const DevUtilities = () => {
             <>
               <section
                 aria-hidden={!hasFavorites}
-                className={`overflow-hidden transition-all duration-500 ease-out ${
-                  hasFavorites
-                    ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
-                    : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
-                }`}
+                className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
+                  ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
+                  : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
+                  }`}
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
                   <div>
@@ -1910,13 +1920,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
-                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                              : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                            : dark
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"
@@ -2003,13 +2012,12 @@ const DevUtilities = () => {
                             event.stopPropagation();
                             toggleFavorite(card.path);
                           }}
-                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${
-                            isFavorite
-                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                              : dark
-                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
-                          }`}
+                          className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
+                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                            : dark
+                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                            }`}
                         >
                           <svg
                             className="h-5 w-5"
