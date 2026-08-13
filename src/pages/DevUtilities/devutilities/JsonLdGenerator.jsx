@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
+import { Editor } from "@monaco-editor/react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
@@ -797,11 +798,12 @@ export default function JsonLdGenerator() {
                 </div>
               </div>
               <div className="relative flex-1 flex flex-col min-h-[420px]">
-                <textarea
-                  readOnly
-                  value={scriptBlock}
-                  spellCheck={false}
-                  className={`w-full flex-1 rounded-2xl p-4 font-mono text-xs leading-relaxed resize-none outline-none border transition-colors duration-200 ${t.outputTextarea}`}
+                <Editor
+                height="100%"
+                language="json"
+                theme={dark ? "vs-dark" : "light"}
+                value={scriptBlock}
+                options={{ readOnly: true, minimap: { enabled: false }, lineNumbers: "on", wordWrap: "on", folding: true, scrollBeyondLastLine: false, automaticLayout: true, fontSize: 12, padding: { top: 16, bottom: 16, },}}
                 />
               </div>
               <p className={`text-[10px] font-semibold ${t.label}`}>
