@@ -1578,6 +1578,13 @@ const DevUtilities = () => {
           />
         </svg>
       ),
+    },    
+    {
+      title: "HTTP Status Code Explorer",
+      description:
+        "Search and explore HTTP status codes, meanings, categories, and standard descriptions completely offline.",
+      path: "/devutilities/http-status-explorer",
+      keywords: "http status code 200 404 500 error api response rfc offline",
     },
     {
       title: "Security Headers Builder",
@@ -1590,12 +1597,24 @@ const DevUtilities = () => {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          strokeWidth={2}
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
             strokeWidth={2}
-            d="M13 10V3L4 14h7v7l9-11h-7z"
+            d="M12 3l8 4v5.5c0 5.5-3.5 8.5-8 9.5-4.5-1-8-4-8-9.5V7l8-4z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4"
           />
         </svg>
       ),
@@ -1620,28 +1639,7 @@ const DevUtilities = () => {
           />
         </svg>
       ),
-    },
-    {
-      title: "Docker Configuration Generator",
-      description:
-        "Generate production-ready Dockerfile and docker-compose.yml configurations client-side.",
-      path: "/devutilities/docker-generator",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM4 9h16M8 13h.01M12 13h.01M16 13h.01"
-          />
-        </svg>
-      ),
-    },
+    }
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(

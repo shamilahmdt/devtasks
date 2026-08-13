@@ -102,6 +102,8 @@ import MetaTagsGenerator from "./pages/DevUtilities/devutilities/MetaTagsGenerat
 import FaviconGenerator from "./pages/DevUtilities/devutilities/FaviconGenerator";
 import HexInspector from "./pages/DevUtilities/devutilities/HexInspector";
 import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator";
+import HttpStatusExplorer from "./pages/DevUtilities/devutilities/HttpStatusExplorer";
+
 import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
 import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/PerformanceBudgetCalculator";
 
@@ -316,11 +318,9 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${
-        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-      } transition-colors duration-300 ${
-        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-      }`}
+      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+        }`}
     >
       <SplashScreen />
 
@@ -697,6 +697,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/performance-budget"
                 element={<PerformanceBudgetCalculator />}
+              />
+              <Route
+                path="/devutilities/http-status-explorer"
+                element={<HttpStatusExplorer />}
               />
               <Route
                 path="/devutilities/security-headers"
