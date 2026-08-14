@@ -105,6 +105,7 @@ import KeyPairGenerator from "./pages/DevUtilities/devutilities/KeyPairGenerator
 import HttpStatusExplorer from "./pages/DevUtilities/devutilities/HttpStatusExplorer";
 
 import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
+import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/PerformanceBudgetCalculator";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -692,6 +693,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/keypair-generator"
                 element={<KeyPairGenerator />}
+              />
+              <Route
+                path="/devutilities/performance-budget"
+                element={<PerformanceBudgetCalculator />}
               />
               <Route
                 path="/devutilities/http-status-explorer"

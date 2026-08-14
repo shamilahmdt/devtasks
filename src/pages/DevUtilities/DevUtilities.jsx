@@ -1578,7 +1578,7 @@ const DevUtilities = () => {
           />
         </svg>
       ),
-    },
+    },    
     {
       title: "HTTP Status Code Explorer",
       description:
@@ -1619,8 +1619,28 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+      title: "Web Vitals & Performance Budget Calculator",
+      description:
+        "Calculate budget based on your website's metrics.",
+      path: "/devutilities/performance-budget",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+      ),
+    }
   ];
-
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
     (s) => s.title === "Dev Utilities",
@@ -1734,8 +1754,8 @@ const DevUtilities = () => {
           <Link
             to="/dashboard"
             className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
-              ? "text-neutral-400 hover:text-white"
-              : "text-neutral-500 hover:text-black"
+                ? "text-neutral-400 hover:text-white"
+                : "text-neutral-500 hover:text-black"
               }`}
           >
             <span>← Back to Dashboard</span>
@@ -1773,8 +1793,8 @@ const DevUtilities = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`w-full rounded-2xl border py-2.5 pl-11 pr-10 text-xs font-semibold outline-none transition-all duration-300 ${dark
-                    ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
-                    : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
+                      ? "bg-zinc-950/60 border-zinc-800 text-white placeholder-zinc-600 focus:border-white"
+                      : "bg-white border-neutral-250 text-black placeholder-neutral-400 focus:border-black"
                     }`}
                 />
                 {searchQuery && (
@@ -1782,8 +1802,8 @@ const DevUtilities = () => {
                     type="button"
                     onClick={() => setSearchQuery("")}
                     className={`absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer ${dark
-                      ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
-                      : "text-black hover:text-black hover:bg-neutral-150"
+                        ? "text-zinc-400 hover:text-white hover:bg-zinc-800/80"
+                        : "text-black hover:text-black hover:bg-neutral-150"
                       }`}
                     aria-label="Clear search query"
                   >
@@ -1874,8 +1894,8 @@ const DevUtilities = () => {
               <section
                 aria-hidden={!hasFavorites}
                 className={`overflow-hidden transition-all duration-500 ease-out ${hasFavorites
-                  ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
-                  : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
+                    ? "mb-12 max-h-[3000px] opacity-100 translate-y-0"
+                    : "max-h-0 opacity-0 -translate-y-4 pointer-events-none"
                   }`}
               >
                 <div className="mb-5 flex items-end justify-between gap-4">
@@ -1921,10 +1941,10 @@ const DevUtilities = () => {
                             toggleFavorite(card.path);
                           }}
                           className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
-                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                            : dark
-                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                              : dark
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                             }`}
                         >
                           <svg
@@ -2013,10 +2033,10 @@ const DevUtilities = () => {
                             toggleFavorite(card.path);
                           }}
                           className={`absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ${isFavorite
-                            ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
-                            : dark
-                              ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
-                              : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
+                              ? "border-amber-400/40 bg-amber-400/15 text-amber-400"
+                              : dark
+                                ? "border-zinc-800 bg-zinc-950/70 text-zinc-500 hover:border-amber-400/40 hover:text-amber-300"
+                                : "border-zinc-200 bg-white/90 text-zinc-400 hover:border-amber-400/40 hover:text-amber-500"
                             }`}
                         >
                           <svg
