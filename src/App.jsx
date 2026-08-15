@@ -74,6 +74,7 @@ import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDividerGenerator";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConverter";
+import JsonSqlConverter from "./pages/DevUtilities/devutilities/JsonSqlConverter";
 import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
 import SvgSpritesheetMerger from "./pages/DevUtilities/devutilities/SvgSpritesheetMerger";
@@ -318,9 +319,11 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-        }`}
+      className={`w-full ${
+        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+      } transition-colors duration-300 ${
+        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+      }`}
     >
       <SplashScreen />
 
@@ -622,6 +625,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/sql-converter"
                 element={<SqlSchemaConverter />}
+              />
+              <Route
+                path="/devutilities/json-sql"
+                element={<JsonSqlConverter />}
               />
               <Route
                 path="/devutilities/slug-generator"
