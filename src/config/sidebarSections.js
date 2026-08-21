@@ -144,7 +144,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "JSON & Data Format Suite",
-        description: "Format, beautify, minify, and convert JSON, YAML, CSV and XML data",
+        description:
+          "Format, beautify, minify, and convert JSON, YAML, CSV and XML data",
         path: "/devutilities/json-yaml-csv-xml",
       },
       {
@@ -184,7 +185,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Text Processing Suite",
-        description: "Convert string cases, inspect text layout, analyze word densities, and sort/clean lists",
+        description:
+          "Convert string cases, inspect text layout, analyze word densities, and sort/clean lists",
         path: "/devutilities/text-case",
       },
       {
@@ -195,7 +197,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Base64 & URL Converter Suite",
-        description: "Encode/decode text base64, URL components, and image files offline",
+        description:
+          "Encode/decode text base64, URL components, and image files offline",
         path: "/devutilities/base64",
       },
       {
@@ -210,7 +213,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "JSON to Types & Zod Converter",
-        description: "Convert JSON structures into TypeScript interfaces, Go structs, or Zod schemas offline.",
+        description:
+          "Convert JSON structures into TypeScript interfaces, Go structs, or Zod schemas offline.",
         path: "/devutilities/json-types-converter",
       },
       {
@@ -252,7 +256,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Timezone Converter",
-        description: "Convert date/time across timezones with a live world clock.",
+        description:
+          "Convert date/time across timezones with a live world clock.",
         path: "/devutilities/timezone-converter",
       },
       {
@@ -341,7 +346,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Color Converter & Analyzer",
-        description: "Convert color formats, evaluate WCAG contrast, and generate design palettes.",
+        description:
+          "Convert color formats, evaluate WCAG contrast, and generate design palettes.",
         path: "/devutilities/color",
       },
       {
@@ -367,7 +373,8 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "SVG Toolkit",
-        description: "Optimize SVGs, generate React JSX components, and compile Data URIs",
+        description:
+          "Optimize SVGs, generate React JSX components, and compile Data URIs",
         path: "/devutilities/svg-optimizer",
       },
       {
@@ -420,6 +427,12 @@ const SIDEBAR_SECTIONS = [
         description:
           "Convert SQL CREATE TABLE schemas into JSON Schema and Markdown tables.",
         path: "/devutilities/sql-converter",
+      },
+      {
+        label: "JSON ↔ SQL INSERT Converter",
+        description:
+          "Convert JSON arrays to SQL INSERT statements and supported SQL INSERT statements back to JSON. Fully offline.",
+        path: "/devutilities/json-sql",
       },
       {
         label: "Git Command Builder",
@@ -511,15 +524,15 @@ const SIDEBAR_SECTIONS = [
       },
       {
         label: "Security Headers Builder",
-        description: "Build and configure HTTP security headers for stronger web application security.",
+        description:
+          "Build and configure HTTP security headers for stronger web application security.",
         path: "/devutilities/security-headers",
       },
-       {
+      {
         label: "Web Vitals & Performance Budget Calculator",
-        description:
-          "Calculate budget based on your website's metrics.",
+        description: "Calculate budget based on your website's metrics.",
         path: "/devutilities/performance-budget",
-      }
+      },
     ],
   },
 ];
