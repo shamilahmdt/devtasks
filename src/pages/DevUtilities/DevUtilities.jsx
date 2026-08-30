@@ -3,6 +3,40 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 
+const DESCRIPTION_CHARACTER_LIMIT = 20;
+
+const ExpandableDescription = ({ text, className }) => {
+  const [expanded, setExpanded] = useState(false);
+  const trimmedText = text.trim();
+  const isTruncated = trimmedText.length > DESCRIPTION_CHARACTER_LIMIT;
+  const displayText =
+    expanded || !isTruncated
+      ? trimmedText
+      : `${trimmedText.slice(0, DESCRIPTION_CHARACTER_LIMIT).trimEnd()}...`;
+
+  return (
+    <p className={className}>
+      {displayText}
+      {isTruncated && (
+        <>
+          {" "}
+          <button
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              setExpanded((prev) => !prev);
+            }}
+            className="font-bold uppercase tracking-wide underline underline-offset-2 text-zinc-450 hover:text-zinc-350 dark:text-zinc-400 dark:hover:text-zinc-200"
+          >
+            {expanded ? "less" : "more"}
+          </button>
+        </>
+      )}
+    </p>
+  );
+};
+
 const DevUtilities = () => {
   const { dark } = useTheme();
 
@@ -2078,9 +2112,10 @@ const DevUtilities = () => {
                           <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
                             {card.title}
                           </h2>
-                          <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
-                            {card.description}
-                          </p>
+                          <ExpandableDescription
+                            text={card.description}
+                            className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed"
+                          />
                         </div>
                         <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                           Open Tool{" "}
@@ -2171,9 +2206,10 @@ const DevUtilities = () => {
                           <h2 className="text-xl font-black mb-3 uppercase tracking-tight">
                             {card.title}
                           </h2>
-                          <p className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">
-                            {card.description}
-                          </p>
+                          <ExpandableDescription
+                            text={card.description}
+                            className="text-sm font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed"
+                          />
                         </div>
                         <div className="flex items-center text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                           Open Tool{" "}

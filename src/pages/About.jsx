@@ -40,7 +40,7 @@ const About = () => {
       {/* Grid of Key Features */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
-          className={`border p-6 rounded-2xl flex gap-4 transition-colors ${
+          className={`border p-6 rounded-2xl flex gap-4 transition-all duration-700 ease-out hover:scale-105 transition-colors ${
             dark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-neutral-200"
           }`}
         >
@@ -54,7 +54,7 @@ const About = () => {
         </div>
 
         <div
-          className={`border p-6 rounded-2xl flex gap-4 transition-colors ${
+          className={`border p-6 rounded-2xl flex gap-4 transition-all duration-700 ease-out hover:scale-105 transition-colors ${
             dark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-neutral-200"
           }`}
         >
@@ -68,7 +68,7 @@ const About = () => {
         </div>
 
         <div
-          className={`border p-6 rounded-2xl flex gap-4 transition-colors ${
+          className={`border p-6 rounded-2xl flex gap-4 transition-all duration-700 ease-out hover:scale-105 transition-colors ${
             dark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-neutral-200"
           }`}
         >
@@ -82,7 +82,7 @@ const About = () => {
         </div>
 
         <div
-          className={`border p-6 rounded-2xl flex gap-4 transition-colors ${
+          className={`border p-6 rounded-2xl flex gap-4 transition-all duration-700 ease-out hover:scale-105 transition-colors ${
             dark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-neutral-200"
           }`}
         >
