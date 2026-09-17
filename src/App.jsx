@@ -77,6 +77,7 @@ import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDivide
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
 import SqlSchemaConverter from "./pages/DevUtilities/devutilities/SqlSchemaConverter";
 import JsonSqlConverter from "./pages/DevUtilities/devutilities/JsonSqlConverter";
+import EnvJsonConverter from "./pages/DevUtilities/devutilities/EnvJsonConverter";
 import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator";
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
 import SvgSpritesheetMerger from "./pages/DevUtilities/devutilities/SvgSpritesheetMerger";
@@ -635,6 +636,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/json-sql"
                 element={<JsonSqlConverter />}
+              />
+              <Route
+                path="/devutilities/env-json"
+                element={<EnvJsonConverter />}
               />
               <Route
                 path="/devutilities/slug-generator"

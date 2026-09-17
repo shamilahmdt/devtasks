@@ -169,6 +169,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-to-schema",
       },
       {
+        label: ".env ⇄ JSON Converter",
+        description: "Convert .env files to JSON and JSON back to .env",
+        path: "/devutilities/env-json",
+      },
+      {
         label: "Mock JSON Generator",
         description: "Generate mock JSON data",
         path: "/devutilities/mock-json-generator",
