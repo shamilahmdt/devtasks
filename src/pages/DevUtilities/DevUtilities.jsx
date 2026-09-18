@@ -270,6 +270,28 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: ".env ⇄ JSON Converter",
+      description:
+        "Convert .env files to JSON objects and JSON objects back to .env syntax. Fully offline.",
+      category: "JSON & Data",
+      path: "/devutilities/env-json",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7h8M8 12h8M8 17h5M4 5a1 1 0 011-1h6l2 2h6a1 1 0 011 1v12a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "JSON to Types & Zod Converter",
       description:
         "Convert raw JSON into TypeScript interfaces/types, Go structs, or Zod schemas with customizable configurations.",
