@@ -110,6 +110,9 @@ import HttpStatusExplorer from "./pages/DevUtilities/devutilities/HttpStatusExpl
 
 import SecurityHeaders from "./pages/DevUtilities/devutilities/SecurityHeadersBuilder";
 import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/PerformanceBudgetCalculator";
+import CodeToImage from "./pages/DevUtilities/devutilities/CodeToImage";
+import HarAnalyzer from "./pages/DevUtilities/devutilities/HarAnalyzer";
+import SqlErdVisualizer from "./pages/DevUtilities/devutilities/SqlErdVisualizer";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -727,6 +730,18 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                   path="/devutilities/css-cursor-playground"
                   element={<CssCursorPlayground />}
+              />
+              <Route
+                path="/devutilities/code-to-image"
+                element={<CodeToImage />}
+              />
+              <Route
+                path="/devutilities/har-analyzer"
+                element={<HarAnalyzer />}
+              />
+              <Route
+                path="/devutilities/sql-erd"
+                element={<SqlErdVisualizer />}
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
