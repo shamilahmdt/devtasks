@@ -560,6 +560,24 @@ const SIDEBAR_SECTIONS = [
         description: "Play around, test, and copy different cursor CSS style effects.",
         path: "/devutilities/css-cursor-playground",
       },
+      {
+        label: "Code Snippet to Image Studio",
+        description:
+          "Create customizable code screenshots with themes, window frames, and gradients offline.",
+        path: "/devutilities/code-to-image",
+      },
+      {
+        label: "HAR Network Waterfall Analyzer",
+        description:
+          "Inspect HTTP Archive (.har) captures, diagnose waterfall latency, and audit security offline.",
+        path: "/devutilities/har-analyzer",
+      },
+      {
+        label: "Database ERD & SQL Schema Studio",
+        description:
+          "Transform SQL CREATE TABLE statements into interactive entity-relationship diagrams.",
+        path: "/devutilities/sql-erd",
+      },
     ],
   },
 ];
