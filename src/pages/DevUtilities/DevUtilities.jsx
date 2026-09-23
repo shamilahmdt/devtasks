@@ -849,6 +849,29 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "GraphQL Formatter & Validator",
+      description:
+        "Beautify, minify, and validate GraphQL queries, mutations, and fragments. Fully offline.",
+      keywords: "graphql gql query mutation subscription fragment beautifier prettify lint",
+      category: "JSON & Data",
+      path: "/devutilities/graphql-formatter",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3l7.5 4.33v8.66L12 20.33 4.5 15.99V7.33L12 3zM12 3v17.33M4.5 7.33l15 8.66M19.5 7.33l-15 8.66"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "HTML Entity Converter",
       description:
         "Encode and decode HTML/XML entities using named or numeric formats. Fully offline.",

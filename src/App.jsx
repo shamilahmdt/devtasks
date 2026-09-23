@@ -54,6 +54,7 @@ import CubicBezierGenerator from "./pages/DevUtilities/devutilities/CubicBezierG
 import DevUtilities from "./pages/DevUtilities/DevUtilities";
 import DiffChecker from "./pages/DevUtilities/devutilities/DiffChecker";
 import FlexboxGridGenerator from "./pages/DevUtilities/devutilities/FlexboxGridGenerator";
+import GraphqlFormatter from "./pages/DevUtilities/devutilities/GraphqlFormatter";
 import HashGenerator from "./pages/DevUtilities/devutilities/HashGenerator";
 import HtmlEntityConverter from "./pages/DevUtilities/devutilities/HtmlEntityConverter";
 import HtmlMultiConverter from "./pages/DevUtilities/devutilities/HtmlMultiConverter";
@@ -678,6 +679,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/git-builder"
                 element={<GitCommandBuilder />}
+              />
+              <Route
+                path="/devutilities/graphql-formatter"
+                element={<GraphqlFormatter />}
               />
               <Route
                 path="/devutilities/hex-inspector"

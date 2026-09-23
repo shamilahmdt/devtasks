@@ -457,6 +457,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-sql",
       },
       {
+        label: "GraphQL Formatter & Validator",
+        description:
+          "Format, minify, and validate GraphQL documents offline",
+        path: "/devutilities/graphql-formatter",
+      },
+      {
         label: "Git Command Builder",
         description:
           "Scenario-based Git command builder to help find and customize commands for common tasks.",
