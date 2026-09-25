@@ -127,6 +127,8 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
 
+import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
+
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
   const toggleHUD = useCallback(() => setHudVisible((v) => !v), []);
@@ -326,11 +328,9 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${
-        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-      } transition-colors duration-300 ${
-        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-      }`}
+      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+        }`}
     >
       <SplashScreen />
 
@@ -373,6 +373,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/yaml-toml"
                 element={<YamlTomlConverter />}
+              />
+
+              <Route path="/devutilities/keyboard-inspector"
+                element={<KeyboardInspector />}
               />
 
               {/* Snippet Vault */}
@@ -733,8 +737,8 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<SecurityHeaders />}
               />
               <Route
-                  path="/devutilities/css-cursor-playground"
-                  element={<CssCursorPlayground />}
+                path="/devutilities/css-cursor-playground"
+                element={<CssCursorPlayground />}
               />
               <Route
                 path="/devutilities/code-to-image"
@@ -750,6 +754,8 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+
+
           </div>
           {showNavbar && <Footer />}
         </div>
