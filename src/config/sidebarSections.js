@@ -194,6 +194,10 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/regex",
       },
       {
+ 	 label: "CSS Selector Tester",
+ 	 path: "/devutilities/css-selector-tester",
+       },
+      {
         label: "Text Processing Suite",
         description:
           "Convert string cases, inspect text layout, analyze word densities, and sort/clean lists",

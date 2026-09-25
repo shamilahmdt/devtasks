@@ -225,12 +225,12 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-    {
-      title: "Regex Tester",
+        {
+      title: "CSS Selector Tester",
       description:
-        "Test regular expressions with flags, highlights, matching text, and capturing groups.",
+        "Test CSS selectors against HTML and instantly see matching elements.",
       category: "Code & Text",
-      path: "/devutilities/regex",
+      path: "/devutilities/css-selector-tester",
       icon: (
         <svg
           className="w-6 h-6"
@@ -242,7 +242,7 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            d="M9 5l7 7-7 7"
           />
         </svg>
       ),
