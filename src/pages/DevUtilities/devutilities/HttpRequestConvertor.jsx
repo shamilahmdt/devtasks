@@ -782,6 +782,273 @@ function generateAxios(request) {
     });`;
 }
 
+function generatePythonRequests(request) {
+    const { method, url, headers, body } = request;
+    const lines = ["import requests", ""];
+
+    lines.push(`url = "${url}"`);
+
+    if (Object.keys(headers).length > 0) {
+        const headerItems = Object.entries(headers)
+            .map(([k, v]) => `    "${k}": "${v}"`)
+            .join(",\n");
+        lines.push(`headers = {\n${headerItems}\n}`);
+    } else {
+        lines.push("headers = {}");
+    }
+
+    if (body) {
+        let isJson = false;
+        try {
+            JSON.parse(body);
+            isJson = true;
+        } catch {
+            // not valid json
+        }
+
+        if (isJson) {
+            lines.push(`payload = ${body}`);
+            lines.push(`response = requests.${(method || "post").toLowerCase()}(url, headers=headers, json=payload)`);
+        } else {
+            lines.push(`payload = ${JSON.stringify(body)}`);
+            lines.push(`response = requests.${(method || "post").toLowerCase()}(url, headers=headers, data=payload)`);
+        }
+    } else {
+        lines.push(`response = requests.${(method || "get").toLowerCase()}(url, headers=headers)`);
+    }
+
+    lines.push("");
+    lines.push("print(response.status_code)");
+    lines.push("print(response.text)");
+
+    return lines.join("\n");
+}
+
+function generatePythonHttp(request) {
+    const { method, url, headers, body } = request;
+    let host = "example.com";
+    let path = url;
+    try {
+        const u = new URL(url);
+        host = u.host;
+        path = u.pathname + u.search;
+    } catch {
+        // use default fallback
+    }
+
+    const lines = ["import http.client", ""];
+    lines.push(`conn = http.client.HTTPSConnection("${host}")`);
+
+    if (body) {
+        lines.push(`payload = ${JSON.stringify(body)}`);
+    } else {
+        lines.push("payload = ''");
+    }
+
+    if (Object.keys(headers).length > 0) {
+        const headerItems = Object.entries(headers)
+            .map(([k, v]) => `    "${k}": "${v}"`)
+            .join(",\n");
+        lines.push(`headers = {\n${headerItems}\n}`);
+    } else {
+        lines.push("headers = {}");
+    }
+
+    lines.push(`conn.request("${(method || "GET").toUpperCase()}", "${path}", payload, headers)`);
+    lines.push("res = conn.getresponse()");
+    lines.push("data = res.read()");
+    lines.push("print(data.decode('utf-8'))");
+
+    return lines.join("\n");
+}
+
+function generateGo(request) {
+    const { method, url, headers, body } = request;
+    const lines = [
+        "package main",
+        "",
+        'import (',
+        '    "fmt"',
+        '    "io"',
+        '    "net/http"',
+    ];
+    if (body) {
+        lines.push('    "strings"');
+    }
+    lines.push(')', "");
+
+    lines.push("func main() {");
+    lines.push(`    url := "${url}"`);
+
+    if (body) {
+        lines.push(`    payload := strings.NewReader(${JSON.stringify(body)})`);
+        lines.push(`    req, err := http.NewRequest("${(method || "POST").toUpperCase()}", url, payload)`);
+    } else {
+        lines.push(`    req, err := http.NewRequest("${(method || "GET").toUpperCase()}", url, nil)`);
+    }
+
+    lines.push("    if err != nil {");
+    lines.push("        panic(err)");
+    lines.push("    }");
+
+    Object.entries(headers).forEach(([k, v]) => {
+        lines.push(`    req.Header.Add("${k}", "${v}")`);
+    });
+
+    lines.push("");
+    lines.push("    res, err := http.DefaultClient.Do(req)");
+    lines.push("    if err != nil {");
+    lines.push("        panic(err)");
+    lines.push("    }");
+    lines.push("    defer res.Body.Close()");
+    lines.push("");
+    lines.push("    body, _ := io.ReadAll(res.Body)");
+    lines.push("    fmt.Println(string(body))");
+    lines.push("}");
+
+    return lines.join("\n");
+}
+
+function generateRust(request) {
+    const { method, url, headers, body } = request;
+    const lines = [];
+    lines.push("use reqwest::header::{HeaderMap, HeaderValue};");
+    lines.push("");
+    lines.push("#[tokio::main]");
+    lines.push("async fn main() -> Result<(), Box<dyn std.error.Error>> {");
+    lines.push("    let client = reqwest::Client::new();");
+    lines.push("    let mut headers = HeaderMap::new();");
+
+    Object.entries(headers).forEach(([k, v]) => {
+        lines.push(`    headers.insert("${k}", HeaderValue::from_static("${v}"));`);
+    });
+
+    const m = (method || "GET").toLowerCase();
+    lines.push("");
+    lines.push(`    let res = client.${m}("${url}")`);
+    lines.push("        .headers(headers)");
+
+    if (body) {
+        lines.push(`        .body(r#"${body}"#)`);
+    }
+
+    lines.push("        .send()");
+    lines.push("        .await?;");
+    lines.push("");
+    lines.push("    let text = res.text().await?;");
+    lines.push('    println!("{}", text);');
+    lines.push("    Ok(())");
+    lines.push("}");
+
+    return lines.join("\n");
+}
+
+function generatePhp(request) {
+    const { method, url, headers, body } = request;
+    const lines = ["<?php", "", "$ch = curl_init();", ""];
+
+    lines.push(`curl_setopt($ch, CURLOPT_URL, "${url}");`);
+    lines.push("curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);");
+    lines.push(`curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "${(method || "GET").toUpperCase()}");`);
+
+    if (Object.keys(headers).length > 0) {
+        lines.push("curl_setopt($ch, CURLOPT_HTTPHEADER, [");
+        Object.entries(headers).forEach(([k, v]) => {
+            lines.push(`    "${k}: ${v}",`);
+        });
+        lines.push("]);");
+    }
+
+    if (body) {
+        lines.push(`curl_setopt($ch, CURLOPT_POSTFIELDS, ${JSON.stringify(body)});`);
+    }
+
+    lines.push("");
+    lines.push("$response = curl_exec($ch);");
+    lines.push("curl_close($ch);");
+    lines.push("");
+    lines.push("echo $response;");
+
+    return lines.join("\n");
+}
+
+function generateJava(request) {
+    const { method, url, headers, body } = request;
+    const lines = [
+        "import java.net.URI;",
+        "import java.net.http.HttpClient;",
+        "import java.net.http.HttpRequest;",
+        "import java.net.http.HttpResponse;",
+        "",
+        "public class Main {",
+        "    public static void main(String[] args) throws Exception {",
+        "        HttpClient client = HttpClient.newHttpClient();",
+        "        HttpRequest.Builder builder = HttpRequest.newBuilder()",
+        `            .uri(URI.create("${url}"));`,
+    ];
+
+    Object.entries(headers).forEach(([k, v]) => {
+        lines.push(`        builder.header("${k}", "${v}");`);
+    });
+
+    const m = (method || "GET").toUpperCase();
+    if (body) {
+        lines.push(`        builder.method("${m}", HttpRequest.BodyPublishers.ofString(${JSON.stringify(body)}));`);
+    } else {
+        lines.push(`        builder.method("${m}", HttpRequest.BodyPublishers.noBody());`);
+    }
+
+    lines.push("        HttpRequest request = builder.build();");
+    lines.push("        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());");
+    lines.push("        System.out.println(response.body());");
+    lines.push("    }");
+    lines.push("}");
+
+    return lines.join("\n");
+}
+
+function capitalize(str) {
+    if (!str) return "Get";
+    const lower = str.toLowerCase();
+    if (lower === "get") return "Get";
+    if (lower === "post") return "Post";
+    if (lower === "put") return "Put";
+    if (lower === "delete") return "Delete";
+    if (lower === "patch") return "Patch";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function generateCsharp(request) {
+    const { method, url, headers, body } = request;
+    const lines = [
+        "using System;",
+        "using System.Net.Http;",
+        "using System.Text;",
+        "using System.Threading.Tasks;",
+        "",
+        "class Program {",
+        "    static async Task Main() {",
+        "        using var client = new HttpClient();",
+        `        var request = new HttpRequestMessage(HttpMethod.${capitalize(method || "Get")}, "${url}");`,
+    ];
+
+    Object.entries(headers).forEach(([k, v]) => {
+        lines.push(`        request.Headers.TryAddWithoutValidation("${k}", "${v}");`);
+    });
+
+    if (body) {
+        lines.push(`        request.Content = new StringContent(${JSON.stringify(body)}, Encoding.UTF8, "application/json");`);
+    }
+
+    lines.push("        var response = await client.SendAsync(request);");
+    lines.push("        var responseBody = await response.Content.ReadAsStringAsync();");
+    lines.push("        Console.WriteLine(responseBody);");
+    lines.push("    }");
+    lines.push("}");
+
+    return lines.join("\n");
+}
+
 // ─── Core Conversion Engine ───────────────────────────────────────────────────
 
 function parseSource(sourceFormat, sourceCode) {
@@ -806,6 +1073,20 @@ function generateTarget(targetFormat, request) {
             return generateFetch(request);
         case "axios":
             return generateAxios(request);
+        case "python_requests":
+            return generatePythonRequests(request);
+        case "python_http":
+            return generatePythonHttp(request);
+        case "go":
+            return generateGo(request);
+        case "rust":
+            return generateRust(request);
+        case "php":
+            return generatePhp(request);
+        case "java":
+            return generateJava(request);
+        case "csharp":
+            return generateCsharp(request);
 
         default:
             throw new Error(`Unsupported target format: ${targetFormat}`);
@@ -862,6 +1143,19 @@ const buildTheme = (dark) => ({
         : "bg-white border-neutral-200 text-zinc-500 hover:text-black hover:border-neutral-400",
 });
 
+const TARGET_FORMATS = [
+    { id: "fetch", label: "JS (Fetch)" },
+    { id: "axios", label: "JS (Axios)" },
+    { id: "python_requests", label: "Python (Requests)" },
+    { id: "python_http", label: "Python (http.client)" },
+    { id: "go", label: "Go (net/http)" },
+    { id: "rust", label: "Rust (reqwest)" },
+    { id: "php", label: "PHP (cURL)" },
+    { id: "java", label: "Java (HttpClient)" },
+    { id: "csharp", label: "C# (HttpClient)" },
+    { id: "curl", label: "cURL CLI" },
+];
+
 // ─── FormatPills ─────────────────────────────────────────────────────────────
 
 const FormatPills = ({ value, onChange, t }) => (
@@ -881,6 +1175,20 @@ const FormatPills = ({ value, onChange, t }) => (
             </button>
         ))}
     </div>
+);
+
+const TargetFormatSelector = ({ value, onChange, t }) => (
+    <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={`rounded-lg border px-3 py-1.5 text-xs font-black uppercase tracking-wider outline-none transition-all duration-150 cursor-pointer ${t.select}`}
+    >
+        {TARGET_FORMATS.map((tf) => (
+            <option key={tf.id} value={tf.id}>
+                {tf.label}
+            </option>
+        ))}
+    </select>
 );
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -922,8 +1230,11 @@ const HttpRequestConvertor = () => {
     };
 
     const handleSwap = () => {
-        setSourceFormat(targetFormat);
-        setTargetFormat(sourceFormat);
+        const newSource = FORMATS.includes(targetFormat) ? targetFormat : "curl";
+        const newTarget = FORMATS.includes(sourceFormat) ? sourceFormat : "fetch";
+
+        setSourceFormat(newSource);
+        setTargetFormat(newTarget);
 
         setSourceCode(outputCode);
         setOutputCode(sourceCode);
@@ -1103,7 +1414,7 @@ const HttpRequestConvertor = () => {
                                         Output
                                     </span>
 
-                                    <FormatPills
+                                    <TargetFormatSelector
                                         value={targetFormat}
                                         onChange={setTargetFormat}
                                         t={t}
