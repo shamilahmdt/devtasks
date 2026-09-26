@@ -114,6 +114,7 @@ import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/Perfo
 import CodeToImage from "./pages/DevUtilities/devutilities/CodeToImage";
 import HarAnalyzer from "./pages/DevUtilities/devutilities/HarAnalyzer";
 import SqlErdVisualizer from "./pages/DevUtilities/devutilities/SqlErdVisualizer";
+import HtmlCssMinifier from "./pages/DevUtilities/devutilities/HtmlCssMinifier";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -735,6 +736,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                   path="/devutilities/css-cursor-playground"
                   element={<CssCursorPlayground />}
+              />
+              <Route
+                path="/devutilities/html-css-minifier"
+                element={<HtmlCssMinifier />}
               />
               <Route
                 path="/devutilities/code-to-image"

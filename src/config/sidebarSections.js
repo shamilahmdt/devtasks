@@ -584,6 +584,12 @@ const SIDEBAR_SECTIONS = [
           "Transform SQL CREATE TABLE statements into interactive entity-relationship diagrams.",
         path: "/devutilities/sql-erd",
       },
+      {
+        label: "HTML & CSS Minifier & Beautifier",
+        description:
+          "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
+        path: "/devutilities/html-css-minifier",
+      },
     ],
   },
 ];
