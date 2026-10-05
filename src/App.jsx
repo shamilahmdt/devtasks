@@ -32,6 +32,7 @@ import DeleteHistoryResource from "./pages/ResourceHub/resourcehub/DeleteHistory
 import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
 
 // Dev Utilities Imports
+import FigletGenerator from "./pages/DevUtilities/devutilities/FigletGenerator";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
 import BorderImageGenerator from "./pages/DevUtilities/devutilities/BorderImageGenerator";
@@ -409,6 +410,10 @@ function AppInner({ toggleHUD, hudVisible }) {
 
               {/* Dev Utilities */}
               <Route path="/devutilities" element={<DevUtilities />} />
+              <Route
+                path="/devutilities/figlet-generator"
+                element={<FigletGenerator />}
+              />
               <Route
                 path="/devutilities/keycode-inspector"
                 element={<KeycodeInspector />}
