@@ -73,6 +73,7 @@ import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseCon
 import PasswordGenerator from "./pages/DevUtilities/devutilities/PasswordGenerator";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
+import NanoIdGenerator from "./pages/DevUtilities/devutilities/NanoIdGenerator";
 import SemverCalculator from "./pages/DevUtilities/devutilities/SemverCalculator.jsx";
 import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDividerGenerator";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
@@ -422,6 +423,7 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CubicBezierGenerator />}
               />
               <Route path="/devutilities/regex" element={<RegexTester />} />
+              <Route path="/devutilities/nanoid" element={<NanoIdGenerator />} />
               <Route
                 path="/devutilities/css-unit-converter"
                 element={<CssUnitConverter />}
