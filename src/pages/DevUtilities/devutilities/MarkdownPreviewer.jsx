@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
+import MarkdownTableBuilder from "./MarkdownTableBuilder";
 
 marked.setOptions({
   gfm: true,
@@ -314,7 +315,7 @@ const MarkdownPreviewer = () => {
                 </div>
                 <div
                   className={`w-full h-96 p-6 rounded-xl border overflow-auto prose dark:prose-invert max-w-none transition-colors ${
-                    dark ? "bg-zinc-950/40 border-zinc-800" : "bg-neutral-50 border-neutral-200"
+                    dark ? "bg-zinc-950/40 border-zinc-800 text-zinc-100" : "bg-neutral-50 border-neutral-200 text-zinc-900"
                   }`}
                   dangerouslySetInnerHTML={{ __html: htmlOutput }}
                 />
@@ -351,181 +352,8 @@ const MarkdownPreviewer = () => {
         {/* ── Tab 2: Visual Table Builder ── */}
         {activeTab === "table-gen" && (
           <div>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
-              {/* Table Grid & Actions */}
-              <div className="lg:col-span-7 flex flex-col gap-6">
-                {/* Visual Editor Card */}
-                <div className={`p-6 rounded-3xl border ${dark ? "bg-zinc-950 border-zinc-850" : "bg-neutral-50 border-neutral-200"}`}>
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className={`text-xs font-black uppercase tracking-widest ${dark ? "text-zinc-400" : "text-zinc-650"}`}>
-                      Visual Grid
-                    </h3>
-
-                    {/* Resize Controls */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={addRow}
-                        className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all ${
-                          dark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-neutral-250 text-black"
-                        }`}
-                      >
-                        + Row
-                      </button>
-                      <button
-                        onClick={removeTableRow}
-                        className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all ${
-                          dark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-neutral-250 text-black"
-                        }`}
-                      >
-                        - Row
-                      </button>
-                      <button
-                        onClick={addColumn}
-                        className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all ${
-                          dark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-neutral-250 text-black"
-                        }`}
-                      >
-                        + Col
-                      </button>
-                      <button
-                        onClick={removeTableColumn}
-                        className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-black uppercase tracking-widest transition-all ${
-                          dark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-neutral-250 text-black"
-                        }`}
-                      >
-                        - Col
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-xs text-left border-collapse">
-                      <thead>
-                        <tr>
-                          {alignments.map((align, idx) => (
-                            <th key={idx} className="pb-3 pr-2">
-                              <select
-                                value={align}
-                                onChange={(e) => updateTableAlignment(idx, e.target.value)}
-                                className={`w-full px-2 py-1 rounded-md border text-[10px] font-bold focus:outline-none ${
-                                  dark ? "bg-zinc-900 border-zinc-750 text-white" : "bg-white border-neutral-250 text-black"
-                                }`}
-                              >
-                                <option value="left">Left</option>
-                                <option value="center">Center</option>
-                                <option value="right">Right</option>
-                              </select>
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {tableData.map((row, rIdx) => (
-                          <tr key={rIdx}>
-                            {row.map((cell, cIdx) => (
-                              <td key={cIdx} className="pb-2 pr-2">
-                                <input
-                                  type="text"
-                                  value={cell}
-                                  onChange={(e) => updateTableCell(rIdx, cIdx, e.target.value)}
-                                  className={`w-full px-3 py-2 rounded-xl border text-xs font-medium focus:outline-none focus:ring-1 focus:ring-zinc-450 ${
-                                    dark
-                                      ? `border-zinc-800 ${rIdx === 0 ? "bg-zinc-900 font-bold text-white" : "bg-zinc-950 text-zinc-300"}`
-                                      : `border-neutral-250 ${rIdx === 0 ? "bg-neutral-100 font-bold text-black" : "bg-white text-zinc-800"}`
-                                  }`}
-                                  placeholder={rIdx === 0 ? "Header" : "Value"}
-                                />
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                {/* CSV/TSV Parser Card */}
-                <div className={`p-6 rounded-3xl border ${dark ? "bg-zinc-950 border-zinc-850" : "bg-neutral-50 border-neutral-200"}`}>
-                  <h3 className={`text-xs font-black uppercase tracking-widest mb-4 ${dark ? "text-zinc-400" : "text-zinc-650"}`}>
-                    Import CSV or TSV
-                  </h3>
-                  <div className="flex flex-col gap-3">
-                    <textarea
-                      value={csvInput}
-                      onChange={(e) => setCsvInput(e.target.value)}
-                      placeholder="Paste comma-separated or tab-separated text here..."
-                      rows={3}
-                      className={`w-full p-3 rounded-xl border text-xs font-mono resize-none focus:outline-none ${
-                        dark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-neutral-250 text-black"
-                      }`}
-                    />
-                    <button
-                      onClick={() => parseCsvToTable(csvInput)}
-                      disabled={!csvInput.trim()}
-                      className={`py-2 px-4 rounded-xl text-xs font-black uppercase tracking-widest border transition-all ${
-                        dark
-                          ? "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white"
-                          : "bg-white border-neutral-250 text-zinc-650 hover:text-black"
-                      } disabled:opacity-40 disabled:scale-100`}
-                    >
-                      Import & Replace Grid
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Table Output Code */}
-              <div className="lg:col-span-5 flex flex-col gap-3 h-full">
-                <div className="flex items-center mb-3 h-8">
-                  <label className={`text-xs font-black uppercase tracking-widest ${dark ? "text-zinc-400" : "text-zinc-500"}`}>
-                    Markdown Table Output
-                  </label>
-                </div>
-                <textarea
-                  value={markdownTableOutput}
-                  readOnly
-                  className={`w-full flex-1 min-h-[300px] lg:h-[460px] p-4 rounded-2xl border resize-none focus:outline-none font-mono text-xs leading-relaxed ${
-                    dark ? "bg-zinc-950 border-zinc-800 text-zinc-300" : "bg-neutral-50 border-neutral-200 text-zinc-650"
-                  }`}
-                  placeholder="Output table code..."
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <button
-                onClick={handleTableCopy}
-                disabled={!markdownTableOutput}
-                className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:scale-100 ${
-                  dark
-                    ? "bg-white text-black hover:bg-zinc-200 border-white"
-                    : "bg-black text-white hover:bg-zinc-800 border-black"
-                }`}
-              >
-                Copy Markdown Table
-              </button>
-              <button
-                onClick={handleTableSample}
-                className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all duration-200 hover:scale-105 ${
-                  dark
-                    ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white"
-                    : "bg-white border-neutral-200 text-zinc-650 hover:text-black"
-                }`}
-              >
-                Load Sample
-              </button>
-              <button
-                onClick={handleTableClear}
-                className={`px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest border transition-all duration-200 hover:scale-105 ${
-                  dark
-                    ? "bg-zinc-800 border-zinc-700 text-zinc-300 hover:text-white"
-                    : "bg-white border-neutral-200 text-zinc-650 hover:text-black"
-                }`}
-              >
-                Clear
-              </button>
-            </div>
-          </div>
+            <MarkdownTableBuilder/>
+          </div> 
         )}
       </div>
     </div>

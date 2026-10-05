@@ -748,7 +748,6 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/sql-erd"
                 element={<SqlErdVisualizer />}
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
           {showNavbar && <Footer />}
