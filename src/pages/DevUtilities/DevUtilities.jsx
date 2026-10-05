@@ -63,6 +63,30 @@ const DevUtilities = () => {
 
   const cards = [
     {
+  title: "FIGlet ASCII Art Generator",
+  description:
+    "Generate stylized ASCII text using a wide variety of FIGlet fonts.",
+  category: "Code & Text",
+  path: "/devutilities/figlet-generator",
+  keywords:
+    "figlet ascii art text banner typography font generator",
+  icon: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  ),
+},
+    {
       title: "Hex Viewer & Binary Inspector",
       description:
         "Inspect file binary headers, offsets, hex patterns, and ASCII streams client-side offline.",
