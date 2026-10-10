@@ -43,6 +43,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import CssNeumorphismGenerator from "./pages/DevUtilities/devutilities/CssNeumorphismGenerator";
 import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 
@@ -580,6 +581,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/fancy-border-radius"
                 element={<FancyBorderRadiusGenerator />}
+              />
+              <Route
+                path="/devutilities/neumorphism"
+                element={<CssNeumorphismGenerator />}
               />
               <Route
                 path="/devutilities/glassmorphism"

@@ -333,6 +333,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/fancy-border-radius",
       },
       {
+        label: "Neumorphism Studio",
+        description: "Design soft UI neumorphic shadow and surface effects",
+        path: "/devutilities/neumorphism",
+      },
+      {
         label: "Glassmorphism Playground",
         description: "Design glassmorphism effects with shadows and blur",
         path: "/devutilities/glassmorphism",
