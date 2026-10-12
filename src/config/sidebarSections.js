@@ -194,6 +194,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/regex",
       },
       {
+        label: "NanoID & ULID Generator",
+        description: "Generate NanoID and ULID identifiers",
+        path: "/devutilities/nanoid",
+      },
+      {
         label: "Text Processing Suite",
         description:
           "Convert string cases, inspect text layout, analyze word densities, and sort/clean lists",
