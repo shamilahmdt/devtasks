@@ -1923,6 +1923,12 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+  title: "ASCII Banner Generator",
+  description: "Convert plain text into stylized ASCII art banners.",
+  path: "/devutilities/ascii-banner",
+  icon: <span>🎨</span>,
+},
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(

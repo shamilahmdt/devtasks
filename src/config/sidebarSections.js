@@ -588,6 +588,11 @@ const SIDEBAR_SECTIONS = [
           "Transform SQL CREATE TABLE statements into interactive entity-relationship diagrams.",
         path: "/devutilities/sql-erd",
       },
+      {
+  label: "ASCII Banner Generator",
+  description: "Convert text to ASCII art banners",
+  path: "/devutilities/ascii-banner",
+},
     ],
   },
 ];
