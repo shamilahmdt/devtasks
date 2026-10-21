@@ -129,8 +129,8 @@ import { SidebarProvider } from "./context/SidebarContext";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
-
 import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
+import ErrorMessageExplainer from "./pages/DevUtilities/devutilities/ErrorMessageExplainer";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -415,7 +415,12 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
 
               {/* Dev Utilities */}
+
               <Route path="/devutilities" element={<DevUtilities />} />
+              <Route
+  path="/devutilities/error-explainer"
+  element={<ErrorMessageExplainer />}
+/>
               <Route
                 path="/devutilities/figlet-generator"
                 element={<FigletGenerator />}
