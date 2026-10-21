@@ -138,10 +138,16 @@ const SIDEBAR_SECTIONS = [
         exact: true,
       },
       {
-        label: "Keyboard Keycode Inspector",
-        path: "/devutilities/keycode-inspector",
-        description: "Inspect keyboard events in real time.",
-      },
+    label: "Keyboard Keycode Inspector",
+    path: "/devutilities/keyboard-inspector",
+    description: "Inspect keyboard events in real time.",
+  },
+  {
+    label: "Error Message Explainer",
+    description:
+      "Understand common JavaScript, Python, Java, and C++ errors with offline explanations and debugging tips.",
+    path: "/devutilities/error-explainer",
+  },
       {
         label: "JSON & Data Format Suite",
         description:
