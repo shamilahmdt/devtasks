@@ -443,6 +443,29 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "API Response Diff & Analyzer",
+      description:
+        "Compare two API responses and analyze their differences before and after changes.",
+      keywords: "api response diff compare analyze",
+      category: "JSON & Data",
+      path: "/devutilities/api-response-diff",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "UUID Generator",
       description:
         "Generate RFC4122-compliant v4 UUIDs offline with formatting options.",
