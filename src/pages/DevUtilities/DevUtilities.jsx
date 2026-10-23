@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 import { Tag } from "lucide-react";
-import KeyboardInspector from "./devutilities/KeyboardInspector";
 
 const DevUtilities = () => {
   const { dark } = useTheme();
@@ -87,11 +86,29 @@ const DevUtilities = () => {
     </svg>
   ),
 },
+    {
       title: "HTML & CSS Minifier & Beautifier",
       description:
         "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
       category: "Code & Text",
       path: "/devutilities/html-css-minifier",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Keyboard Keycode & Event Inspector",
       description:
         "Inspect keyboard keys, key codes, and keyboard event information in real time.",
@@ -116,7 +133,6 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
             d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"
           />
         </svg>
