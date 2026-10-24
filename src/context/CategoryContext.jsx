@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { normalizeCategory } from "./categoryUtils";
 
 const DEFAULT_CATEGORIES = ["FEATURE", "BUG", "REFACTOR"];
 
@@ -10,13 +11,15 @@ export const CategoryProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
   });
 
-  const addCategory = (name) => {
-    const trimmed = name.trim().toUpperCase();
-    if (!trimmed || categories.includes(trimmed)) return;
-    const updated = [...categories, trimmed];
+  const addCategories = (names) => {
+    const normalized = names.map(normalizeCategory).filter(Boolean);
+    const updated = [...new Set([...categories, ...normalized])];
+    if (updated.length === categories.length) return;
     setCategories(updated);
     localStorage.setItem("available_categories", JSON.stringify(updated));
   };
+
+  const addCategory = (name) => addCategories([name]);
 
   const deleteCategory = (name, tasks) => {
     const isInUse = tasks.some((task) => task.category === name);
@@ -28,7 +31,9 @@ export const CategoryProvider = ({ children }) => {
   };
 
   return (
-    <CategoryContext.Provider value={{ categories, addCategory, deleteCategory }}>
+    <CategoryContext.Provider
+      value={{ categories, addCategory, addCategories, deleteCategory }}
+    >
       {children}
     </CategoryContext.Provider>
   );
