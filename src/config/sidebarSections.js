@@ -194,8 +194,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/regex",
       },
       {
- 	 label: "CSS Selector Tester",
- 	 path: "/devutilities/css-selector-tester",
+        label: "NanoID & ULID Generator",
+        description: "Generate NanoID and ULID identifiers",
+        path: "/devutilities/nanoid",
+      },
+ 	      label: "CSS Selector Tester",
+ 	      path: "/devutilities/css-selector-tester",
        },
       {
         label: "Text Processing Suite",
