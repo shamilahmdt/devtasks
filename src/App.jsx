@@ -131,6 +131,7 @@ import { SidebarProvider } from "./context/SidebarContext";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
+import AsciiBannerGenerator from "./pages/DevUtilities/devutilities/AsciiBannerGenerator";
 
 import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
 
@@ -379,6 +380,8 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/yaml-toml"
                 element={<YamlTomlConverter />}
               />
+              <Route path="/devutilities/ascii-banner" element={<AsciiBannerGenerator />}
+               />
 
               <Route path="/devutilities/keyboard-inspector"
                 element={<KeyboardInspector />}

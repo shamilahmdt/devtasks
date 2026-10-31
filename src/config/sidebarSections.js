@@ -598,6 +598,10 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/sql-erd",
       },
       {
+  label: "ASCII Banner Generator",
+  description: "Convert text to ASCII art banners",
+  path: "/devutilities/ascii-banner",
+},
         label: "HTML & CSS Minifier & Beautifier",
         description:
           "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
