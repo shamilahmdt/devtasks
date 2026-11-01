@@ -87,6 +87,7 @@ const DevUtilities = () => {
   ),
 },
     {
+{
       title: "HTML & CSS Minifier & Beautifier",
       description:
         "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
@@ -302,7 +303,29 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-        {
+    {
+      title: "Regex Tester",
+      description:
+        "Test regular expressions with flags, highlights, matching text, and capturing groups.",
+      category: "Code & Text",
+      path: "/devutilities/regex",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Selector Tester",
       description:
         "Test CSS selectors against HTML and instantly see matching elements.",
@@ -320,6 +343,28 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M9 5l7 7-7 7"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "NanoID & ULID Generator",
+      description:
+        "Generate collision-resistant NanoIDs and ULIDs with custom alphabets, size controls, and timestamp decoding.",
+      category: "Security & Crypto",
+      path: "/devutilities/nanoid",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
           />
         </svg>
       ),
@@ -454,6 +499,29 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M4 8h16M4 12h16M4 16h16"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "API Response Diff & Analyzer",
+      description:
+        "Compare two API responses and analyze their differences before and after changes.",
+      keywords: "api response diff compare analyze",
+      category: "JSON & Data",
+      path: "/devutilities/api-response-diff",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
           />
         </svg>
       ),
@@ -1097,6 +1165,29 @@ const DevUtilities = () => {
             strokeLinejoin="round"
             strokeWidth={2}
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: "CSS Neumorphism & Soft UI Generator",
+      description:
+        "Generate soft UI neumorphic shadow effects with flat, concave, convex, and inset shapes.",
+      category: "CSS & Styling",
+      path: "/devutilities/neumorphism",
+      keywords: "neumorphism soft ui shadow inset convex concave css",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
           />
         </svg>
       ),
@@ -1968,6 +2059,12 @@ const DevUtilities = () => {
         </svg>
       ),
     },
+    {
+  title: "ASCII Banner Generator",
+  description: "Convert plain text into stylized ASCII art banners.",
+  path: "/devutilities/ascii-banner",
+  icon: <span>🎨</span>,
+},
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
@@ -2080,18 +2177,18 @@ const DevUtilities = () => {
       />
 
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto flex flex-col h-full">
-        <header className="shrink-0 mb-12 flex flex-col gap-4">
+        <header className="shrink-0 mb-8 flex flex-col gap-2">
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit mb-1 ${dark
               ? "text-neutral-400 hover:text-white"
               : "text-neutral-500 hover:text-black"
               }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 w-full">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
             <div>
               <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
                 Dev Utilities

@@ -2,9 +2,12 @@ import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "../../../context/ThemeContext";
+import { useCategory } from "../../../context/CategoryContext";
+import { normalizeCategory } from "../../../context/categoryUtils";
 
 const DataCenter = () => {
   const { dark } = useTheme();
+  const { addCategories } = useCategory();
   const fileInputRef = useRef(null);
 
   // --- WORKSPACE INVENTORY STATS ---
@@ -76,7 +79,7 @@ const DataCenter = () => {
           (task) =>
             typeof task.id !== "undefined" &&
             typeof task.text === "string" &&
-            ["FEATURE", "BUG", "REFACTOR"].includes(task.category) &&
+            normalizeCategory(task.category) !== "" &&
             ["HIGH", "MEDIUM", "LOW"].includes(task.priority) &&
             typeof task.completed === "boolean"
         );
@@ -88,16 +91,21 @@ const DataCenter = () => {
           return;
         }
 
-        localStorage.setItem("tasks", JSON.stringify(parsed.tasks));
+        const importedTasks = parsed.tasks.map((task) => ({
+          ...task,
+          category: normalizeCategory(task.category),
+        }));
+        addCategories(importedTasks.map((task) => task.category));
+        localStorage.setItem("tasks", JSON.stringify(importedTasks));
 
         // Update stats
-        const total = parsed.tasks.length;
-        const feature = parsed.tasks.filter((t) => t.category === "FEATURE").length;
-        const bug = parsed.tasks.filter((t) => t.category === "BUG").length;
-        const refactor = parsed.tasks.filter((t) => t.category === "REFACTOR").length;
+        const total = importedTasks.length;
+        const feature = importedTasks.filter((t) => t.category === "FEATURE").length;
+        const bug = importedTasks.filter((t) => t.category === "BUG").length;
+        const refactor = importedTasks.filter((t) => t.category === "REFACTOR").length;
         setTaskStats({ total, feature, bug, refactor });
 
-        toast.success(`Import completed successfully! Loaded ${parsed.tasks.length} tasks.`, {
+        toast.success(`Import completed successfully! Loaded ${importedTasks.length} tasks.`, {
           style: { background: "#000000", color: "#ffffff" },
         });
       } catch {
