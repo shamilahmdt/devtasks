@@ -87,11 +87,29 @@ const DevUtilities = () => {
     </svg>
   ),
 },
+{
       title: "HTML & CSS Minifier & Beautifier",
       description:
         "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
       category: "Code & Text",
       path: "/devutilities/html-css-minifier",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Keyboard Keycode & Event Inspector",
       description:
         "Inspect keyboard keys, key codes, and keyboard event information in real time.",
@@ -116,7 +134,6 @@ const DevUtilities = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
             d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"
           />
         </svg>
@@ -286,7 +303,29 @@ const DevUtilities = () => {
         </svg>
       ),
     },
-        {
+    {
+      title: "Regex Tester",
+      description:
+        "Test regular expressions with flags, highlights, matching text, and capturing groups.",
+      category: "Code & Text",
+      path: "/devutilities/regex",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "CSS Selector Tester",
       description:
         "Test CSS selectors against HTML and instantly see matching elements.",
@@ -2138,18 +2177,18 @@ const DevUtilities = () => {
       />
 
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto flex flex-col h-full">
-        <header className="shrink-0 mb-12 flex flex-col gap-4">
+        <header className="shrink-0 mb-8 flex flex-col gap-2">
           {/* Back navigation and page title area. */}
           <Link
             to="/dashboard"
-            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit ${dark
+            className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all duration-300 w-fit mb-1 ${dark
               ? "text-neutral-400 hover:text-white"
               : "text-neutral-500 hover:text-black"
               }`}
           >
             <span>← Back to Dashboard</span>
           </Link>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 w-full">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
             <div>
               <h1 className="text-4xl font-black uppercase tracking-tighter mb-2">
                 Dev Utilities
