@@ -198,9 +198,10 @@ const SIDEBAR_SECTIONS = [
         description: "Generate NanoID and ULID identifiers",
         path: "/devutilities/nanoid",
       },
- 	      label: "CSS Selector Tester",
- 	      path: "/devutilities/css-selector-tester",
-       },
+      {
+        label: "CSS Selector Tester",
+        path: "/devutilities/css-selector-tester",
+      },
       {
         label: "Text Processing Suite",
         description:
@@ -598,14 +599,22 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/sql-erd",
       },
       {
-  label: "ASCII Banner Generator",
-  description: "Convert text to ASCII art banners",
-  path: "/devutilities/ascii-banner",
-},
         label: "HTML & CSS Minifier & Beautifier",
         description:
           "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
         path: "/devutilities/html-css-minifier",
+      },
+      {
+        label: "FIGlet ASCII Art Generator",
+        description:
+          "Generate stylized ASCII text using a wide variety of FIGlet fonts.",
+        path: "/devutilities/figlet-generator",
+      },
+      {
+        label: "Keyboard Keycode & Event Inspector",
+        description:
+          "Inspect keyboard keys, key codes, and keyboard event information in real time.",
+        path: "/devutilities/keyboard-inspector",
       },
     ],
   },
