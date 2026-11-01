@@ -149,6 +149,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-yaml-csv-xml",
       },
       {
+        label: "API Response Diff & Analyzer",
+        description: "Compare two API responses and analyze their differences before and after changes.",
+        path: "/devutilities/api-response-diff",
+      },
+      {
         label: "SemVer Calculator",
         description: "Semantic version bump and package range tester",
         path: "/devutilities/semver-calculator",
