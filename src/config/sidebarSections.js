@@ -155,6 +155,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/json-yaml-csv-xml",
       },
       {
+        label: "API Response Diff & Analyzer",
+        description: "Compare two API responses and analyze their differences before and after changes.",
+        path: "/devutilities/api-response-diff",
+      },
+      {
         label: "SemVer Calculator",
         description: "Semantic version bump and package range tester",
         path: "/devutilities/semver-calculator",
@@ -200,9 +205,14 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/regex",
       },
       {
- 	 label: "CSS Selector Tester",
- 	 path: "/devutilities/css-selector-tester",
-       },
+        label: "NanoID & ULID Generator",
+        description: "Generate NanoID and ULID identifiers",
+        path: "/devutilities/nanoid",
+      },
+      {
+        label: "CSS Selector Tester",
+        path: "/devutilities/css-selector-tester",
+      },
       {
         label: "Text Processing Suite",
         description:
@@ -341,6 +351,11 @@ const SIDEBAR_SECTIONS = [
         description:
           "Design organic blob shapes using visual handles and advanced 8-point border-radius.",
         path: "/devutilities/fancy-border-radius",
+      },
+      {
+        label: "Neumorphism Studio",
+        description: "Design soft UI neumorphic shadow and surface effects",
+        path: "/devutilities/neumorphism",
       },
       {
         label: "Glassmorphism Playground",
@@ -599,6 +614,18 @@ const SIDEBAR_SECTIONS = [
         description:
           "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
         path: "/devutilities/html-css-minifier",
+      },
+      {
+        label: "FIGlet ASCII Art Generator",
+        description:
+          "Generate stylized ASCII text using a wide variety of FIGlet fonts.",
+        path: "/devutilities/figlet-generator",
+      },
+      {
+        label: "Keyboard Keycode & Event Inspector",
+        description:
+          "Inspect keyboard keys, key codes, and keyboard event information in real time.",
+        path: "/devutilities/keyboard-inspector",
       },
     ],
   },

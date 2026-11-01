@@ -23,6 +23,7 @@ import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
 import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
 import RobotsTxtGenerator from "./pages/DevUtilities/devutilities/RobotsTxtGenerator";
 import CssCursorPlayground from "./pages/DevUtilities/devutilities/CssCursorPlayground.jsx";
+import ApiResponseDiffAnalyzer from "./pages/DevUtilities/devutilities/ApiResponseDiffAnalyzer.jsx";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -44,6 +45,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import CssNeumorphismGenerator from "./pages/DevUtilities/devutilities/CssNeumorphismGenerator";
 import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 
@@ -74,6 +76,7 @@ import NumberBaseConverter from "./pages/DevUtilities/devutilities/NumberBaseCon
 import PasswordGenerator from "./pages/DevUtilities/devutilities/PasswordGenerator";
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
+import NanoIdGenerator from "./pages/DevUtilities/devutilities/NanoIdGenerator";
 import CssSelectorTester from "./pages/DevUtilities/devutilities/CssSelectorTester";
 import SemverCalculator from "./pages/DevUtilities/devutilities/SemverCalculator.jsx";
 import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDividerGenerator";
@@ -129,6 +132,8 @@ import { SidebarProvider } from "./context/SidebarContext";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
+import AsciiBannerGenerator from "./pages/DevUtilities/devutilities/AsciiBannerGenerator";
+
 import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
 import ErrorMessageExplainer from "./pages/DevUtilities/devutilities/ErrorMessageExplainer";
 
@@ -377,6 +382,8 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/yaml-toml"
                 element={<YamlTomlConverter />}
               />
+              <Route path="/devutilities/ascii-banner" element={<AsciiBannerGenerator />}
+               />
 
               <Route path="/devutilities/keyboard-inspector"
                 element={<KeyboardInspector />}
@@ -434,10 +441,15 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<CssAnimationGenerator />}
               />
               <Route
+                path="/devutilities/api-response-diff"
+                element={<ApiResponseDiffAnalyzer />}
+              />  
+              <Route
                 path="/devutilities/cubic-bezier"
                 element={<CubicBezierGenerator />}
               />
               <Route path="/devutilities/regex" element={<RegexTester />} />
+              <Route path="/devutilities/nanoid" element={<NanoIdGenerator />} />
 	      <Route
                     path="/devutilities/css-selector-tester"
                     element={<CssSelectorTester />}
@@ -600,6 +612,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/fancy-border-radius"
                 element={<FancyBorderRadiusGenerator />}
+              />
+              <Route
+                path="/devutilities/neumorphism"
+                element={<CssNeumorphismGenerator />}
               />
               <Route
                 path="/devutilities/glassmorphism"
