@@ -86,9 +86,8 @@ const DevUtilities = () => {
     </svg>
   ),
 },
-    {
 {
-      title: "HTML & CSS Minifier & Beautifier",
+  title: "HTML & CSS Minifier & Beautifier",
       description:
         "Minify, compress, format, and beautify HTML and CSS code client-side offline.",
       category: "Code & Text",
