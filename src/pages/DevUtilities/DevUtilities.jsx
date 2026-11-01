@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
 import { Tag } from "lucide-react";
-import KeyboardInspector from "./devutilities/KeyboardInspector";
 
 const DevUtilities = () => {
   const { dark } = useTheme();
@@ -87,6 +86,7 @@ const DevUtilities = () => {
     </svg>
   ),
 },
+    {
 {
       title: "HTML & CSS Minifier & Beautifier",
       description:
