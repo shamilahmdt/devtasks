@@ -23,6 +23,7 @@ import ListTasks from "./pages/TaskManagement/taskmanage/ListTasks";
 import JsonTypesConverter from "./pages/DevUtilities/devutilities/JsonTypesConverter";
 import RobotsTxtGenerator from "./pages/DevUtilities/devutilities/RobotsTxtGenerator";
 import CssCursorPlayground from "./pages/DevUtilities/devutilities/CssCursorPlayground.jsx";
+import ApiResponseDiffAnalyzer from "./pages/DevUtilities/devutilities/ApiResponseDiffAnalyzer.jsx";
 
 // Resource Hub Imports
 import ResourceHub from "./pages/ResourceHub/ResourceHub";
@@ -433,6 +434,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/css-animation"
                 element={<CssAnimationGenerator />}
               />
+              <Route
+                path="/devutilities/api-response-diff"
+                element={<ApiResponseDiffAnalyzer />}
+              />  
               <Route
                 path="/devutilities/cubic-bezier"
                 element={<CubicBezierGenerator />}
