@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import SIDEBAR_SECTIONS from "../../config/sidebarSections";
-import { Tag } from "lucide-react";
+import { Tag, Calendar } from "lucide-react";
 
 const DevUtilities = () => {
   const { dark } = useTheme();
@@ -2064,6 +2064,13 @@ const DevUtilities = () => {
   path: "/devutilities/ascii-banner",
   icon: <span>🎨</span>,
 },
+    {
+      title: "Date Calculator",
+      description: "Calculates the selected date.",
+      category: "Code & Text",
+      path: "/devutilities/date-calculator",
+      icon: <Calendar className="w-5 h-5" />,
+    },
   ];
 
   const devUtilsSection = SIDEBAR_SECTIONS.find(
