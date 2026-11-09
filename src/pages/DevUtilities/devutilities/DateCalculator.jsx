@@ -47,7 +47,7 @@ export default function DateCalculator() {
         subtext: "text-zinc-500",
         card: "bg-zinc-900/50 border-zinc-800/85",
         input:
-          "bg-zinc-900 border-zinc-700 text-zinc-100 focus:border-zinc-500 focus:outline-none",
+          "bg-zinc-900 border-zinc-700 text-zinc-100 focus:border-zinc-500 focus:outline-none [color-scheme:dark]",
         backLink:
           "bg-zinc-800/80 border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-600",
       }
