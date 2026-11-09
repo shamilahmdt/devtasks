@@ -133,6 +133,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
 import AsciiBannerGenerator from "./pages/DevUtilities/devutilities/AsciiBannerGenerator";
+import DateCalculator from "./pages/DevUtilities/devutilities/DateCalculator";
 
 import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
 import ErrorMessageExplainer from "./pages/DevUtilities/devutilities/ErrorMessageExplainer";
@@ -384,6 +385,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route path="/devutilities/ascii-banner" element={<AsciiBannerGenerator />}
                />
+              <Route
+                path="/devutilities/date-calculator"
+                element={<DateCalculator />}
+              />
 
               <Route path="/devutilities/keyboard-inspector"
                 element={<KeyboardInspector />}
