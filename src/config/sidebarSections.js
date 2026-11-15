@@ -165,6 +165,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/semver-calculator",
       },
       {
+        label: "Date Calculator",
+        description: "Calculates the selected date.",
+        path: "/devutilities/date-calculator",
+      },
+      {
         label: "XML Validator & Formatter",
         description: "Validate syntax and beautify or minify XML data.",
         path: "/devutilities/xml-validator",
