@@ -1,4 +1,154 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+
+const detectDelimiter = (text) => {
+  let insideQuotes = false;
+  let commaCount = 0;
+  let tabCount = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    if (char === '"' && text[i + 1] === '"' && insideQuotes) {
+      i++;
+      continue;
+    }
+
+    if (char === '"') {
+      insideQuotes = !insideQuotes;
+      continue;
+    }
+
+    if (!insideQuotes) {
+      if (char === ",") commaCount++;
+      if (char === "\t") tabCount++;
+
+      if (char === "\n" || char === "\r") {
+        break;
+      }
+    }
+  }
+
+  return tabCount > commaCount ? "\t" : ",";
+};
+
+
+const parseCsv = (text) => {
+
+  const delimiter = detectDelimiter(text);
+
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let insideQuotes = false;
+  let quoteClosed = false;
+  let fieldWasQuoted = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    // Handle escaped double quotes
+    if (char === '"' && insideQuotes && text[i + 1] === '"') {
+      cell += '"';
+      i++;
+      continue;
+    }
+
+    // Start or close quoted field
+    if (char === '"') {
+      if (!insideQuotes && cell.length === 0 && !quoteClosed) {
+        insideQuotes = true;
+        fieldWasQuoted = true;
+
+      } else if (insideQuotes) {
+        insideQuotes = false;
+        quoteClosed = true;
+      } else {
+        throw new Error(`Unexpected quote at character ${i + 1}`);
+      }
+      continue;
+    }
+
+    if (!insideQuotes) {
+      // Handle delimiter
+      if (char === delimiter) {
+          row.push(fieldWasQuoted ? cell : cell.trim());
+
+          cell = "";
+          quoteClosed = false;
+          fieldWasQuoted = false;
+
+          continue;
+      }
+
+      // Handle new rows (including Windows CRLF)
+
+      if (char === "\n" || char === "\r") {
+        if (char === "\r" && text[i + 1] === "\n") {
+          i++;
+        }
+
+        const parsedCell = fieldWasQuoted ? cell : cell.trim();
+
+        // Ignore completely blank lines
+        const isBlankLine =
+          row.length === 0 &&
+          !fieldWasQuoted &&
+          parsedCell === "";
+
+        if (!isBlankLine) {
+          row.push(parsedCell);
+          rows.push(row);
+        }
+
+        row = [];
+        cell = "";
+        quoteClosed = false;
+        fieldWasQuoted = false;
+
+        continue;
+      }
+
+      // Only whitespace is allowed after a closing quote
+      if (quoteClosed) {
+        if (/\s/.test(char)) {
+          continue;
+        }
+
+        throw new Error(
+          `Unexpected character after closing quote at character ${i + 1}`
+        );
+      }
+
+    }
+
+    cell += char;
+  }
+
+  if (insideQuotes) {
+    throw new Error("CSV contains an unclosed quoted field.");
+  }
+
+  // Add the final row if it contains data
+  if (cell.length > 0 || row.length > 0) {
+    row.push(fieldWasQuoted ? cell : cell.trim());
+    rows.push(row);
+  }
+
+  if (!rows.length) {
+    throw new Error("Please enter valid CSV data.");
+  }
+
+  // Validate consistent column counts
+  const columnCount = rows[0].length;
+
+  if (rows.some((currentRow) => currentRow.length !== columnCount)) {
+    throw new Error("CSV rows must contain the same number of columns.");
+  }
+
+  return rows;
+};
+
 
 export default function MarkdownTableBuilder() {
   // Initialize a 3x3 grid (1 header row + 2 data rows)
@@ -10,6 +160,7 @@ export default function MarkdownTableBuilder() {
 
   // Track text alignment for each column ('left', 'center', 'right')
   const [columnAlignments, setColumnAlignments] = useState(['left', 'left', 'left']);
+  const [copyToast, setCopyToast] = useState("");
 
   // Handle text change inside any specific cell
   const handleCellChange = (rowIndex, colIndex, value) => {
@@ -55,7 +206,7 @@ export default function MarkdownTableBuilder() {
     const alignments = ['left', 'center', 'right'];
     const currentIdx = alignments.indexOf(columnAlignments[colIndex]);
     const nextAlignment = alignments[(currentIdx + 1) % alignments.length];
-    
+
     setColumnAlignments(columnAlignments.map((align, cIdx) => cIdx === colIndex ? nextAlignment : align));
   };
 
@@ -84,11 +235,54 @@ export default function MarkdownTableBuilder() {
     return `${headerRow}\n${separatorRow}\n${dataRows}`;
   };
 
+
+
   // Copy Markdown to Clipboard
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generateMarkdown());
-    alert('Markdown copied to clipboard! 📋');
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(generateMarkdown());
+
+      setCopyToast("success");
+
+      setTimeout(() => {
+        setCopyToast("");
+      }, 2500);
+
+    } catch {
+      setCopyToast("error");
+
+      setTimeout(() => {
+        setCopyToast("");
+      }, 2500);
+    }
   };
+
+  // CSV Import States
+  const [csvInput, setCsvInput] = useState("");
+  const [csvError, setCsvError] = useState("");
+
+
+
+  // CSV Import Handler
+  const handleCsvImport = () => {
+    try {
+      const parsedData = parseCsv(csvInput);
+
+      if (parsedData.length === 0) {
+        throw new Error("Please enter CSV data.");
+      }
+
+      setTableData(parsedData);
+      setColumnAlignments(
+        Array(parsedData[0].length).fill("left")
+      );
+
+      setCsvError("");
+    } catch (error) {
+      setCsvError(error.message);
+    }
+  };
+
 
   return (
     <div className="p-6 max-w-5xl mx-auto text-slate-900 dark:text-slate-100 transition-colors duration-200">
@@ -99,7 +293,38 @@ export default function MarkdownTableBuilder() {
             Type into the cells and use the dynamic controls to design your Markdown table structure.
           </p>
         </div>
-        
+
+        {/* Copy Notification Toast */}
+        {copyToast && (
+          <div
+            role="status"
+            aria-live="polite"
+            className={`fixed top-5 right-5 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg border ${
+              copyToast === "success"
+                ? "bg-white dark:bg-slate-900 border-green-200 dark:border-green-800"
+                : "bg-white dark:bg-slate-900 border-red-200 dark:border-red-800"
+            }`}
+          >
+            <span className="text-xl">
+              {copyToast === "success" ? "✅" : "❌"}
+            </span>
+
+            <div>
+              <p className="text-sm font-semibold">
+                {copyToast === "success"
+                  ? "Markdown copied successfully!"
+                  : "Unable to copy Markdown"}
+              </p>
+
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {copyToast === "success"
+                  ? "Your table is ready to paste."
+                  : "Please check clipboard permissions."}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Table Management Actions */}
         <div className="flex flex-wrap gap-2">
           <button onClick={addRow} className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow transition">
@@ -111,6 +336,47 @@ export default function MarkdownTableBuilder() {
         </div>
       </div>
 
+
+      {/* CSV / TSV Import Container */}
+      <div className="border border-slate-200 dark:border-slate-800 rounded-xl p-4 mb-6 bg-white dark:bg-slate-900">
+        <h2 className="text-sm font-semibold mb-2">
+          Import CSV / TSV
+        </h2>
+
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+          Paste your CSV or tab-separated data below to convert it into an editable Markdown table.
+        </p>
+
+        <textarea
+          value={csvInput}
+          onChange={(e) => {
+            setCsvInput(e.target.value);
+            setCsvError("");
+          }}
+          placeholder={`Name,Role,Location
+Guru,Developer,Chennai
+Shamil,Software Engineer,Bangalore`}
+
+          rows={5}
+          className="w-full p-3 text-sm font-mono bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        {csvError && (
+          <p className="text-sm text-red-500 mt-2">
+            {csvError}
+          </p>
+        )}
+
+        <button
+          onClick={handleCsvImport}
+          disabled={!csvInput.trim()}
+          className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition"
+        >
+          Import Table
+        </button>
+      </div>
+
+
       {/* Grid Container */}
       <div className="w-full overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl bg-slate-50 dark:bg-slate-900/50 p-4 mb-6">
         <table className="w-full border-collapse">
@@ -121,7 +387,7 @@ export default function MarkdownTableBuilder() {
                 <th key={`controls-${colIndex}`} className="p-2 text-center">
                   <div className="flex items-center justify-center gap-1">
                     {/* Alignment Button */}
-                    <button 
+                    <button
                       onClick={() => cycleAlignment(colIndex)}
                       title={`Align column ${colIndex + 1}: ${columnAlignments[colIndex]}`}
                       className="p-1 text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded shadow-sm hover:bg-slate-50 uppercase"
@@ -131,7 +397,7 @@ export default function MarkdownTableBuilder() {
                       {columnAlignments[colIndex] === 'right' && '➡️ Right'}
                     </button>
                     {/* Delete Column Button */}
-                    <button 
+                    <button
                       onClick={() => deleteColumn(colIndex)}
                       disabled={tableData[0].length <= 1}
                       title="Delete Column"
@@ -142,7 +408,7 @@ export default function MarkdownTableBuilder() {
                   </div>
                 </th>
               ))}
-              <th className="w-12"></th> {/* Spacer for Row Action column */}
+              <th className="w-12" />{/* Spacer for Row Action column */}
             </tr>
 
             {/* Main Header Input Row */}
@@ -201,7 +467,7 @@ export default function MarkdownTableBuilder() {
       <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
         <div className="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <span className="text-xs font-mono font-bold tracking-wider uppercase text-slate-500">Generated Markdown</span>
-          <button 
+          <button
             onClick={copyToClipboard}
             className="px-2.5 py-1 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 font-medium rounded shadow-sm transition"
           >
@@ -214,4 +480,6 @@ export default function MarkdownTableBuilder() {
       </div>
     </div>
   );
+
+
 }
