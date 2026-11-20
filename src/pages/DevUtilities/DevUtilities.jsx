@@ -1944,6 +1944,36 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "Cookie & Set-Cookie Inspector",
+      description:
+        "Parse Cookie and Set-Cookie headers, explain attributes, and catch cookie security issues offline.",
+      category: "Web & Network",
+      path: "/devutilities/cookie-inspector",
+      keywords:
+        "cookie set-cookie header samesite secure httponly partitioned chips domain path expires max-age parser",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 3a9 9 0 109 9 3 3 0 01-3-3 3 3 0 01-3-3 3 3 0 01-3-3z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8.5 11h.01M12 15.5h.01M15.5 14h.01M8 16h.01"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Web Vitals & Performance Budget Calculator",
       description: "Calculate budget based on your website's metrics.",
       category: "Web & Network",

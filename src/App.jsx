@@ -120,6 +120,7 @@ import CodeToImage from "./pages/DevUtilities/devutilities/CodeToImage";
 import HarAnalyzer from "./pages/DevUtilities/devutilities/HarAnalyzer";
 import SqlErdVisualizer from "./pages/DevUtilities/devutilities/SqlErdVisualizer";
 import HtmlCssMinifier from "./pages/DevUtilities/devutilities/HtmlCssMinifier";
+import CookieInspector from "./pages/DevUtilities/devutilities/CookieInspector";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -772,6 +773,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/security-headers"
                 element={<SecurityHeaders />}
+              />
+              <Route
+                path="/devutilities/cookie-inspector"
+                element={<CookieInspector />}
               />
               <Route
                 path="/devutilities/css-cursor-playground"

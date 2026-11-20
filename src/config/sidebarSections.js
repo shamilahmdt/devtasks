@@ -587,6 +587,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/security-headers",
       },
       {
+        label: "Cookie & Set-Cookie Inspector",
+        description:
+          "Parse Cookie and Set-Cookie headers and catch cookie security issues offline.",
+        path: "/devutilities/cookie-inspector",
+      },
+      {
         label: "Web Vitals & Performance Budget Calculator",
         description: "Calculate budget based on your website's metrics.",
         path: "/devutilities/performance-budget",
