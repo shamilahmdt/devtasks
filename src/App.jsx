@@ -36,6 +36,7 @@ import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
 import FigletGenerator from "./pages/DevUtilities/devutilities/FigletGenerator";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
+import TotpGenerator from "./pages/DevUtilities/devutilities/TotpGenerator";
 import BorderImageGenerator from "./pages/DevUtilities/devutilities/BorderImageGenerator";
 import FancyBorderRadiusGenerator from "./pages/DevUtilities/devutilities/FancyBorderRadiusGenerator";
 import ChmodCalculator from "./pages/DevUtilities/devutilities/ChmodCalculator";
@@ -575,6 +576,7 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/bcrypt"
                 element={<BcryptGenerator />}
               />
+              <Route path="/devutilities/totp" element={<TotpGenerator />} />
               <Route path="/devutilities/sql" element={<SqlFormatter />} />
               <Route
                 path="/devutilities/json-schema-validator"
