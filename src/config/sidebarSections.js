@@ -518,6 +518,12 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/slug-generator",
       },
       {
+        label: "MIME Type Lookup",
+        description:
+          "Look up MIME types by file extension or Content-Type and copy response headers offline.",
+        path: "/devutilities/mime-type-lookup",
+      },
+      {
         label: "Robots.txt Generator",
         description: "Generate robots.txt files for your website.",
         path: "/devutilities/robots-txt-generator",

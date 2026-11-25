@@ -88,6 +88,7 @@ import SubnetCalculator from "./pages/DevUtilities/devutilities/SubnetCalculator
 import SvgOptimizer from "./pages/DevUtilities/devutilities/SvgOptimizer";
 import SvgSpritesheetMerger from "./pages/DevUtilities/devutilities/SvgSpritesheetMerger";
 import SlugGenerator from "./pages/DevUtilities/devutilities/SlugGenerator";
+import MimeTypeLookup from "./pages/DevUtilities/devutilities/MimeTypeLookup";
 import TextCaseConverter from "./pages/DevUtilities/devutilities/TextCaseConverter";
 import TimestampConverter from "./pages/DevUtilities/devutilities/TimestampConverter";
 import TimezoneConverter from "./pages/DevUtilities/devutilities/TimezoneConverter";
@@ -690,6 +691,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               <Route
                 path="/devutilities/slug-generator"
                 element={<SlugGenerator />}
+              />
+              <Route
+                path="/devutilities/mime-type-lookup"
+                element={<MimeTypeLookup />}
               />
               <Route
                 path="/devutilities/image-optimizer"
