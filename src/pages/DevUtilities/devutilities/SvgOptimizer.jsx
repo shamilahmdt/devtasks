@@ -521,26 +521,38 @@ function SvgOptimizer() {
           </div>
 
           {/* View Tab Selector */}
-          <div className="flex border rounded-2xl p-1 bg-zinc-100 dark:bg-zinc-900/40 border-neutral-200 dark:border-zinc-850 shrink-0 self-start sm:self-center">
+          <div
+            className={`flex border rounded-2xl p-1 shrink-0 self-start sm:self-center ${
+              dark
+                ? "bg-zinc-900/40 border-zinc-850"
+                : "bg-zinc-100 border-neutral-200"
+            }`}
+          >
             <button
               onClick={() => setActiveTab("optimizer")}
-              className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${activeTab === "optimizer"
+              className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+                activeTab === "optimizer"
                   ? dark
                     ? "bg-white text-black"
                     : "bg-black text-white"
-                  : "bg-transparent text-zinc-700 dark:text-zinc-400 hover:text-black dark:hover:text-white"
-                }`}
+                  : dark
+                    ? "bg-transparent text-zinc-400 hover:text-white"
+                    : "bg-transparent text-zinc-700 hover:text-black"
+              }`}
             >
               SVG Optimizer & JSX
             </button>
             <button
               onClick={() => setActiveTab("datauri")}
-              className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${activeTab === "datauri"
+              className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200 cursor-pointer ${
+                activeTab === "datauri"
                   ? dark
                     ? "bg-white text-black"
                     : "bg-black text-white"
-                  : "bg-transparent text-zinc-700 dark:text-zinc-400 hover:text-black dark:hover:text-white"
-                }`}
+                  : dark
+                    ? "bg-transparent text-zinc-400 hover:text-white"
+                    : "bg-transparent text-zinc-700 hover:text-black"
+              }`}
             >
               SVG to Data URI
             </button>

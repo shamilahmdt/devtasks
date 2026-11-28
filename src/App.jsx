@@ -103,7 +103,6 @@ import ColorPaletteExtractor from "./pages/DevUtilities/devutilities/ColorPalett
 import MorseCodeConverter from "./pages/DevUtilities/devutilities/MorseCodeConverter";
 import YamlTomlConverter from "./pages/DevUtilities/devutilities/YamlTomlConverter";
 
-import AsciiArtGenerator from "./pages/DevUtilities/devutilities/AsciiArtGenerator";
 import HttpRequestConvertor from "./pages/DevUtilities/devutilities/HttpRequestConvertor";
 
 import NetworkRequestTester from "./pages/DevUtilities/devutilities/ApiStatusChecker";
@@ -719,7 +718,7 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route
                 path="/devutilities/ascii-banner"
-                element={<AsciiArtGenerator />}
+                element={<FigletGenerator />}
               />
               <Route
                 path="/devutilities/http-request-convertor"

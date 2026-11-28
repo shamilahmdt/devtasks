@@ -187,6 +187,7 @@ const DevUtilities = () => {
     {
       title: "SemVer Calculator & Range Tester",
       description: "Calculate semantic version bumps, pre-release tags and test caret and tilde package ranges.",
+      category: "Code & Text",
       path: "/devutilities/semver-calculator",
       icon: <Tag className="w-5 h-5" />,
     },
@@ -1749,29 +1750,6 @@ const DevUtilities = () => {
     },
 
     {
-      title: "ASCII Art Generator",
-      description:
-        "Convert text strings into custom ASCII art banners for code comments and terminals.",
-      category: "Media & Graphics",
-      path: "/devutilities/ascii-banner",
-      icon: (
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h7"
-          />
-        </svg>
-      ),
-    },
-
-    {
       title: "HTTP Request Convertor",
       description:
         "Convert between cURL, Fetch API, and Axios request formats offline with accurate request parsing.",
@@ -1952,6 +1930,21 @@ const DevUtilities = () => {
       category: "Web & Network",
       path: "/devutilities/http-status-explorer",
       keywords: "http status code 200 404 500 error api response rfc offline",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+          />
+        </svg>
+      ),
     },
     {
       title: "Security Headers Builder",
@@ -2133,17 +2126,33 @@ const DevUtilities = () => {
       ),
     },
     {
-  title: "ASCII Banner Generator",
-  description: "Convert plain text into stylized ASCII art banners.",
-  path: "/devutilities/ascii-banner",
-  icon: <span>🎨</span>,
-},
-    {
       title: "Date Calculator",
       description: "Calculates the selected date.",
       category: "Code & Text",
       path: "/devutilities/date-calculator",
       icon: <Calendar className="w-5 h-5" />,
+    },
+    {
+      title: "Error Message Explainer",
+      description:
+        "Paste stack traces or error messages to get plain-English explanations and common fixes.",
+      category: "Code & Text",
+      path: "/devutilities/error-explainer",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          />
+        </svg>
+      ),
     },
   ];
 
