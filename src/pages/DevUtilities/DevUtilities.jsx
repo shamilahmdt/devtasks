@@ -659,6 +659,28 @@ const DevUtilities = () => {
       ),
     },
     {
+      title: "TOTP Generator",
+      description:
+        "Generate live time-based one-time passwords (RFC 6238) from a base32 secret or otpauth link, fully offline.",
+      category: "Security & Crypto",
+      path: "/devutilities/totp",
+      icon: (
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+    },
+    {
       title: "Color Converter & Analyzer",
       description:
         "Convert CSS colors (HEX, RGB, HSL, CMYK, XYZ, Lab), evaluate WCAG accessibility contrast, and generate harmonic palettes and design system exports.",

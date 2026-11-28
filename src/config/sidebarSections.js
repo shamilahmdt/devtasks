@@ -312,6 +312,11 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/bcrypt",
       },
       {
+        label: "TOTP Generator",
+        description: "Generate 2FA one-time codes from a secret or otpauth link",
+        path: "/devutilities/totp",
+      },
+      {
         label: "JWT Studio",
         description: "Decode, sign, and encode JWT tokens offline",
         path: "/devutilities/jwt",
