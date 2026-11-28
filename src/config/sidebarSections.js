@@ -534,12 +534,6 @@ const SIDEBAR_SECTIONS = [
         path: "/devutilities/robots-txt-generator",
       },
       {
-        label: "ASCII Art Generator",
-        description:
-          "Convert text strings into custom ASCII art banners for code comments and terminals.",
-        path: "/devutilities/ascii-banner",
-      },
-      {
         label: "HTTP Request Convertor",
         description:
           "Convert between cURL, Fetch API, and Axios request formats offline with accurate request parsing.",
@@ -647,7 +641,7 @@ const SIDEBAR_SECTIONS = [
         label: "Keyboard Keycode & Event Inspector",
         description:
           "Inspect keyboard keys, key codes, and keyboard event information in real time.",
-        path: "/devutilities/keyboard-inspector",
+        path: "/devutilities/keycode-inspector",
       },
     ],
   },

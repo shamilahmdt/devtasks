@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import useSidebar from "../hooks/useSidebar";
 import useSidebarSection from "../hooks/useSidebarSection";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -30,6 +30,19 @@ const Sidebar = () => {
     }
   }, [location.pathname, isSidebarOpen]);
   const { activeSection, hasSidebarSection } = useSidebarSection();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredItems = activeSection
+    ? activeSection.items.filter((item) => {
+        const q = searchQuery.trim().toLowerCase();
+        if (!q) return true;
+        return (
+          item.label?.toLowerCase().includes(q) ||
+          item.description?.toLowerCase().includes(q) ||
+          item.path?.toLowerCase().includes(q)
+        );
+      })
+    : [];
 
   const isItemActive = (item) => {
     if (item.exact) {
@@ -104,8 +117,32 @@ const Sidebar = () => {
             </button>
           </div>
 
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search tools..."
+              className={`w-full rounded-lg border px-3 py-2 pr-8 text-xs outline-none transition ${
+                dark
+                  ? "border-zinc-800 bg-zinc-950/60 text-zinc-100 placeholder-zinc-500 focus:border-zinc-600"
+                  : "border-zinc-200 bg-white text-zinc-900 placeholder-zinc-400 focus:border-zinc-400"
+              }`}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-zinc-600 cursor-pointer"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
           <nav className="space-y-2">
-            {activeSection.items.map((item) => {
+            {filteredItems.map((item) => {
               const isActive = isItemActive(item);
 
               return (
@@ -228,8 +265,32 @@ const Sidebar = () => {
               </button>
             </div>
 
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tools..."
+                className={`w-full rounded-lg border px-3 py-2 pr-8 text-xs outline-none transition ${
+                  dark
+                    ? "border-zinc-800 bg-zinc-950/60 text-zinc-100 placeholder-zinc-500 focus:border-zinc-600"
+                    : "border-zinc-200 bg-white text-zinc-900 placeholder-zinc-400 focus:border-zinc-400"
+                }`}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-zinc-600 cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
             <nav className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pr-1">
-              {activeSection.items.map((item, index) => {
+              {filteredItems.map((item) => {
                 const isActive = isItemActive(item);
 
                 return (
